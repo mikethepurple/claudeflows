@@ -142,8 +142,8 @@ export async function checkMcp(manifest: WorkflowManifest): Promise<HealthCheck[
     } else if (isRequired) {
       checks.push({
         name: `MCP: ${name}`,
-        status: 'error',
-        message: `${name} is not configured (required)`,
+        status: 'warn',
+        message: `${name} not found in ~/.claude/.mcp.json (may be configured at project level)`,
       });
     } else {
       checks.push({
@@ -261,44 +261,21 @@ export async function checkSkills(
   installDir: string
 ): Promise<HealthCheck[]> {
   const checks: HealthCheck[] = [];
-  const skillsDir = join(homedir(), '.claude', 'skills');
 
   for (const skill of manifest.skills) {
-    const linkedName = `${manifest.name}-${skill.name}`;
-    const linkPath = join(skillsDir, linkedName);
     const targetPath = resolve(installDir, skill.path);
 
-    // Check that the source file exists
-    if (!(await fileExists(targetPath))) {
+    if (await fileExists(targetPath)) {
+      checks.push({
+        name: `Skill: ${skill.name}`,
+        status: 'ok',
+        message: `${skill.name} available (use \`claudeflows use ${manifest.name}\` in a project to activate)`,
+      });
+    } else {
       checks.push({
         name: `Skill: ${skill.name}`,
         status: 'error',
         message: `Source file not found: ${skill.path}`,
-      });
-      continue;
-    }
-
-    // Check that the symlink exists and points to the right place
-    try {
-      const actualTarget = await readlink(linkPath);
-      if (resolve(actualTarget) === resolve(targetPath)) {
-        checks.push({
-          name: `Skill: ${skill.name}`,
-          status: 'ok',
-          message: `${linkedName} linked correctly`,
-        });
-      } else {
-        checks.push({
-          name: `Skill: ${skill.name}`,
-          status: 'warn',
-          message: `${linkedName} exists but points to ${actualTarget} instead of ${targetPath}`,
-        });
-      }
-    } catch {
-      checks.push({
-        name: `Skill: ${skill.name}`,
-        status: 'error',
-        message: `${linkedName} is not linked in ${skillsDir}`,
       });
     }
   }

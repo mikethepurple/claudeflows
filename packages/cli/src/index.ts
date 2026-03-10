@@ -9,12 +9,13 @@ import { registerUninstall } from './commands/uninstall.js';
 import { registerVerify } from './commands/verify.js';
 import { registerLogin } from './commands/login.js';
 import { registerLicense } from './commands/license.js';
+import { registerUse } from './commands/use.js';
 
 const program = new Command();
 
 program
   .name('claudeflows')
-  .version('0.1.2')
+  .version('0.1.3')
   .description('Claude Flows \u2014 install and manage agentic workflows');
 
 registerInstall(program);
@@ -27,5 +28,6 @@ registerUninstall(program);
 registerVerify(program);
 registerLogin(program);
 registerLicense(program);
+registerUse(program);
 
 program.parse(process.argv);

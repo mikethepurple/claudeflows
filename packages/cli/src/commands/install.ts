@@ -11,7 +11,6 @@ import { parseManifest } from '../lib/manifest.js';
 import { resolveWorkflow, getVersionIntegrity } from '../lib/registry.js';
 import { downloadFromGithub } from '../lib/installer.js';
 import { setupMcpServers } from '../lib/mcp-setup.js';
-import { linkSkills } from '../lib/skill-linker.js';
 import { setupEnvVars } from '../lib/env-manager.js';
 import { runDoctor } from '../lib/doctor.js';
 import type { HealthCheck } from '../lib/doctor.js';
@@ -346,18 +345,12 @@ export function registerInstall(program: Command): void {
           dirsSpinner.succeed(`Created ${manifest.postInstall.createDirs.length} directories`);
         }
 
-        // Step 7: Wire skills
-        console.log(chalk.bold('\nLinking skills:'));
-        const { linked, skipped: skillsSkipped } = await linkSkills(
-          workflowName,
-          manifest.skills,
-          finalInstallDir
-        );
-        for (const name of linked) {
-          console.log(chalk.green(`  \u2713 ${name}`));
-        }
-        for (const name of skillsSkipped) {
-          console.log(chalk.yellow(`  \u26A0 ${name} (skipped)`));
+        // Step 7: Show available skills
+        if (manifest.skills.length > 0) {
+          console.log(chalk.bold('\nAvailable skills:'));
+          for (const skill of manifest.skills) {
+            console.log(chalk.green(`  \u2713 /${skill.name}`) + chalk.dim(skill.description ? ` — ${skill.description}` : ''));
+          }
         }
 
         // Step 9: Run doctor
@@ -388,6 +381,8 @@ export function registerInstall(program: Command): void {
             `\n\u2713 Successfully installed ${chalk.bold(manifest.displayName)} v${manifest.version}`
           )
         );
+
+        console.log(chalk.dim(`\nTo activate in a project: ${chalk.bold(`cd your-project && claudeflows use ${workflowName}`)}`));
 
         if (manifest.postInstall?.message) {
           console.log(chalk.cyan(`\n${manifest.postInstall.message}`));
