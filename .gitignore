@@ -1,0 +1,12 @@
+.keys/
+node_modules/
+.next/
+dist/
+.env
+.env.local
+*.tgz
+.DS_Store
+PLAN.md
+PLANS.md
+supabase/.temp/
+packages/web/supabase/.temp/

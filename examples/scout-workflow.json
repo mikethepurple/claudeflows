@@ -1,0 +1,75 @@
+{
+  "$schema": "https://claudeflows.dev/schemas/workflow.json",
+  "name": "scout",
+  "version": "1.0.0",
+  "displayName": "Scout — Startup Research Engine",
+  "description": "Research startups within industry verticals using free web sources. Produces structured tables with financials, founders, and competitive intelligence.",
+  "author": {
+    "name": "mikethepurple",
+    "github": "mikethepurple"
+  },
+  "repository": "https://github.com/mikethepurple/scout",
+  "license": "MIT",
+  "category": "research",
+  "tags": ["research", "startups", "competitive-intelligence"],
+  "runtime": {
+    "claude_code": ">=1.0.0"
+  },
+  "skills": [
+    {
+      "name": "research-startups",
+      "path": ".claude/skills/research-startups/SKILL.md",
+      "description": "Research startups in a given industry vertical — produces a 15-column markdown table"
+    },
+    {
+      "name": "sync-sheets",
+      "path": ".claude/skills/sync-sheets/SKILL.md",
+      "description": "Sync research results to a Google Sheet"
+    },
+    {
+      "name": "refresh-research",
+      "path": ".claude/skills/refresh-research/SKILL.md",
+      "description": "Re-run research for an existing vertical to update financials and status"
+    }
+  ],
+  "mcp": {
+    "brave-search": {
+      "package": "@anthropic/mcp-brave-search",
+      "required": true,
+      "env": {
+        "BRAVE_API_KEY": {
+          "description": "API key for Brave Search",
+          "url": "https://brave.com/search/api/",
+          "required": true
+        }
+      }
+    },
+    "fetch": {
+      "package": "@anthropic/mcp-fetch",
+      "required": true
+    }
+  },
+  "env": {
+    "GOOGLE_SHEETS_CREDENTIALS": {
+      "description": "Google Sheets service account credentials JSON (for sync-sheets skill)",
+      "required": false,
+      "url": "https://console.cloud.google.com/apis/credentials"
+    }
+  },
+  "files": {
+    "include": [
+      "CLAUDE.md",
+      "SETUP.md",
+      ".claude/",
+      "scripts/"
+    ],
+    "exclude": [
+      "research/",
+      "logs/"
+    ]
+  },
+  "postInstall": {
+    "createDirs": ["research/", "logs/"],
+    "message": "Scout installed. Run /research-startups to begin researching startups in any industry vertical."
+  }
+}

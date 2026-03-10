@@ -1,0 +1,55 @@
+{
+  "name": "@claudeflows/cli",
+  "version": "0.1.2",
+  "description": "CLI tool for installing and managing Claude Code agentic workflows",
+  "type": "module",
+  "bin": {
+    "claudeflows": "bin/claudeflows.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && cp -r schema dist/schema",
+    "dev": "tsc --watch",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist/",
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikethepurple/claudeflows.git"
+  },
+  "homepage": "https://github.com/mikethepurple/claudeflows",
+  "bugs": "https://github.com/mikethepurple/claudeflows/issues",
+  "dependencies": {
+    "commander": "^13.0.0",
+    "chalk": "^5.4.0",
+    "ora": "^8.2.0",
+    "inquirer": "^12.3.0",
+    "semver": "^7.6.0",
+    "ajv": "^8.17.0",
+    "tar": "^7.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/semver": "^7.5.0",
+    "@types/inquirer": "^9.0.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "claude",
+    "workflows",
+    "agentic",
+    "marketplace",
+    "cli"
+  ],
+  "license": "MIT"
+}

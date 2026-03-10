@@ -1,0 +1,94 @@
+{
+  "$schema": "https://claudeflows.dev/schemas/workflow.json",
+  "name": "venture-studio",
+  "version": "1.0.0",
+  "displayName": "AI Venture Studio",
+  "description": "6-step pipeline from audience discovery to product execution — research audiences, validate problems, design solutions, build MVPs, and launch products.",
+  "author": {
+    "name": "mikethepurple",
+    "github": "mikethepurple"
+  },
+  "repository": "https://github.com/mikethepurple/venture-studio",
+  "license": "MIT",
+  "category": "business",
+  "tags": ["venture", "startup", "product-development"],
+  "runtime": {
+    "claude_code": ">=1.0.0",
+    "node": ">=18.0.0"
+  },
+  "skills": [
+    {
+      "name": "start",
+      "path": ".claude/skills/start/SKILL.md",
+      "description": "Begin a new venture — audience discovery and problem validation"
+    },
+    {
+      "name": "run",
+      "path": ".claude/skills/run/SKILL.md",
+      "description": "Execute the current stage of the venture pipeline"
+    },
+    {
+      "name": "graduate",
+      "path": ".claude/skills/graduate/SKILL.md",
+      "description": "Advance the venture to the next pipeline stage"
+    },
+    {
+      "name": "studio",
+      "path": ".claude/skills/studio/SKILL.md",
+      "description": "Open the studio dashboard — status, metrics, and navigation"
+    }
+  ],
+  "mcp": {
+    "brave-search": {
+      "package": "@anthropic/mcp-brave-search",
+      "required": true,
+      "env": {
+        "BRAVE_API_KEY": {
+          "description": "API key for Brave Search",
+          "url": "https://brave.com/search/api/",
+          "required": true
+        }
+      }
+    },
+    "fetch": {
+      "package": "@anthropic/mcp-fetch",
+      "required": true
+    }
+  },
+  "env": {
+    "VERCEL_TOKEN": {
+      "description": "Vercel deploy token for shipping landing pages and MVPs",
+      "required": false,
+      "url": "https://vercel.com/account/tokens"
+    },
+    "GITHUB_TOKEN": {
+      "description": "GitHub personal access token for creating repos and pushing code",
+      "required": false,
+      "url": "https://github.com/settings/tokens"
+    }
+  },
+  "dependencies": {
+    "scout": {
+      "version": ">=1.0.0",
+      "required": false
+    }
+  },
+  "files": {
+    "include": [
+      "CLAUDE.md",
+      "SETUP.md",
+      "process.md",
+      ".claude/",
+      "methodologies/",
+      "templates/"
+    ],
+    "exclude": [
+      "projects/",
+      "_archive/"
+    ]
+  },
+  "postInstall": {
+    "createDirs": ["projects/"],
+    "message": "Venture Studio installed. Run /studio to open the dashboard, or /start to begin a new venture."
+  }
+}

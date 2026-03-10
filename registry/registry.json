@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "updated": "2026-02-27T00:00:00Z",
+  "workflows": {
+    "venture-studio": {
+      "repository": "mikethepurple/venture-studio",
+      "latest": "1.0.0",
+      "versions": {
+        "1.0.0": {
+          "tag": "v1.0.0",
+          "published": "2026-02-27",
+          "integrity": {
+            "root": "",
+            "signature": ""
+          }
+        }
+      },
+      "displayName": "AI Venture Studio",
+      "description": "6-step pipeline from audience discovery to product execution",
+      "category": "business",
+      "tags": ["venture", "startup", "product-development"],
+      "author": { "name": "mikethepurple", "github": "mikethepurple" }
+    },
+    "scout": {
+      "repository": "mikethepurple/scout",
+      "latest": "1.0.0",
+      "versions": {
+        "1.0.0": {
+          "tag": "v1.0.0",
+          "published": "2026-02-27",
+          "integrity": {
+            "root": "",
+            "signature": ""
+          }
+        }
+      },
+      "displayName": "Scout — Startup Research Engine",
+      "description": "Research startups within industry verticals using free web sources",
+      "category": "research",
+      "tags": ["research", "startups", "competitive-intelligence"],
+      "author": { "name": "mikethepurple", "github": "mikethepurple" }
+    }
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://claudeflows.dev/schemas/workflow.json",
+  "title": "Claude Flows Workflow Manifest",
+  "description": "Schema for workflow.json — the package format for distributable Claude Code agentic workflows",
+  "type": "object",
+  "required": ["name", "version", "displayName", "description", "author", "skills"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference (optional, for IDE support)"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "Package name (lowercase, hyphens only)"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+",
+      "description": "Semver version"
+    },
+    "displayName": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "Human-readable name"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 512,
+      "description": "Short description of what this workflow does"
+    },
+    "author": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "github": { "type": "string" },
+        "email": { "type": "string", "description": "Contact email" }
+      },
+      "additionalProperties": false
+    },
+    "repository": {
+      "type": "string",
+      "description": "GitHub repository URL"
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+      "maxItems": 10,
+      "description": "Search tags"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "business",
+        "development",
+        "data",
+        "research",
+        "marketing",
+        "design",
+        "devops",
+        "productivity",
+        "finance",
+        "other"
+      ],
+      "description": "Primary category"
+    },
+    "runtime": {
+      "type": "object",
+      "properties": {
+        "claude_code": { "type": "string", "description": "Required Claude Code version (semver range)" },
+        "node": { "type": "string", "description": "Required Node.js version (semver range)" },
+        "python": { "type": "string", "description": "Required Python version (semver range)" }
+      },
+      "additionalProperties": { "type": "string" }
+    },
+    "mcp": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["package"],
+        "properties": {
+          "package": { "type": "string", "description": "npm package name for the MCP server" },
+          "required": { "type": "boolean", "default": true },
+          "env": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "description": { "type": "string" },
+                "url": { "type": "string", "description": "URL" },
+                "required": { "type": "boolean", "default": true }
+              }
+            }
+          },
+          "args": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Additional arguments for the MCP server command"
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "MCP servers to configure"
+    },
+    "env": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" },
+          "required": { "type": "boolean", "default": false },
+          "url": { "type": "string", "description": "URL" }
+        }
+      },
+      "description": "Standalone environment variables (not tied to MCP)"
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "version": { "type": "string", "description": "Required version range" },
+          "required": { "type": "boolean", "default": false }
+        }
+      },
+      "description": "Other workflows this depends on"
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "path"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "Skill command name"
+          },
+          "path": {
+            "type": "string",
+            "description": "Path to SKILL.md relative to workflow root"
+          },
+          "description": {
+            "type": "string",
+            "description": "Short description of what this skill does"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "description": "Skills to wire into Claude Code"
+    },
+    "files": {
+      "type": "object",
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Glob patterns to include in distribution"
+        },
+        "exclude": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Glob patterns to exclude from distribution"
+        }
+      },
+      "additionalProperties": false
+    },
+    "postInstall": {
+      "type": "object",
+      "properties": {
+        "createDirs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Directories to create after install"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message to display after successful install"
+        }
+      },
+      "additionalProperties": false
+    },
+    "integrity": {
+      "type": "object",
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "enum": ["sha256"],
+          "description": "Hash algorithm used for file integrity"
+        },
+        "files": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "description": "Map of relative file paths to SHA-256 hex hashes"
+        },
+        "root": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "Root hash computed from sorted file hashes"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Base64-encoded Ed25519 signature of the root hash"
+        }
+      },
+      "required": ["algorithm", "files", "root"],
+      "additionalProperties": false,
+      "description": "Content integrity block with file hashes and optional signature"
+    },
+    "pricing": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string",
+          "enum": ["free", "paid", "freemium"],
+          "description": "Pricing model for this workflow"
+        },
+        "tier": {
+          "type": "string",
+          "description": "Pricing tier identifier"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Pricing configuration for paid workflows"
+    }
+  },
+  "additionalProperties": false
+}

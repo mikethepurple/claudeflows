@@ -1,0 +1,472 @@
+name: Validate Registry PR
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'registry.json'
+
+jobs:
+  validate-registry:
+    name: Validate registry.json
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate registry.json
+        run: |
+          node << 'SCRIPT'
+          const fs = require('fs');
+
+          // --- Constants ---
+          const ALLOWED_CATEGORIES = [
+            'business', 'development', 'data', 'research',
+            'marketing', 'design', 'devops', 'productivity',
+            'finance', 'other'
+          ];
+
+          const REQUIRED_FIELDS = [
+            'repository', 'latest', 'versions',
+            'displayName', 'description', 'category', 'author'
+          ];
+
+          const SEMVER_RE = /^\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?(\+[a-zA-Z0-9.]+)?$/;
+          const REPO_RE = /^[a-zA-Z0-9_.-]+\/[a-zA-Z0-9_.-]+$/;
+
+          // --- Helpers ---
+          let errors = [];
+
+          function fail(msg) {
+            errors.push(msg);
+          }
+
+          // --- Parse ---
+          let registry;
+          try {
+            const raw = fs.readFileSync('registry.json', 'utf8');
+            registry = JSON.parse(raw);
+          } catch (err) {
+            console.error('FATAL: registry.json is not valid JSON');
+            console.error(err.message);
+            process.exit(1);
+          }
+
+          // --- Top-level checks ---
+          if (typeof registry.version !== 'number') {
+            fail('Top-level "version" must be a number');
+          }
+
+          if (typeof registry.updated !== 'string') {
+            fail('Top-level "updated" must be an ISO-8601 string');
+          }
+
+          if (!registry.workflows || typeof registry.workflows !== 'object') {
+            console.error('FATAL: "workflows" object is missing');
+            process.exit(1);
+          }
+
+          // --- Per-workflow checks ---
+          for (const [name, wf] of Object.entries(registry.workflows)) {
+            const ctx = `workflows.${name}`;
+
+            // Required fields
+            for (const field of REQUIRED_FIELDS) {
+              if (!(field in wf)) {
+                fail(`${ctx}: missing required field "${field}"`);
+              }
+            }
+
+            // Repository format
+            if (wf.repository && !REPO_RE.test(wf.repository)) {
+              fail(`${ctx}: repository "${wf.repository}" must be "owner/repo" format`);
+            }
+
+            // Category
+            if (wf.category && !ALLOWED_CATEGORIES.includes(wf.category)) {
+              fail(`${ctx}: category "${wf.category}" is not one of: ${ALLOWED_CATEGORIES.join(', ')}`);
+            }
+
+            // Latest version must be valid semver
+            if (wf.latest && !SEMVER_RE.test(wf.latest)) {
+              fail(`${ctx}: latest "${wf.latest}" is not valid semver`);
+            }
+
+            // All version keys must be valid semver
+            if (wf.versions && typeof wf.versions === 'object') {
+              for (const ver of Object.keys(wf.versions)) {
+                if (!SEMVER_RE.test(ver)) {
+                  fail(`${ctx}: version key "${ver}" is not valid semver`);
+                }
+                const entry = wf.versions[ver];
+                if (!entry.tag) {
+                  fail(`${ctx}: version "${ver}" is missing "tag"`);
+                }
+                if (!entry.published) {
+                  fail(`${ctx}: version "${ver}" is missing "published"`);
+                }
+              }
+
+              // latest must exist in versions
+              if (wf.latest && !wf.versions[wf.latest]) {
+                fail(`${ctx}: latest "${wf.latest}" does not exist in versions`);
+              }
+            }
+
+            // Author must have name
+            if (wf.author) {
+              if (typeof wf.author !== 'object' || !wf.author.name) {
+                fail(`${ctx}: author must be an object with at least a "name" field`);
+              }
+            }
+
+            // Tags must be lowercase-hyphen strings
+            if (wf.tags && Array.isArray(wf.tags)) {
+              for (const tag of wf.tags) {
+                if (!/^[a-z0-9-]+$/.test(tag)) {
+                  fail(`${ctx}: tag "${tag}" must be lowercase alphanumeric with hyphens`);
+                }
+              }
+            }
+          }
+
+          // --- Report ---
+          if (errors.length > 0) {
+            console.error(`\nValidation failed with ${errors.length} error(s):\n`);
+            for (const e of errors) {
+              console.error(`  - ${e}`);
+            }
+            process.exit(1);
+          }
+
+          console.log(`registry.json is valid (${Object.keys(registry.workflows).length} workflow(s))`);
+          SCRIPT
+
+      - name: Validate referenced workflow.json files (optional)
+        continue-on-error: true
+        run: |
+          node << 'SCRIPT'
+          const fs = require('fs');
+          const https = require('https');
+
+          const registry = JSON.parse(fs.readFileSync('registry.json', 'utf8'));
+
+          // Fetch with simple https wrapper
+          function fetch(url) {
+            return new Promise((resolve, reject) => {
+              https.get(url, { headers: { 'User-Agent': 'claudeflows-ci' } }, (res) => {
+                if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+                  return fetch(res.headers.location).then(resolve).catch(reject);
+                }
+                let data = '';
+                res.on('data', (chunk) => data += chunk);
+                res.on('end', () => resolve({ status: res.statusCode, body: data }));
+              }).on('error', reject);
+            });
+          }
+
+          // Load the workflow schema
+          let schema;
+          try {
+            schema = JSON.parse(fs.readFileSync('../packages/schema/workflow.schema.json', 'utf8'));
+            console.log('Loaded workflow.schema.json for field validation');
+          } catch {
+            console.log('Could not load workflow.schema.json; skipping deep validation');
+            schema = null;
+          }
+
+          const REQUIRED_WF_FIELDS = ['name', 'version', 'displayName', 'description', 'author', 'skills'];
+
+          async function validateWorkflow(name, wf) {
+            const tag = wf.versions[wf.latest]?.tag || `v${wf.latest}`;
+            const rawUrl = `https://raw.githubusercontent.com/${wf.repository}/${tag}/workflow.json`;
+
+            try {
+              const res = await fetch(rawUrl);
+              if (res.status !== 200) {
+                console.log(`  [${name}] workflow.json not found at ${rawUrl} (HTTP ${res.status}) — skipping`);
+                return;
+              }
+
+              let manifest;
+              try {
+                manifest = JSON.parse(res.body);
+              } catch {
+                console.error(`  [${name}] workflow.json is not valid JSON`);
+                return;
+              }
+
+              // Check required fields
+              const missing = REQUIRED_WF_FIELDS.filter(f => !(f in manifest));
+              if (missing.length > 0) {
+                console.error(`  [${name}] workflow.json missing required fields: ${missing.join(', ')}`);
+              } else {
+                console.log(`  [${name}] workflow.json is valid`);
+              }
+            } catch (err) {
+              console.log(`  [${name}] Could not fetch workflow.json: ${err.message}`);
+            }
+          }
+
+          (async () => {
+            console.log('\nValidating referenced workflow.json files...\n');
+            for (const [name, wf] of Object.entries(registry.workflows)) {
+              await validateWorkflow(name, wf);
+            }
+          })();
+          SCRIPT
+
+      - name: Run clone detection
+        continue-on-error: true
+        run: |
+          node << 'SCRIPT'
+          const fs = require('fs');
+          const https = require('https');
+          const path = require('path');
+          const os = require('os');
+          const { execSync } = require('child_process');
+
+          const registry = JSON.parse(fs.readFileSync('registry.json', 'utf8'));
+
+          // Fetch helper
+          function fetchUrl(url) {
+            return new Promise((resolve, reject) => {
+              https.get(url, { headers: { 'User-Agent': 'claudeflows-ci' } }, (res) => {
+                if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+                  return fetchUrl(res.headers.location).then(resolve).catch(reject);
+                }
+                let data = '';
+                res.on('data', (chunk) => data += chunk);
+                res.on('end', () => resolve({ status: res.statusCode, body: data }));
+              }).on('error', reject);
+            });
+          }
+
+          // Find newly added/modified workflows by diffing against base branch
+          async function getChangedWorkflows() {
+            try {
+              const baseBranch = process.env.GITHUB_BASE_REF || 'main';
+              execSync(`git fetch origin ${baseBranch} --depth=1`, { stdio: 'pipe' });
+              const diff = execSync(
+                `git diff origin/${baseBranch} -- registry.json`,
+                { encoding: 'utf8', stdio: 'pipe' }
+              );
+
+              // Extract added workflow names from diff
+              const added = [];
+              const lines = diff.split('\n');
+              for (const line of lines) {
+                if (line.startsWith('+') && !line.startsWith('+++')) {
+                  // Look for new workflow keys being added
+                  const match = line.match(/^\+\s*"([a-z0-9-]+)":\s*\{/);
+                  if (match) added.push(match[1]);
+                }
+              }
+              return added;
+            } catch {
+              // If diff fails, check all workflows
+              return Object.keys(registry.workflows);
+            }
+          }
+
+          (async () => {
+            const changed = await getChangedWorkflows();
+            if (changed.length === 0) {
+              console.log('No new workflows to check for clones');
+              return;
+            }
+
+            console.log(`\nChecking ${changed.length} workflow(s) for clones...\n`);
+
+            for (const name of changed) {
+              const wf = registry.workflows[name];
+              if (!wf) continue;
+
+              const tag = wf.versions[wf.latest]?.tag || `v${wf.latest}`;
+              const tmpDir = path.join(os.tmpdir(), `cw-clone-check-${name}`);
+
+              try {
+                // Clone the workflow repo
+                execSync(
+                  `git clone --depth 1 --branch ${tag} https://github.com/${wf.repository}.git ${tmpDir}`,
+                  { stdio: 'pipe', timeout: 30000 }
+                );
+
+                // Run clone detection
+                const result = execSync(
+                  `node scripts/detect-clones.js ${tmpDir}`,
+                  { encoding: 'utf8', stdio: 'pipe' }
+                );
+                console.log(`  [${name}] ${result.trim()}`);
+              } catch (err) {
+                if (err.status === 1) {
+                  console.error(`  [${name}] BLOCKED: Clone detected`);
+                  console.error(err.stdout || err.stderr || '');
+                } else if (err.status === 2) {
+                  console.warn(`  [${name}] WARNING: Potential clone detected`);
+                  console.warn(err.stdout || err.stderr || '');
+                } else {
+                  console.log(`  [${name}] Could not check: ${err.message}`);
+                }
+              } finally {
+                try { execSync(`rm -rf ${tmpDir}`, { stdio: 'pipe' }); } catch {}
+              }
+            }
+          })();
+          SCRIPT
+
+  sign-workflows:
+    name: Sign workflows (post-merge)
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    needs: validate-registry
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Sign new/updated workflow versions
+        env:
+          CW_SIGNING_KEY: ${{ secrets.CW_SIGNING_KEY }}
+        run: |
+          node << 'SCRIPT'
+          const fs = require('fs');
+          const crypto = require('crypto');
+          const https = require('https');
+          const path = require('path');
+          const os = require('os');
+          const { execSync } = require('child_process');
+
+          if (!process.env.CW_SIGNING_KEY) {
+            console.error('CW_SIGNING_KEY secret is not set — skipping signing');
+            process.exit(0);
+          }
+
+          const EXCLUDE_PATTERNS = ['.git', 'node_modules', '.deps.json', '.skill-links.json'];
+
+          // --- Hash functions (matching packages/cli/src/lib/integrity.ts) ---
+          function collectFilesSync(dir, baseDir, exclude) {
+            const entries = fs.readdirSync(dir, { withFileTypes: true });
+            const files = [];
+            for (const entry of entries) {
+              const fullPath = path.join(dir, entry.name);
+              const relPath = path.relative(baseDir, fullPath);
+              if (exclude.some(p => entry.name === p || relPath === p || relPath.startsWith(p + '/'))) continue;
+              if (entry.isDirectory()) {
+                files.push(...collectFilesSync(fullPath, baseDir, exclude));
+              } else if (entry.isFile()) {
+                files.push(relPath);
+              }
+            }
+            return files;
+          }
+
+          function computeFileHashes(dir) {
+            const files = collectFilesSync(dir, dir, EXCLUDE_PATTERNS);
+            const hashes = {};
+            for (const filePath of files) {
+              const content = fs.readFileSync(path.join(dir, filePath));
+              const hash = crypto.createHash('sha256').update(content).digest('hex');
+              hashes[filePath.split(path.sep).join('/')] = hash;
+            }
+            return hashes;
+          }
+
+          function computeRootHash(files) {
+            const sorted = Object.keys(files).sort();
+            const concatenated = sorted.map(k => `${k}:${files[k]}`).join('\n');
+            return crypto.createHash('sha256').update(concatenated).digest('hex');
+          }
+
+          function signRootHash(rootHash, privateKeyPem) {
+            const privateKey = crypto.createPrivateKey(privateKeyPem);
+            const signature = crypto.sign(null, Buffer.from(rootHash, 'utf-8'), privateKey);
+            return signature.toString('base64');
+          }
+
+          // --- Fetch helper ---
+          function fetchUrl(url) {
+            return new Promise((resolve, reject) => {
+              https.get(url, { headers: { 'User-Agent': 'claudeflows-ci' } }, (res) => {
+                if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+                  return fetchUrl(res.headers.location).then(resolve).catch(reject);
+                }
+                let data = '';
+                res.on('data', (chunk) => data += chunk);
+                res.on('end', () => resolve({ status: res.statusCode, body: data }));
+              }).on('error', reject);
+            });
+          }
+
+          (async () => {
+            const registry = JSON.parse(fs.readFileSync('registry.json', 'utf8'));
+            let updated = false;
+
+            for (const [name, wf] of Object.entries(registry.workflows)) {
+              for (const [ver, verData] of Object.entries(wf.versions)) {
+                // Skip versions that already have a non-empty signature
+                if (verData.integrity?.signature) continue;
+
+                const tag = verData.tag || `v${ver}`;
+                const tmpDir = path.join(os.tmpdir(), `cw-sign-${name}-${ver}`);
+
+                try {
+                  console.log(`Signing ${name}@${ver}...`);
+
+                  // Clone the workflow at the specific tag
+                  execSync(
+                    `git clone --depth 1 --branch ${tag} https://github.com/${wf.repository}.git ${tmpDir}`,
+                    { stdio: 'pipe', timeout: 60000 }
+                  );
+
+                  // Compute hashes
+                  const fileHashes = computeFileHashes(tmpDir);
+                  const rootHash = computeRootHash(fileHashes);
+
+                  // Sign
+                  const signature = signRootHash(rootHash, process.env.CW_SIGNING_KEY);
+
+                  // Update registry entry
+                  if (!verData.integrity) verData.integrity = {};
+                  verData.integrity.root = rootHash;
+                  verData.integrity.signature = signature;
+                  updated = true;
+
+                  console.log(`  Root hash: ${rootHash.slice(0, 16)}...`);
+                  console.log(`  Signature: ${signature.slice(0, 16)}...`);
+                } catch (err) {
+                  console.error(`  Failed to sign ${name}@${ver}: ${err.message}`);
+                } finally {
+                  try { execSync(`rm -rf ${tmpDir}`, { stdio: 'pipe' }); } catch {}
+                }
+              }
+            }
+
+            if (updated) {
+              registry.updated = new Date().toISOString();
+              fs.writeFileSync('registry.json', JSON.stringify(registry, null, 2) + '\n', 'utf8');
+              console.log('\nregistry.json updated with signatures');
+
+              // Commit and push
+              execSync('git config user.name "claudeflows-bot"', { stdio: 'pipe' });
+              execSync('git config user.email "bot@claudeflows.dev"', { stdio: 'pipe' });
+              execSync('git add registry.json', { stdio: 'pipe' });
+              execSync('git commit -m "chore: sign workflow versions"', { stdio: 'pipe' });
+              execSync('git push', { stdio: 'pipe' });
+              console.log('Pushed signed registry.json');
+            } else {
+              console.log('No workflows need signing');
+            }
+          })();
+          SCRIPT
