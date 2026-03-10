@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-02-27T00:00:00Z",
+  "updated": "2026-03-10T00:00:00Z",
   "workflows": {
     "venture-studio": {
       "repository": "mikethepurple/venture-studio",
@@ -38,6 +38,25 @@
       "description": "Research startups within industry verticals using free web sources",
       "category": "research",
       "tags": ["research", "startups", "competitive-intelligence"],
+      "author": { "name": "mikethepurple", "github": "mikethepurple" }
+    },
+    "save": {
+      "repository": "mikethepurple/save-workflow",
+      "latest": "1.0.0",
+      "versions": {
+        "1.0.0": {
+          "tag": "v1.0.0",
+          "published": "2026-03-10",
+          "integrity": {
+            "root": "",
+            "signature": ""
+          }
+        }
+      },
+      "displayName": "Save Progress",
+      "description": "Track multi-session work with persistent project plans",
+      "category": "productivity",
+      "tags": ["planning", "progress-tracking", "multi-session", "project-management"],
       "author": { "name": "mikethepurple", "github": "mikethepurple" }
     }
   }
