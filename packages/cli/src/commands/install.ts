@@ -63,7 +63,8 @@ export function registerInstall(program: Command): void {
     .command('install <source>')
     .description('Install a workflow from the registry or a GitHub URL')
     .option('-f, --force', 'Overwrite existing installation', false)
-    .action(async (source: string, options: { force: boolean }) => {
+    .option('-y, --yes', 'Skip interactive prompts (auto-skip MCP/env setup)', false)
+    .action(async (source: string, options: { force: boolean; yes: boolean }) => {
       try {
         // Step 0: Pre-install prerequisite checks
         const claudeDir = join(homedir(), '.claude');
@@ -307,30 +308,48 @@ export function registerInstall(program: Command): void {
 
         // Step 5: MCP setup
         if (manifest.mcp && Object.keys(manifest.mcp).length > 0) {
-          console.log(chalk.bold('\nMCP Server Setup:'));
-          const { configured, skipped } = await setupMcpServers(manifest.mcp);
-          for (const name of configured) {
-            console.log(chalk.green(`  \u2713 ${name} configured`));
-          }
-          for (const name of skipped) {
-            console.log(chalk.yellow(`  \u26A0 ${name} skipped`));
+          if (options.yes) {
+            console.log(chalk.bold('\nMCP Servers (skipped — use claudeflows doctor to check):'));
+            for (const name of Object.keys(manifest.mcp)) {
+              console.log(chalk.dim(`  - ${name}`));
+            }
+          } else {
+            try {
+              console.log(chalk.bold('\nMCP Server Setup:'));
+              const { configured, skipped } = await setupMcpServers(manifest.mcp);
+              for (const name of configured) {
+                console.log(chalk.green(`  \u2713 ${name} configured`));
+              }
+              for (const name of skipped) {
+                console.log(chalk.yellow(`  \u26A0 ${name} skipped`));
+              }
+            } catch {
+              console.log(chalk.yellow('  \u26A0 MCP setup skipped (non-interactive)'));
+            }
           }
         }
 
         // Step 5b: Standalone env vars
         if (manifest.env && Object.keys(manifest.env).length > 0) {
-          console.log(chalk.bold('\nEnvironment Variables:'));
-          const { set, missing, suggestions } = await setupEnvVars(manifest.env);
-          for (const name of set) {
-            console.log(chalk.green(`  \u2713 ${name} set`));
-          }
-          for (const name of missing) {
-            console.log(chalk.yellow(`  \u26A0 ${name} not set`));
-          }
-          if (suggestions.length > 0) {
-            console.log('');
-            for (const s of suggestions) {
-              console.log(s);
+          if (options.yes) {
+            console.log(chalk.bold('\nEnvironment Variables (skipped):'));
+            for (const name of Object.keys(manifest.env)) {
+              console.log(chalk.dim(`  - ${name}`));
+            }
+          } else {
+            console.log(chalk.bold('\nEnvironment Variables:'));
+            const { set, missing, suggestions } = await setupEnvVars(manifest.env);
+            for (const name of set) {
+              console.log(chalk.green(`  \u2713 ${name} set`));
+            }
+            for (const name of missing) {
+              console.log(chalk.yellow(`  \u26A0 ${name} not set`));
+            }
+            if (suggestions.length > 0) {
+              console.log('');
+              for (const s of suggestions) {
+                console.log(s);
+              }
             }
           }
         }

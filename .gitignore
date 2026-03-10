@@ -11,3 +11,4 @@ PLANS.md
 supabase/.temp/
 packages/web/supabase/.temp/
 tsconfig.tsbuildinfo
+.vercel

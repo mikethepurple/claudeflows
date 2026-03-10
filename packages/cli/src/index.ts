@@ -15,7 +15,7 @@ const program = new Command();
 
 program
   .name('claudeflows')
-  .version('0.1.3')
+  .version('0.1.4')
   .description('Claude Flows \u2014 install and manage agentic workflows');
 
 registerInstall(program);
