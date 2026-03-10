@@ -23,7 +23,7 @@
     },
     "scout": {
       "repository": "mikethepurple/scout",
-      "latest": "1.0.0",
+      "latest": "1.1.0",
       "versions": {
         "1.0.0": {
           "tag": "v1.0.0",
@@ -32,10 +32,18 @@
             "root": "",
             "signature": ""
           }
+        },
+        "1.1.0": {
+          "tag": "v1.1.0",
+          "published": "2026-03-10",
+          "integrity": {
+            "root": "",
+            "signature": ""
+          }
         }
       },
       "displayName": "Scout — Startup Research Engine",
-      "description": "Research startups within industry verticals using free web sources",
+      "description": "Multi-agent startup research engine. Discovers, verifies, and enriches 15-50 companies per industry vertical.",
       "category": "research",
       "tags": ["research", "startups", "competitive-intelligence"],
       "author": { "name": "mikethepurple", "github": "mikethepurple" }
