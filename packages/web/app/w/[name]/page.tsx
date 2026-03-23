@@ -11,7 +11,6 @@ import SetupGuide from "@/components/setup-guide";
 import BenefitsList from "@/components/benefits-list";
 import InputsSection from "@/components/inputs-section";
 import DifficultyBadge from "@/components/difficulty-badge";
-import TabNavigation from "@/components/tab-navigation";
 import ProcessTimeline from "@/components/process-timeline";
 import TokenEstimate from "@/components/token-estimate";
 import { SAMPLE_WORKFLOWS } from "@/lib/sample-data";
@@ -151,12 +150,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   finance: "bg-emerald-100 text-emerald-700",
 };
 
-const TABS = [
-  { id: "overview", label: "Overview" },
-  { id: "how-it-works", label: "How It Works" },
-  { id: "setup", label: "Setup" },
-  { id: "reviews", label: "Reviews" },
-];
+/* Tabs removed — single scrollable page, sections appear only if data exists */
 
 /* ─── Highlights (Salesforce-inspired feature badges) ─── */
 
@@ -424,531 +418,48 @@ function Sidebar({ wf }: { wf: Workflow }) {
   );
 }
 
-/* ─── Tab: Overview ─── */
+/* Old tab functions removed — content is now inline in the main page component */
 
-function OverviewTab({ wf }: { wf: Workflow }) {
-  const otherWorkflows = SAMPLE_WORKFLOWS.filter(
-    (w) => w.author.name === wf.author.name && w.name !== wf.name
-  );
-
-  return (
-    <>
-      {/* Highlights */}
-      <Highlights wf={wf} />
-
-      {/* Description */}
-      <section className="mb-8">
-        <h2 className="mb-3 text-lg font-semibold text-[#171717]">
-          Description
-        </h2>
-        <p className="text-base leading-relaxed text-[#6B7280]">
-          {wf.description}
-        </p>
-      </section>
-
-      {/* How This Actually Works */}
-      {wf.detailedProcess && (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            How This Actually Works
-          </h2>
-          <div className="rounded-xl border border-black/[0.08] bg-white p-6 shadow-sm">
-            <SimpleMarkdown content={wf.detailedProcess} />
-          </div>
-        </section>
-      )}
-
-      {/* What You Get */}
-      {wf.outputDescription && (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            What You Get
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {parseDeliverables(wf.outputDescription).map((item, i) => {
-              const iconColors = ["bg-blue-50 text-blue-600", "bg-green-50 text-green-600", "bg-purple-50 text-purple-600", "bg-orange-50 text-orange-600", "bg-cyan-50 text-cyan-600", "bg-pink-50 text-pink-600"];
-              const colorClass = iconColors[i % iconColors.length];
-              return (
-                <div key={i} className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm flex items-start gap-3">
-                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${colorClass}`}>
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                    </svg>
-                  </div>
-                  <p className="text-sm text-[#374151] leading-relaxed">{item.trim()}</p>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      {/* Where It Shines / Where It Doesn't */}
-      {((wf.differentiators && wf.differentiators.length > 0) ||
-        (wf.limitations && wf.limitations.length > 0)) && (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            Where It Shines / Where It Doesn&apos;t
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {/* Strengths */}
-            {wf.differentiators && wf.differentiators.length > 0 && (
-              <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-                <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#171717]">
-                  <svg className="h-4 w-4 text-[#16A34A]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                  Strengths
-                </h3>
-                <ul className="flex flex-col gap-2.5">
-                  {wf.differentiators.map((item, i) => (
-                    <li key={i} className="flex gap-2 text-sm text-[#6B7280]">
-                      <svg className="mt-0.5 h-4 w-4 shrink-0 text-[#16A34A]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                      </svg>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {/* Limitations */}
-            {wf.limitations && wf.limitations.length > 0 && (
-              <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-                <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#171717]">
-                  <svg className="h-4 w-4 text-[#D97706]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                  </svg>
-                  Limitations
-                </h3>
-                <ul className="flex flex-col gap-2.5">
-                  {wf.limitations.map((item, i) => (
-                    <li key={i} className="flex gap-2 text-sm text-[#6B7280]">
-                      <svg className="mt-0.5 h-4 w-4 shrink-0 text-[#D97706]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                      </svg>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* What You'll Get (benefits) */}
-      {wf.benefits && wf.benefits.length > 0 && (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            What You&apos;ll Get
-          </h2>
-          <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-            <BenefitsList benefits={wf.benefits} />
-          </div>
-        </section>
-      )}
-
-      {/* What You'll Need */}
-      {((wf.inputs && wf.inputs.length > 0) ||
-        (wf.prerequisites && wf.prerequisites.length > 0)) && (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            What You&apos;ll Need
-          </h2>
-          <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-            <InputsSection
-              inputs={wf.inputs ?? []}
-              prerequisites={wf.prerequisites}
-            />
-          </div>
-        </section>
-      )}
-
-      {/* Good to Know */}
-      {(wf.difficulty || wf.estimatedTime || wf.setupTime) && (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            Good to Know
-          </h2>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {wf.difficulty && (
-              <div className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
-                <span className="mb-1 block text-xs text-[#9CA3AF]">
-                  Difficulty
-                </span>
-                <DifficultyBadge difficulty={wf.difficulty} />
-              </div>
-            )}
-            {wf.estimatedTime && (
-              <div className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
-                <span className="mb-1 block text-xs text-[#9CA3AF]">
-                  Per-use time
-                </span>
-                <span className="text-sm font-medium text-[#171717]">
-                  {wf.estimatedTime}
-                </span>
-              </div>
-            )}
-            {wf.setupTime && (
-              <div className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
-                <span className="mb-1 block text-xs text-[#9CA3AF]">
-                  First-time setup
-                </span>
-                <span className="text-sm font-medium text-[#171717]">
-                  {wf.setupTime}
-                </span>
-              </div>
-            )}
-            <div className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
-              <span className="mb-1 block text-xs text-[#9CA3AF]">
-                Skills
-              </span>
-              <span className="text-sm font-medium text-[#171717]">
-                {wf.skills.length} available
-              </span>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Commands Quick Preview */}
-      {wf.skills.length > 0 && (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            Skills
-          </h2>
-          <div className="rounded-xl border border-black/[0.08] bg-white shadow-sm divide-y divide-black/[0.04]">
-            {wf.skills.map((skill) => (
-              <div key={skill.name} className="flex items-start gap-3 px-5 py-3.5">
-                <code className="mt-0.5 shrink-0 rounded-md bg-[#F5F5F5] px-2 py-0.5 text-xs font-mono font-semibold text-[#C2410C]">
-                  /{skill.name}
-                </code>
-                <p className="text-sm text-[#6B7280] leading-relaxed">
-                  {skill.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* More From This Provider */}
-      {otherWorkflows.length > 0 && (
-        <section className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-[#171717]">
-              More From This Creator
-            </h2>
-            <Link
-              href={`/u/${wf.author.name}`}
-              className="text-sm text-[#C2410C] hover:underline"
-            >
-              View all
-            </Link>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {otherWorkflows.map((other) => (
-              <Link
-                key={other.name}
-                href={`/w/${other.name}`}
-                className="flex items-start gap-3 rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm transition-all hover:border-[#C2410C]/30 hover:shadow-md"
-              >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#C2410C]/10 text-base">
-                  <span className="font-mono font-bold text-[#C2410C]">
-                    {other.name.charAt(0).toUpperCase()}
-                  </span>
-                </div>
-                <div className="min-w-0">
-                  <h4 className="text-sm font-semibold text-[#171717]">
-                    {other.displayName}
-                  </h4>
-                  {other.tagline && (
-                    <p className="mt-0.5 text-xs text-[#6B7280] line-clamp-2">
-                      {other.tagline}
-                    </p>
-                  )}
-                  <div className="mt-1.5 flex items-center gap-3 text-xs text-[#9CA3AF]">
-                    <span>{other.installs.toLocaleString()} installs</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-    </>
-  );
-}
-
-/* ─── Tab: How It Works ─── */
-
-function HowItWorksTab({ wf }: { wf: Workflow }) {
-  return (
-    <>
-      {/* Process Timeline */}
-      {wf.steps && wf.steps.length > 0 && (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            Process Flow
-          </h2>
-          <div className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
-            <ProcessTimeline steps={wf.steps} />
-          </div>
-        </section>
-      )}
-
-      {/* README */}
-      {wf.readme && (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            Details
-          </h2>
-          <div className="rounded-xl border border-black/[0.08] bg-white p-6 shadow-sm">
-            <SimpleMarkdown content={wf.readme} />
-          </div>
-        </section>
-      )}
-
-      {(!wf.steps || wf.steps.length === 0) && !wf.readme && (
-        <div className="py-12 text-center text-[#9CA3AF]">
-          No detailed process information available for this workflow.
-        </div>
-      )}
-    </>
-  );
-}
-
-/* ─── Tab: Setup ─── */
-
-function SetupTab({ wf }: { wf: Workflow }) {
-  return (
-    <>
-      {/* Time Estimates */}
-      {(wf.setupTime || wf.estimatedTime) && (
-        <section className="mb-8">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {wf.setupTime && (
-              <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-50">
-                    <svg className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.1-3.06a.75.75 0 010-1.28l5.1-3.06a.75.75 0 011.08.67v6.06a.75.75 0 01-1.08.67z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="block text-xs text-[#9CA3AF]">First-time setup</span>
-                    <span className="text-sm font-semibold text-[#171717]">{wf.setupTime}</span>
-                  </div>
-                </div>
-              </div>
-            )}
-            {wf.estimatedTime && (
-              <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-50">
-                    <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="block text-xs text-[#9CA3AF]">Per-use time</span>
-                    <span className="text-sm font-semibold text-[#171717]">{wf.estimatedTime}</span>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* Prerequisite Cards */}
-      {wf.prerequisiteDetails && wf.prerequisiteDetails.length > 0 && (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            Prerequisites
-          </h2>
-          <div className="flex flex-col gap-3">
-            {wf.prerequisiteDetails.map((prereq, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#C2410C]/10 text-sm font-bold text-[#C2410C]">
-                    {i + 1}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-semibold text-[#171717]">
-                      {prereq.label}
-                    </h3>
-                    <p className="mt-1 text-sm text-[#6B7280] leading-relaxed">
-                      {prereq.description}
-                    </p>
-                    <div className="mt-3 flex flex-wrap items-center gap-3">
-                      {prereq.url && (
-                        <a
-                          href={prereq.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 rounded-lg bg-[#C2410C] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#9A3412] transition-colors"
-                        >
-                          Get started
-                          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                          </svg>
-                        </a>
-                      )}
-                      {prereq.timeEstimate && (
-                        <span className="inline-flex items-center gap-1 text-xs text-[#9CA3AF]">
-                          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          {prereq.timeEstimate}
-                        </span>
-                      )}
-                      {prereq.cost && (
-                        <span className="inline-flex items-center gap-1 text-xs text-[#9CA3AF]">
-                          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          {prereq.cost}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Setup Guide (existing setup steps) */}
-      {wf.setupSteps && wf.setupSteps.length > 0 ? (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            Setup Guide
-          </h2>
-          <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-            <SetupGuide steps={wf.setupSteps} />
-          </div>
-        </section>
-      ) : (
-        <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            Requirements
-          </h2>
-          <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-            <Requirements mcp={wf.mcp} env={wf.env} />
-          </div>
-        </section>
-      )}
-
-      <section className="mb-8">
-        <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-          Available Skills ({wf.skills.length})
-        </h2>
-        <SkillList skills={wf.skills} workflowName={wf.name} />
-      </section>
-    </>
-  );
-}
-
-/* ─── Tab: Reviews ─── */
-
-function ReviewsTab() {
-  return (
-    <section className="mb-8">
-      <div className="rounded-xl border border-black/[0.08] bg-white p-8 shadow-sm text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F5F5F5]">
-          <svg
-            className="h-7 w-7 text-[#9CA3AF]"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
-            />
-          </svg>
-        </div>
-        <h3 className="mb-2 text-base font-semibold text-[#171717]">
-          Reviews coming soon
-        </h3>
-        <p className="text-sm text-[#6B7280]">
-          We&apos;re building a review system so you can share your experience.
-        </p>
-      </div>
-    </section>
-  );
-}
 
 /* ─── Main Page ─── */
 
 export default function WorkflowDetailPage({ params }: PageProps) {
   const { name } = use(params);
   const wf = findWorkflow(name);
-  const [activeTab, setActiveTab] = useState("overview");
+  const [detailsExpanded, setDetailsExpanded] = useState(false);
 
   if (!wf) notFound();
 
+  const otherWorkflows = SAMPLE_WORKFLOWS.filter(
+    (w) => w.author.name === wf.author.name && w.name !== wf.name
+  );
+
   return (
     <div className="bg-[#FAFAFA]">
-      {/* Header section */}
+      {/* Header */}
       <div className="border-b border-black/[0.08] bg-white">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-          {/* Breadcrumb */}
           <nav className="mb-5 flex items-center gap-2 text-sm text-[#9CA3AF]">
-            <Link href="/" className="hover:text-[#C2410C] transition-colors">
-              Skills
-            </Link>
+            <Link href="/" className="hover:text-[#C2410C] transition-colors">Skills</Link>
             <span>/</span>
-            <Link
-              href={`/search?q=${encodeURIComponent(wf.category)}`}
-              className="hover:text-[#C2410C] transition-colors capitalize"
-            >
-              {wf.category}
-            </Link>
+            <Link href={`/search?q=${encodeURIComponent(wf.category)}`} className="hover:text-[#C2410C] transition-colors capitalize">{wf.category}</Link>
             <span>/</span>
             <span className="text-[#6B7280]">{wf.displayName}</span>
           </nav>
 
           <div className="flex items-center gap-4 mb-3">
             <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#C2410C]/10 text-2xl">
-              <span className="font-mono font-bold text-[#C2410C]">
-                {wf.name.charAt(0).toUpperCase()}
-              </span>
+              <span className="font-mono font-bold text-[#C2410C]">{wf.name.charAt(0).toUpperCase()}</span>
             </div>
             <div className="flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl font-extrabold text-[#171717] sm:text-3xl">
-                  {wf.displayName}
-                </h1>
-                <span
-                  className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                    CATEGORY_COLORS[wf.category] ?? "bg-gray-100 text-gray-700"
-                  }`}
-                >
-                  {wf.category}
-                </span>
-                <code className="rounded-md bg-[#F5F5F5] px-2 py-0.5 text-xs font-mono text-[#6B7280]">
-                  v{wf.version}
-                </code>
+                <h1 className="text-2xl font-extrabold text-[#171717] sm:text-3xl">{wf.displayName}</h1>
+                <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${CATEGORY_COLORS[wf.category] ?? "bg-gray-100 text-gray-700"}`}>{wf.category}</span>
+                <code className="rounded-md bg-[#F5F5F5] px-2 py-0.5 text-xs font-mono text-[#6B7280]">v{wf.version}</code>
               </div>
               <p className="mt-1 text-sm text-[#6B7280]">
                 by{" "}
-                <Link
-                  href={`/u/${wf.author.name}`}
-                  className="text-[#C2410C] hover:underline"
-                >
-                  {wf.author.name}
-                </Link>
+                <Link href={`/u/${wf.author.name}`} className="text-[#C2410C] hover:underline">{wf.author.name}</Link>
                 <span className="mx-2 text-[#D1D5DB]">&middot;</span>
                 {wf.installs.toLocaleString()} installs
               </p>
@@ -959,25 +470,169 @@ export default function WorkflowDetailPage({ params }: PageProps) {
             <p className="text-lg font-medium text-[#374151]">{wf.tagline}</p>
           )}
         </div>
-
-        {/* Tab navigation */}
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <TabNavigation
-            tabs={TABS}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-          />
-        </div>
       </div>
 
-      {/* Tab content + sidebar */}
+      {/* Single scrollable page — sections appear only if data exists */}
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 pb-24 lg:pb-0">
         <div className="flex flex-col gap-8 lg:flex-row">
           <div className="flex-1 min-w-0 lg:max-w-[calc(100%-21rem)]">
-            {activeTab === "overview" && <OverviewTab wf={wf} />}
-            {activeTab === "how-it-works" && <HowItWorksTab wf={wf} />}
-            {activeTab === "setup" && <SetupTab wf={wf} />}
-            {activeTab === "reviews" && <ReviewsTab />}
+
+            {/* 1. Highlights — always shown (auto-generated from metadata) */}
+            <Highlights wf={wf} />
+
+            {/* 2. Description — always shown */}
+            <section className="mb-8">
+              <p className="text-base leading-relaxed text-[#6B7280]">{wf.description}</p>
+            </section>
+
+            {/* 3. Process steps — ONLY if steps exist */}
+            {wf.steps && wf.steps.length > 0 && (
+              <section className="mb-8">
+                <h2 className="mb-4 text-lg font-semibold text-[#171717]">How It Works</h2>
+                <div className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
+                  <ProcessTimeline steps={wf.steps} />
+                </div>
+              </section>
+            )}
+
+            {/* 4. What You Get — ONLY if outputDescription exists */}
+            {wf.outputDescription && (
+              <section className="mb-8">
+                <h2 className="mb-4 text-lg font-semibold text-[#171717]">What You Get</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {parseDeliverables(wf.outputDescription).map((item, i) => {
+                    const iconColors = ["bg-blue-50 text-blue-600", "bg-green-50 text-green-600", "bg-purple-50 text-purple-600", "bg-orange-50 text-orange-600", "bg-cyan-50 text-cyan-600", "bg-pink-50 text-pink-600"];
+                    const colorClass = iconColors[i % iconColors.length];
+                    return (
+                      <div key={i} className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm flex items-start gap-3">
+                        <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${colorClass}`}>
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                          </svg>
+                        </div>
+                        <p className="text-sm text-[#374151] leading-relaxed">{item.trim()}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
+            {/* 5. Strengths & Limitations — ONLY if either exists */}
+            {((wf.differentiators && wf.differentiators.length > 0) || (wf.limitations && wf.limitations.length > 0)) && (
+              <section className="mb-8">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {wf.differentiators && wf.differentiators.length > 0 && (
+                    <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
+                      <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#171717]">
+                        <svg className="h-4 w-4 text-[#16A34A]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                        Strengths
+                      </h3>
+                      <ul className="flex flex-col gap-2">
+                        {wf.differentiators.map((item, i) => (
+                          <li key={i} className="flex gap-2 text-sm text-[#6B7280]">
+                            <svg className="mt-0.5 h-4 w-4 shrink-0 text-[#16A34A]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {wf.limitations && wf.limitations.length > 0 && (
+                    <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
+                      <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#171717]">
+                        <svg className="h-4 w-4 text-[#D97706]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
+                        Limitations
+                      </h3>
+                      <ul className="flex flex-col gap-2">
+                        {wf.limitations.map((item, i) => (
+                          <li key={i} className="flex gap-2 text-sm text-[#6B7280]">
+                            <svg className="mt-0.5 h-4 w-4 shrink-0 text-[#D97706]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {/* 6. What You'll Need — ONLY if inputs or prerequisites exist */}
+            {((wf.inputs && wf.inputs.length > 0) || (wf.prerequisites && wf.prerequisites.length > 0)) && (
+              <section className="mb-8">
+                <h2 className="mb-4 text-lg font-semibold text-[#171717]">What You&apos;ll Need</h2>
+                <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
+                  <InputsSection inputs={wf.inputs ?? []} prerequisites={wf.prerequisites} />
+                </div>
+              </section>
+            )}
+
+            {/* 7. Available Skills — ONLY if more than 1 skill */}
+            {wf.skills.length > 1 && (
+              <section className="mb-8">
+                <h2 className="mb-4 text-lg font-semibold text-[#171717]">
+                  Available Skills ({wf.skills.length})
+                </h2>
+                <SkillList skills={wf.skills} workflowName={wf.name} />
+              </section>
+            )}
+
+            {/* 8. Setup — ONLY if setup steps exist */}
+            {wf.setupSteps && wf.setupSteps.length > 0 && (
+              <section className="mb-8">
+                <h2 className="mb-4 text-lg font-semibold text-[#171717]">Setup Guide</h2>
+                <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
+                  <SetupGuide steps={wf.setupSteps} />
+                </div>
+              </section>
+            )}
+
+            {/* 9. Detailed explanation — collapsible, ONLY if detailedProcess exists */}
+            {wf.detailedProcess && (
+              <section className="mb-8">
+                <h2 className="mb-4 text-lg font-semibold text-[#171717]">Detailed Breakdown</h2>
+                <div className="rounded-xl border border-black/[0.08] bg-white p-6 shadow-sm">
+                  <div className={`relative ${!detailsExpanded ? "max-h-40 overflow-hidden" : ""}`}>
+                    <SimpleMarkdown content={wf.detailedProcess} />
+                    {!detailsExpanded && (
+                      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent" />
+                    )}
+                  </div>
+                  <button
+                    onClick={() => setDetailsExpanded(!detailsExpanded)}
+                    className="mt-3 text-sm font-medium text-[#C2410C] hover:underline"
+                  >
+                    {detailsExpanded ? "Show less" : "Read full breakdown"}
+                  </button>
+                </div>
+              </section>
+            )}
+
+            {/* 10. More from this creator — ONLY if other workflows exist */}
+            {otherWorkflows.length > 0 && (
+              <section className="mb-8">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-[#171717]">More From This Creator</h2>
+                  <Link href={`/u/${wf.author.name}`} className="text-sm text-[#C2410C] hover:underline">View all</Link>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {otherWorkflows.map((other) => (
+                    <Link key={other.name} href={`/w/${other.name}`} className="flex items-start gap-3 rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm transition-all hover:border-[#C2410C]/30 hover:shadow-md">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#C2410C]/10 text-base">
+                        <span className="font-mono font-bold text-[#C2410C]">{other.name.charAt(0).toUpperCase()}</span>
+                      </div>
+                      <div className="min-w-0">
+                        <h4 className="text-sm font-semibold text-[#171717]">{other.displayName}</h4>
+                        {other.tagline && <p className="mt-0.5 text-xs text-[#6B7280] line-clamp-2">{other.tagline}</p>}
+                        <span className="mt-1.5 block text-xs text-[#9CA3AF]">{other.installs.toLocaleString()} installs</span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
           </div>
           <Sidebar wf={wf} />
         </div>
@@ -987,9 +642,7 @@ export default function WorkflowDetailPage({ params }: PageProps) {
       <div className="fixed bottom-0 left-0 right-0 border-t border-neutral-200 bg-white/95 backdrop-blur-sm p-4 lg:hidden z-40">
         <div className="flex gap-3 max-w-lg mx-auto">
           <button
-            onClick={() => {
-              navigator.clipboard.writeText(`claudeflows install ${wf.name}`);
-            }}
+            onClick={() => { navigator.clipboard.writeText(`claudeflows install ${wf.name}`); }}
             className="flex-1 rounded-xl bg-neutral-900 py-3 text-sm font-medium text-white"
           >
             Copy install command
