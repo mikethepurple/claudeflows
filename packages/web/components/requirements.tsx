@@ -31,7 +31,7 @@ export default function Requirements({
       {mcpEntries.length > 0 && (
         <div>
           <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
-            Connections
+            Integrations
           </h4>
           <ul className="flex flex-col gap-1.5">
             {mcpEntries.map(([name, config]) => (
@@ -54,7 +54,7 @@ export default function Requirements({
       {envEntries.length > 0 && (
         <div>
           <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
-            Account Connections
+            API Keys
           </h4>
           <ul className="flex flex-col gap-1.5">
             {envEntries.map(([name, config]) => (
@@ -89,7 +89,7 @@ export default function Requirements({
           <li className="flex items-center gap-2 rounded-lg bg-[#F5F5F5] px-3 py-2">
             <StatusDot required={true} />
             <code className="text-sm text-[#374151] font-mono">
-              @claudeflows/cli
+              claudeflows
             </code>
             <span className="ml-auto text-xs text-[#9CA3AF]">required</span>
           </li>

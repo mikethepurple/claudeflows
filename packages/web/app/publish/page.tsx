@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Share a Workflow — CloudFlows",
+  title: "Share a Skill — Claude Flows",
   description:
-    "Learn how to create and share AI workflows on CloudFlows.",
+    "Learn how to create and share AI skills on Claude Flows.",
 };
 
 function CodeBlock({ children }: { children: string }) {
@@ -99,7 +99,7 @@ export default function PublishPage() {
           Share a Workflow
         </h1>
         <p className="mt-3 text-lg text-[#6B7280]">
-          Share your AI workflows with the CloudFlows community. Follow
+          Share your AI skills with the Claude Flows community. Follow
           these steps to create, validate, and publish.
         </p>
       </div>
@@ -120,11 +120,11 @@ export default function PublishPage() {
 
         <StepCard number="2" title="Define your skills">
           <p className="mb-4">
-            Commands are what users run to use your workflow. Each command has a name,
+            Skills are what users run to use your workflow. Each skill has a name,
             description, and a prompt file that contains the AI instructions.
           </p>
           <p>
-            Commands are registered automatically when the
+            Skills are registered automatically when the
             workflow is installed. Users run them with{" "}
             <code className="rounded bg-[#F5F5F5] px-1.5 py-0.5 text-[#374151]">/workflow-name-skill-name</code>.
           </p>
@@ -138,12 +138,12 @@ export default function PublishPage() {
           </p>
           <ul className="mb-4 list-inside list-disc space-y-1">
             <li>
-              <strong className="text-[#374151]">Connections</strong> — services
+              <strong className="text-[#374151]">Integrations</strong> — services
               like web search, web access, filesystem
             </li>
             <li>
-              <strong className="text-[#374151]">Account connections</strong>{" "}
-              — API keys and tokens
+              <strong className="text-[#374151]">API Keys</strong>{" "}
+              — credentials and tokens
             </li>
             <li>
               <strong className="text-[#374151]">Dependencies</strong> -- other
@@ -156,15 +156,15 @@ export default function PublishPage() {
           <p className="mb-4">
             Before publishing, test your workflow locally to make sure everything works:
           </p>
-          <CodeBlock>{`# Validate your workflow.json\nnpx @claudeflows/cli validate\n\n# Test install locally\nnpx @claudeflows/cli install . --local\n\n# Run your skills\n/my-workflow-start`}</CodeBlock>
+          <CodeBlock>{`# Validate your workflow.json\nclaudeflows validate\n\n# Test install locally\nclaudeflows install . --local\n\n# Run your skills\n/my-workflow-start`}</CodeBlock>
         </StepCard>
 
         <StepCard number="5" title="Publish">
           <p className="mb-4">
-            When you&apos;re ready, publish your workflow to the CloudFlows
+            When you&apos;re ready, publish your skill to the Claude Flows
             registry:
           </p>
-          <CodeBlock>{`# Login (first time)\nnpx @claudeflows/cli login\n\n# Publish\nnpx @claudeflows/cli publish\n\n# That's it! Your workflow is now live at:\n# https://claudeflows.com/w/my-workflow`}</CodeBlock>
+          <CodeBlock>{`# Login (first time)\nclaudeflows login\n\n# Publish\nclaudeflows publish\n\n# That's it! Your skill is now live at:\n# https://claudeflows.com/w/my-workflow`}</CodeBlock>
         </StepCard>
       </div>
 

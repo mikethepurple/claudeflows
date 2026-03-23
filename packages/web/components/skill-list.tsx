@@ -41,7 +41,7 @@ function SkillCard({
             </svg>
           </div>
           <div>
-            <span className="font-semibold text-[#171717] text-sm">
+            <span className="font-semibold text-[#171717] text-base">
               {skill.name}
             </span>
           </div>

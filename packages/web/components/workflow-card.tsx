@@ -100,7 +100,6 @@ export default function WorkflowCard({ workflow }: WorkflowCardProps) {
               </svg>
               <span>{workflow.installs.toLocaleString()}</span>
             </div>
-            <StarRating rating={workflow.rating} />
           </div>
           <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
             Free

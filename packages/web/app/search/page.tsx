@@ -46,10 +46,10 @@ function SearchContent() {
       {/* Search header */}
       <div className="mb-10">
         <h1 className="text-3xl font-extrabold text-[#171717]">
-          Search Workflows
+          Search Skills
         </h1>
         <p className="mt-2 text-[#6B7280]">
-          Find the right AI workflow for your task.
+          Find the right AI skill for your task
         </p>
       </div>
 
@@ -144,10 +144,10 @@ export default function SearchPage() {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="mb-10">
             <h1 className="text-3xl font-extrabold text-[#171717]">
-              Search Workflows
+              Search Skills
             </h1>
             <p className="mt-2 text-[#6B7280]">
-              Find the right AI workflow for your task.
+              Find the right AI skill for your task
             </p>
           </div>
           <div className="h-14 w-full rounded-xl border border-black/[0.08] bg-white animate-pulse shadow-sm" />

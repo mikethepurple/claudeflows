@@ -3,13 +3,13 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Claude Flows — Ready-Made AI Workflows You Just Run",
+  title: "Claude Flows — Ready-Made AI Skills",
   description:
-    "Packaged AI workflows for Claude Code. Research industries, validate startup ideas, review code, write content. Install one and tell it what you need.",
+    "AI skills that handle real tasks. Research industries, validate ideas, review code. Pick one, tell it what you need, get results.",
   openGraph: {
-    title: "Claude Flows — Ready-Made AI Workflows You Just Run",
+    title: "Claude Flows — Ready-Made AI Skills",
     description:
-      "Packaged AI workflows for Claude Code. Research industries, validate startup ideas, review code, write content. Install one and tell it what you need.",
+      "AI skills that handle real tasks. Research industries, validate ideas, review code. Pick one, tell it what you need, get results.",
     type: "website",
   },
 };
@@ -49,7 +49,7 @@ function Navbar() {
             href="/publish"
             className="rounded-lg bg-neutral-900 px-3.5 py-1.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
           >
-            List a workflow
+            List a skill
           </Link>
         </div>
       </div>
@@ -59,14 +59,9 @@ function Navbar() {
 
 function Footer() {
   const browseCategories = [
+    { name: "Research", href: "/?category=research" },
     { name: "Business", href: "/?category=business" },
     { name: "Development", href: "/?category=development" },
-    { name: "Research", href: "/?category=research" },
-    { name: "Marketing", href: "/?category=marketing" },
-    { name: "Data", href: "/?category=data" },
-    { name: "Design", href: "/?category=design" },
-    { name: "Operations", href: "/?category=operations" },
-    { name: "Productivity", href: "/?category=productivity" },
   ];
 
   return (
@@ -84,17 +79,17 @@ function Footer() {
               </span>
             </div>
             <p className="text-sm text-neutral-500 max-w-xs">
-              AI workflows that handle real tasks. Pick one, tell it what you need, get results.
+              AI skills that handle real tasks. Pick one, tell it what you need, get results.
             </p>
           </div>
 
-          {/* Browse by Category */}
+          {/* Browse */}
           <div>
             <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
               Browse
             </h4>
             <ul className="flex flex-col gap-2">
-              {browseCategories.slice(0, 4).map((cat) => (
+              {browseCategories.map((cat) => (
                 <li key={cat.name}>
                   <Link
                     href={cat.href}
@@ -104,24 +99,14 @@ function Footer() {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
-              &nbsp;
-            </h4>
-            <ul className="flex flex-col gap-2">
-              {browseCategories.slice(4).map((cat) => (
-                <li key={cat.name}>
-                  <Link
-                    href={cat.href}
-                    className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
-                  >
-                    {cat.name}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href="/search"
+                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
+                >
+                  All Skills
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -136,7 +121,7 @@ function Footer() {
                   href="/publish"
                   className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
                 >
-                  List a Workflow
+                  List a Skill
                 </Link>
               </li>
               <li>
@@ -146,7 +131,7 @@ function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
                 >
-                  Creator Guide
+                  Publishing Guide
                 </a>
               </li>
             </ul>
@@ -160,16 +145,6 @@ function Footer() {
             <ul className="flex flex-col gap-2">
               <li>
                 <a
-                  href="https://github.com/mikethepurple/claudeflows/blob/main/docs/schema.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
-                >
-                  Documentation
-                </a>
-              </li>
-              <li>
-                <a
                   href="https://github.com/mikethepurple/claudeflows"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -177,14 +152,6 @@ function Footer() {
                 >
                   GitHub
                 </a>
-              </li>
-              <li>
-                <Link
-                  href="/"
-                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
-                >
-                  About
-                </Link>
               </li>
             </ul>
           </div>

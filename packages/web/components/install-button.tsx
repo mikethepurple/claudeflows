@@ -60,9 +60,9 @@ function buildSteps(workflowName: string): Step[] {
       action: {
         type: "command",
         commands: {
-          mac: `npx @claudeflows/cli install ${workflowName}`,
-          linux: `npx @claudeflows/cli install ${workflowName}`,
-          windows: `npx @claudeflows/cli install ${workflowName}`,
+          mac: `claudeflows install ${workflowName}`,
+          linux: `claudeflows install ${workflowName}`,
+          windows: `claudeflows install ${workflowName}`,
         },
       },
       check: null,
@@ -159,7 +159,7 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
   const [completed, setCompleted] = useState<Set<string>>(new Set());
   const [showTerminalHint, setShowTerminalHint] = useState(false);
 
-  const installCommand = `npx @claudeflows/cli install ${workflowName}`;
+  const installCommand = `claudeflows install ${workflowName}`;
   const steps = buildSteps(workflowName);
 
   useEffect(() => {
@@ -398,6 +398,17 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
             )}
           </div>
         )}
+      </div>
+
+      {/* Consulting CTA */}
+      <div className="text-center border-t border-black/[0.06] pt-3">
+        <p className="text-xs text-[#9CA3AF] mb-2">Not technical?</p>
+        <a
+          href={`mailto:hello@claudeflows.com?subject=Setup%20Help%20-%20${encodeURIComponent(workflowName)}`}
+          className="inline-flex items-center gap-1.5 rounded-lg border border-orange-200 bg-orange-50 px-4 py-2 text-xs font-medium text-orange-800 hover:bg-orange-100 transition-colors"
+        >
+          Get this set up for me
+        </a>
       </div>
     </div>
   );

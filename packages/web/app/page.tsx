@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import WorkflowCard from "@/components/workflow-card";
-import CategoryPills from "@/components/category-pills";
+import CategoryPills, { mapCategoryToJobFunction } from "@/components/category-pills";
 import { SAMPLE_WORKFLOWS } from "@/lib/sample-data";
 
 type SortOption = "popular" | "new" | "rating";
@@ -16,27 +16,26 @@ function CompactHero() {
       <div className="relative mx-auto max-w-6xl px-4 pb-8 pt-12 sm:px-6 sm:pt-16">
         <div className="text-center max-w-2xl mx-auto">
           <p className="mb-3 text-sm font-medium text-neutral-400 uppercase tracking-wider">
-            For Claude Code
+            AI Skills Marketplace
           </p>
 
           <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-neutral-900 sm:text-4xl">
-            Ready-made AI workflows{" "}
+            Get real work done with{" "}
             <span className="text-orange-800">
-              you just run
+              ready-made AI skills
             </span>
           </h1>
 
           <p className="mb-6 text-base text-neutral-500 max-w-xl mx-auto leading-relaxed">
-            You know Claude can research, analyze, and build things — but getting good results
-            takes hours of prompting and trial-and-error. These workflows already know how.
-            Someone figured out the right approach, tested it, and packaged it up.
+            Competitive analysis in 30 minutes. A validated business plan by Friday.
+            Research that used to take days, done while you get coffee.
           </p>
 
           {/* How it works in one line */}
           <div className="mb-6 flex items-center justify-center gap-2 text-sm text-neutral-400">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1">
               <span className="font-mono text-xs text-neutral-500">1</span>
-              Install a workflow
+              Pick a skill
             </span>
             <svg className="h-3 w-3 text-neutral-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -54,26 +53,21 @@ function CompactHero() {
             </span>
           </div>
 
-          {/* Search bar */}
-          <Link
-            href="/search"
-            className="mx-auto flex max-w-md items-center gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-3.5 text-sm text-neutral-400 shadow-sm transition-all hover:border-neutral-300 hover:shadow-md"
-          >
-            <svg
-              className="h-4 w-4 shrink-0"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
+          {/* Two CTAs side by side */}
+          <div className="flex items-center justify-center gap-3">
+            <Link
+              href="/search"
+              className="inline-flex rounded-xl bg-neutral-900 px-6 py-3 text-sm font-medium text-white hover:bg-neutral-800 transition-colors"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
-            </svg>
-            What do you need done?
-          </Link>
+              Browse Skills
+            </Link>
+            <a
+              href="mailto:hello@claudeflows.com?subject=Help me get set up"
+              className="inline-flex rounded-xl border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 hover:border-neutral-400 hover:bg-neutral-50 transition-colors"
+            >
+              Get this set up for me
+            </a>
+          </div>
 
           <p className="mt-3 text-sm text-neutral-400">
             or{" "}
@@ -81,7 +75,7 @@ function CompactHero() {
               href="/publish"
               className="font-medium text-orange-800 hover:text-orange-900 transition-colors"
             >
-              List your own workflow &rarr;
+              List your own skill &rarr;
             </Link>
           </p>
         </div>
@@ -125,24 +119,32 @@ function SortTabs({
 function UseCasesSection() {
   const useCases = [
     {
-      question: "I need to research an industry fast",
-      answer: "Scout pulls 20+ startup profiles with funding, founders, and business models from public sources. Takes 30 minutes instead of 3 days.",
-      workflow: "scout",
+      tag: "Research",
+      headline: "Competitive analysis in 30 minutes",
+      without: "3 days of Googling",
+      withSkill: "30 min, 20+ companies profiled",
+      link: "/w/scout",
     },
     {
-      question: "I have a startup idea but don't know if it's any good",
-      answer: "The Venture Studio workflow validates your idea in 6 phases — audience research, competitor analysis, business model, even a landing page. You just review and decide.",
-      workflow: "venture-studio",
+      tag: "Strategy",
+      headline: "Validated business plan by Friday",
+      without: "Weeks of spreadsheets and guesswork",
+      withSkill: "6-step process, adversarial testing",
+      link: "/w/venture-studio",
     },
     {
-      question: "I want a thorough code review but my team is busy",
-      answer: "Deep Code Reviewer does 3 separate passes — correctness, security vulnerabilities, and performance bottlenecks. Line-by-line feedback with specific fixes.",
-      workflow: "code-reviewer",
+      tag: "Engineering",
+      headline: "Code review on autopilot",
+      without: "Context switching, missed patterns",
+      withSkill: "Deep review covering security, performance, patterns",
+      link: "/search",
     },
     {
-      question: "I need to write a blog post but I'm staring at a blank page",
-      answer: "Content Pipeline researches your topic across 15-30 real sources, outlines, writes, optimizes for SEO, and edits. You guide the direction.",
-      workflow: "content-pipeline",
+      tag: "Operations",
+      headline: "Project state saved automatically",
+      without: "Losing context between sessions",
+      withSkill: "Progress tracked, resumable anytime",
+      link: "/w/save",
     },
   ];
 
@@ -152,26 +154,52 @@ function UseCasesSection() {
         <div className="mb-8 text-center">
           <h2 className="text-2xl font-bold text-neutral-900">What can I use this for?</h2>
           <p className="mt-2 text-neutral-500">
-            Real problems, real workflows, real results
+            Real outcomes, not feature lists
           </p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           {useCases.map((uc) => (
             <Link
-              key={uc.workflow}
-              href={`/w/${uc.workflow}`}
+              key={uc.link}
+              href={uc.link}
               className="group rounded-xl border border-neutral-200 bg-neutral-50 p-5 transition-all hover:border-neutral-300 hover:bg-white hover:shadow-sm"
             >
-              <p className="mb-2 text-sm font-semibold text-neutral-900 group-hover:text-orange-800 transition-colors">
-                &ldquo;{uc.question}&rdquo;
+              <span className="mb-2 inline-block rounded-full bg-neutral-200 px-2.5 py-0.5 text-xs font-medium text-neutral-600">
+                {uc.tag}
+              </span>
+              <p className="mb-3 text-sm font-semibold text-neutral-900 group-hover:text-orange-800 transition-colors">
+                {uc.headline}
               </p>
-              <p className="text-sm leading-relaxed text-neutral-500">
-                {uc.answer}
-              </p>
+              <div className="flex flex-col gap-1.5 text-sm">
+                <div className="flex items-start gap-2 text-neutral-400">
+                  <span className="mt-0.5 shrink-0 text-xs">Without:</span>
+                  <span>{uc.without}</span>
+                </div>
+                <div className="flex items-start gap-2 text-neutral-600">
+                  <span className="mt-0.5 shrink-0 text-xs font-medium text-orange-800">With:</span>
+                  <span>{uc.withSkill}</span>
+                </div>
+              </div>
             </Link>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ConsultingCTA() {
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      <div className="rounded-2xl bg-neutral-900 p-8 sm:p-12 text-center">
+        <h2 className="text-2xl font-bold text-white mb-3">Not sure where to start?</h2>
+        <p className="text-neutral-400 mb-6 max-w-lg mx-auto">
+          We&apos;ll set up the right AI skills for your team, train your people, and make sure it actually works. First consultation is free.
+        </p>
+        <a href="mailto:hello@claudeflows.com?subject=Consulting Inquiry" className="inline-flex rounded-xl bg-orange-700 px-6 py-3 text-sm font-medium text-white hover:bg-orange-800 transition-colors">
+          Book a free consultation
+        </a>
       </div>
     </section>
   );
@@ -181,9 +209,9 @@ function HowItWorksSection() {
   const steps = [
     {
       number: "1",
-      title: "Pick a workflow",
+      title: "Pick a skill",
       description:
-        "Browse by what you need done — not by technology. Each workflow handles a specific job from start to finish.",
+        "Browse by what you need done — research, analysis, content, code review. Each skill is tested and documented.",
       icon: (
         <svg
           className="h-5 w-5"
@@ -202,9 +230,9 @@ function HowItWorksSection() {
     },
     {
       number: "2",
-      title: "Set it up once",
+      title: "Tell it your task",
       description:
-        "A plain-English guide walks you through setup — usually under 15 minutes. No coding required.",
+        "Just describe what you need in plain English. No coding, no configuration, no prompt engineering.",
       icon: (
         <svg
           className="h-5 w-5"
@@ -223,9 +251,9 @@ function HowItWorksSection() {
     },
     {
       number: "3",
-      title: "Tell it what you need",
+      title: "Get deliverables",
       description:
-        "Describe your task in plain English. The workflow handles research, analysis, and output. You review and steer.",
+        "Reports, analysis, validated plans — real output you can use immediately. Delivered in minutes, not days.",
       icon: (
         <svg
           className="h-5 w-5"
@@ -279,10 +307,9 @@ function HowItWorksSection() {
 
 function TrustBar() {
   const stats = [
-    { label: "Workflows", value: "4" },
+    { label: "Skills", value: "4" },
     { label: "Installs", value: "529" },
     { label: "Creators", value: "3" },
-    { label: "Categories", value: "4" },
   ];
 
   return (
@@ -307,7 +334,9 @@ export default function HomePage() {
     let workflows = [...SAMPLE_WORKFLOWS];
 
     if (category !== "all") {
-      workflows = workflows.filter((wf) => wf.category === category);
+      workflows = workflows.filter(
+        (wf) => mapCategoryToJobFunction(wf.category) === category
+      );
     }
 
     switch (sort) {
@@ -334,7 +363,7 @@ export default function HomePage() {
 
         <div className="mt-6 mb-4 flex items-center justify-between">
           <span className="text-sm text-neutral-500">
-            {filtered.length} workflow{filtered.length !== 1 ? "s" : ""}
+            {filtered.length} skill{filtered.length !== 1 ? "s" : ""}
           </span>
           <SortTabs active={sort} onChange={setSort} />
         </div>
@@ -347,12 +376,13 @@ export default function HomePage() {
 
         {filtered.length === 0 && (
           <div className="py-16 text-center text-neutral-500">
-            No workflows in this category yet.
+            No skills in this category yet.
           </div>
         )}
       </section>
 
       <UseCasesSection />
+      <ConsultingCTA />
       <HowItWorksSection />
       <TrustBar />
     </>

@@ -121,6 +121,24 @@ function fmtInline(text: string): string {
     );
 }
 
+function parseDeliverables(text: string): string[] {
+  // Try splitting by common patterns
+  const byComma = text.split(/,\s+(?=[A-Z])/);
+  if (byComma.length >= 3) return byComma;
+  const bySentence = text.split(/\.\s+/).filter(s => s.trim().length > 0);
+  if (bySentence.length >= 2) return bySentence;
+  // Fallback: split on semicolons or "and"
+  const bySemicolon = text.split(/;\s*/);
+  if (bySemicolon.length >= 2) return bySemicolon;
+  return [text];
+}
+
+const BADGE_COLORS: Record<string, string> = {
+  "AI-Powered": "bg-purple-50 border-purple-200 text-purple-700",
+  "Guided Setup": "bg-green-50 border-green-200 text-green-700",
+  "No Keys Required": "bg-green-50 border-green-200 text-green-700",
+};
+
 const CATEGORY_COLORS: Record<string, string> = {
   business: "bg-blue-100 text-blue-700",
   development: "bg-green-100 text-green-700",
@@ -152,7 +170,7 @@ function Highlights({ wf }: { wf: Workflow }) {
     {
       label: "AI-Powered",
       icon: (
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
         </svg>
       ),
@@ -163,7 +181,7 @@ function Highlights({ wf }: { wf: Workflow }) {
     badges.push({
       label: `${wf.steps!.length}-Step Pipeline`,
       icon: (
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
         </svg>
       ),
@@ -174,7 +192,7 @@ function Highlights({ wf }: { wf: Workflow }) {
     badges.push({
       label: "Guided Setup",
       icon: (
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
         </svg>
       ),
@@ -182,9 +200,9 @@ function Highlights({ wf }: { wf: Workflow }) {
   }
 
   badges.push({
-    label: `${wf.skills.length} Command${wf.skills.length !== 1 ? "s" : ""}`,
+    label: `${wf.skills.length} Skill${wf.skills.length !== 1 ? "s" : ""}`,
     icon: (
-      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
       </svg>
     ),
@@ -194,7 +212,7 @@ function Highlights({ wf }: { wf: Workflow }) {
     badges.push({
       label: `${mcpCount} Integration${mcpCount !== 1 ? "s" : ""}`,
       icon: (
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
         </svg>
       ),
@@ -209,7 +227,7 @@ function Highlights({ wf }: { wf: Workflow }) {
       badges.push({
         label: "No Keys Required",
         icon: (
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
           </svg>
         ),
@@ -222,16 +240,17 @@ function Highlights({ wf }: { wf: Workflow }) {
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
         Highlights
       </h2>
-      <div className="flex flex-wrap gap-2">
-        {badges.map((badge) => (
-          <span
-            key={badge.label}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-[#F5F5F5] px-3 py-1.5 text-xs font-medium text-[#374151]"
-          >
-            <span className="text-[#C2410C]">{badge.icon}</span>
-            {badge.label}
-          </span>
-        ))}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {badges.map((badge) => {
+          const colors = BADGE_COLORS[badge.label] ?? "bg-orange-50 border-orange-200 text-orange-700";
+          return (
+            <div key={badge.label}
+              className={`flex flex-col items-center justify-center rounded-xl border p-4 text-center ${colors}`}>
+              <span className="mb-2">{badge.icon}</span>
+              <span className="text-xs font-medium">{badge.label}</span>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -248,24 +267,6 @@ function Sidebar({ wf }: { wf: Workflow }) {
         {/* Get Started CTA */}
         <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
           <InstallButton workflowName={wf.name} />
-        </div>
-
-        {/* Pricing */}
-        <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
-            Pricing
-          </h3>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-semibold text-green-700">
-              Free
-            </span>
-            <span className="text-sm text-[#6B7280]">Open Source</span>
-          </div>
-          {wf.license && (
-            <p className="text-xs text-[#9CA3AF]">
-              Licensed under {wf.license}
-            </p>
-          )}
         </div>
 
         {/* What It Costs */}
@@ -285,104 +286,45 @@ function Sidebar({ wf }: { wf: Workflow }) {
           </div>
         )}
 
-        {/* Token Estimate */}
-        {wf.tokenEstimate && (
-          <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-            <TokenEstimate estimate={wf.tokenEstimate} steps={wf.steps} />
-          </div>
-        )}
-
-        {/* Compatibility / Platform */}
+        {/* About This Skill */}
         <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
           <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
-            Compatibility
-          </h3>
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <svg className="h-4 w-4 text-[#16A34A]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-              </svg>
-              <span className="text-sm text-[#374151]">Claude Code</span>
-              <span className="ml-auto text-xs text-[#9CA3AF]">required</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="h-4 w-4 text-[#16A34A]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-              </svg>
-              <span className="text-sm text-[#374151]">macOS, Linux, Windows</span>
-            </div>
-            {mcpEntries.length > 0 && (
-              <>
-                <div className="mt-1 mb-1 border-t border-black/[0.04]" />
-                <p className="text-xs font-medium text-[#9CA3AF] uppercase tracking-wider">
-                  Integrations
-                </p>
-                {mcpEntries.map(([name, config]) => (
-                  <div key={name} className="flex flex-col gap-1 py-1">
-                    <div className="flex items-center gap-2">
-                      <span className={`h-1.5 w-1.5 rounded-full ${config.required ? "bg-[#C2410C]" : "bg-[#D1D5DB]"}`} />
-                      <span className="text-sm font-medium text-[#374151]">
-                        {config.plainName || name}
-                      </span>
-                      <span className="ml-auto text-xs text-[#9CA3AF]">
-                        {config.required ? "required" : "optional"}
-                      </span>
-                    </div>
-                    {config.plainDescription && (
-                      <p className="ml-3.5 text-xs text-[#9CA3AF] leading-relaxed">
-                        {config.plainDescription}
-                      </p>
-                    )}
-                    {config.setupUrl && (
-                      <a
-                        href={config.setupUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ml-3.5 inline-flex items-center gap-1 text-xs text-[#C2410C] hover:underline"
-                      >
-                        Setup guide
-                        <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                        </svg>
-                      </a>
-                    )}
-                  </div>
-                ))}
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Workflow Details */}
-        <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
-            Details
+            About This Skill
           </h3>
           <div className="flex flex-col gap-2.5">
+            {/* Price */}
             <div className="flex items-center justify-between">
-              <span className="text-sm text-[#6B7280]">Rating</span>
-              <StarRating rating={wf.rating} />
+              <span className="text-sm text-[#6B7280]">Price</span>
+              <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-semibold text-green-700">Free</span>
             </div>
+            {/* Platform */}
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-[#6B7280]">Platform</span>
+              <span className="text-sm text-[#171717]">macOS, Linux, Windows</span>
+            </div>
+            {/* Installs */}
             <div className="flex items-center justify-between">
               <span className="text-sm text-[#6B7280]">Installs</span>
-              <span className="text-sm font-medium text-[#171717]">
-                {wf.installs.toLocaleString()}
-              </span>
+              <span className="text-sm font-medium text-[#171717]">{wf.installs.toLocaleString()}</span>
             </div>
+            {/* Version */}
             <div className="flex items-center justify-between">
               <span className="text-sm text-[#6B7280]">Version</span>
               <code className="text-sm font-mono text-[#6B7280]">v{wf.version}</code>
             </div>
+            {/* Category */}
             <div className="flex items-center justify-between">
               <span className="text-sm text-[#6B7280]">Category</span>
               <span className="text-sm text-[#6B7280] capitalize">{wf.category}</span>
             </div>
+            {/* Difficulty */}
             {wf.difficulty && (
               <div className="flex items-center justify-between">
                 <span className="text-sm text-[#6B7280]">Difficulty</span>
                 <DifficultyBadge difficulty={wf.difficulty} />
               </div>
             )}
+            {/* Time estimates */}
             {wf.estimatedTime && (
               <div className="flex items-center justify-between">
                 <span className="text-sm text-[#6B7280]">Per-use time</span>
@@ -395,55 +337,41 @@ function Sidebar({ wf }: { wf: Workflow }) {
                 <span className="text-sm text-[#171717]">{wf.setupTime}</span>
               </div>
             )}
+            {/* Integrations */}
+            {mcpEntries.length > 0 && (
+              <>
+                <div className="mt-1 mb-1 border-t border-black/[0.04]" />
+                <p className="text-xs font-medium text-[#9CA3AF] uppercase tracking-wider">Integrations</p>
+                {mcpEntries.map(([name, config]) => (
+                  <div key={name} className="flex items-center gap-2">
+                    <span className={`h-1.5 w-1.5 rounded-full ${config.required ? "bg-[#C2410C]" : "bg-[#D1D5DB]"}`} />
+                    <span className="text-sm text-[#374151]">{config.plainName || name}</span>
+                    <span className="ml-auto text-xs text-[#9CA3AF]">{config.required ? "required" : "optional"}</span>
+                  </div>
+                ))}
+              </>
+            )}
+            {/* Source code */}
+            <div className="mt-1 border-t border-black/[0.04] pt-2">
+              <a href={wf.repository} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-[#6B7280] hover:text-[#171717] transition-colors">
+                <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
+                View source code
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Support & Resources */}
-        <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
-            Support &amp; Resources
-          </h3>
-          <div className="flex flex-col gap-2">
-            <a
-              href={wf.repository}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#171717] transition-colors"
-            >
-              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-              </svg>
-              Source Code
-            </a>
-            <a
-              href={`${wf.repository}/issues`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#171717] transition-colors"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-              </svg>
-              Report an Issue
-            </a>
-            <a
-              href={`${wf.repository}#readme`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#171717] transition-colors"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-              </svg>
-              Documentation
-            </a>
+        {/* Token Estimate */}
+        {wf.tokenEstimate && (
+          <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
+            <TokenEstimate estimate={wf.tokenEstimate} steps={wf.steps} />
           </div>
-        </div>
+        )}
 
         {/* Provider Details */}
         <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
           <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
-            Provider
+            Creator
           </h3>
           <div className="flex items-center gap-3 mb-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-neutral-800 text-sm font-bold text-white">
@@ -470,7 +398,7 @@ function Sidebar({ wf }: { wf: Workflow }) {
             href={`/u/${wf.author.name}`}
             className="block text-center text-xs text-[#C2410C] hover:underline"
           >
-            View all workflows by this provider
+            View all by this creator
           </Link>
         </div>
 
@@ -536,17 +464,21 @@ function OverviewTab({ wf }: { wf: Workflow }) {
           <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             What You Get
           </h2>
-          <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-            <div className="flex gap-3">
-              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#C2410C]/10">
-                <svg className="h-4 w-4 text-[#C2410C]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                </svg>
-              </div>
-              <p className="text-sm leading-relaxed text-[#6B7280]">
-                {wf.outputDescription}
-              </p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {parseDeliverables(wf.outputDescription).map((item, i) => {
+              const iconColors = ["bg-blue-50 text-blue-600", "bg-green-50 text-green-600", "bg-purple-50 text-purple-600", "bg-orange-50 text-orange-600", "bg-cyan-50 text-cyan-600", "bg-pink-50 text-pink-600"];
+              const colorClass = iconColors[i % iconColors.length];
+              return (
+                <div key={i} className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm flex items-start gap-3">
+                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${colorClass}`}>
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                  </div>
+                  <p className="text-sm text-[#374151] leading-relaxed">{item.trim()}</p>
+                </div>
+              );
+            })}
           </div>
         </section>
       )}
@@ -671,7 +603,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
             )}
             <div className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
               <span className="mb-1 block text-xs text-[#9CA3AF]">
-                Commands
+                Skills
               </span>
               <span className="text-sm font-medium text-[#171717]">
                 {wf.skills.length} available
@@ -685,7 +617,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
       {wf.skills.length > 0 && (
         <section className="mb-8">
           <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-            Commands
+            Skills
           </h2>
           <div className="rounded-xl border border-black/[0.08] bg-white shadow-sm divide-y divide-black/[0.04]">
             {wf.skills.map((skill) => (
@@ -707,7 +639,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
         <section className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-[#171717]">
-              More From This Provider
+              More From This Creator
             </h2>
             <Link
               href={`/u/${wf.author.name}`}
@@ -739,9 +671,6 @@ function OverviewTab({ wf }: { wf: Workflow }) {
                   )}
                   <div className="mt-1.5 flex items-center gap-3 text-xs text-[#9CA3AF]">
                     <span>{other.installs.toLocaleString()} installs</span>
-                    <span className="text-yellow-500">
-                      &#9733; {other.rating.toFixed(1)}
-                    </span>
                   </div>
                 </div>
               </Link>
@@ -920,7 +849,7 @@ function SetupTab({ wf }: { wf: Workflow }) {
 
       <section className="mb-8">
         <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-          Available Commands ({wf.skills.length})
+          Available Skills ({wf.skills.length})
         </h2>
         <SkillList skills={wf.skills} workflowName={wf.name} />
       </section>
@@ -930,64 +859,9 @@ function SetupTab({ wf }: { wf: Workflow }) {
 
 /* ─── Tab: Reviews ─── */
 
-function ReviewsTab({ wf }: { wf: Workflow }) {
-  const starLabels = [5, 4, 3, 2, 1];
-
+function ReviewsTab() {
   return (
     <section className="mb-8">
-      {/* Rating summary */}
-      <div className="rounded-xl border border-black/[0.08] bg-white p-6 shadow-sm mb-6">
-        <h2 className="mb-4 text-lg font-semibold text-[#171717]">
-          Rating Summary
-        </h2>
-        <div className="flex items-start gap-8">
-          {/* Large rating */}
-          <div className="text-center">
-            <div className="text-5xl font-bold text-[#171717]">
-              {wf.rating.toFixed(1)}
-            </div>
-            <div className="mt-1">
-              <StarRating rating={wf.rating} />
-            </div>
-            <p className="mt-1 text-xs text-[#9CA3AF]">0 reviews</p>
-          </div>
-          {/* Star distribution bars */}
-          <div className="flex-1">
-            {starLabels.map((stars) => (
-              <div key={stars} className="flex items-center gap-2 mb-1.5">
-                <span className="w-8 text-right text-xs text-[#6B7280]">
-                  {stars} &#9733;
-                </span>
-                <div className="flex-1 h-2 rounded-full bg-[#F5F5F5] overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-yellow-400"
-                    style={{ width: "0%" }}
-                  />
-                </div>
-                <span className="w-6 text-xs text-[#9CA3AF]">0</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Sort controls placeholder */}
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-[#171717]">Reviews</h2>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-[#9CA3AF]">Sort by:</span>
-          <select
-            className="rounded-lg border border-black/[0.08] bg-white px-2.5 py-1 text-xs text-[#6B7280] outline-none"
-            defaultValue="recent"
-          >
-            <option value="recent">Most Recent</option>
-            <option value="helpful">Most Helpful</option>
-            <option value="favorable">Most Favorable</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Empty state */}
       <div className="rounded-xl border border-black/[0.08] bg-white p-8 shadow-sm text-center">
         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F5F5F5]">
           <svg
@@ -1005,17 +879,11 @@ function ReviewsTab({ wf }: { wf: Workflow }) {
           </svg>
         </div>
         <h3 className="mb-2 text-base font-semibold text-[#171717]">
-          No reviews yet
+          Reviews coming soon
         </h3>
-        <p className="mb-4 text-sm text-[#6B7280]">
-          Be the first to share your experience with this workflow.
+        <p className="text-sm text-[#6B7280]">
+          We&apos;re building a review system so you can share your experience.
         </p>
-        <button className="inline-flex items-center gap-2 rounded-lg bg-[#C2410C] px-4 py-2 text-sm font-medium text-white hover:bg-[#9A3412] transition-colors">
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-          </svg>
-          Write a Review
-        </button>
       </div>
     </section>
   );
@@ -1038,7 +906,7 @@ export default function WorkflowDetailPage({ params }: PageProps) {
           {/* Breadcrumb */}
           <nav className="mb-5 flex items-center gap-2 text-sm text-[#9CA3AF]">
             <Link href="/" className="hover:text-[#C2410C] transition-colors">
-              Workflows
+              Skills
             </Link>
             <span>/</span>
             <Link
@@ -1083,8 +951,6 @@ export default function WorkflowDetailPage({ params }: PageProps) {
                 </Link>
                 <span className="mx-2 text-[#D1D5DB]">&middot;</span>
                 {wf.installs.toLocaleString()} installs
-                <span className="mx-2 text-[#D1D5DB]">&middot;</span>
-                <StarRating rating={wf.rating} />
               </p>
             </div>
           </div>
@@ -1105,15 +971,35 @@ export default function WorkflowDetailPage({ params }: PageProps) {
       </div>
 
       {/* Tab content + sidebar */}
-      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 pb-24 lg:pb-0">
         <div className="flex flex-col gap-8 lg:flex-row">
           <div className="flex-1 min-w-0 lg:max-w-[calc(100%-21rem)]">
             {activeTab === "overview" && <OverviewTab wf={wf} />}
             {activeTab === "how-it-works" && <HowItWorksTab wf={wf} />}
             {activeTab === "setup" && <SetupTab wf={wf} />}
-            {activeTab === "reviews" && <ReviewsTab wf={wf} />}
+            {activeTab === "reviews" && <ReviewsTab />}
           </div>
           <Sidebar wf={wf} />
+        </div>
+      </div>
+
+      {/* Sticky mobile CTA */}
+      <div className="fixed bottom-0 left-0 right-0 border-t border-neutral-200 bg-white/95 backdrop-blur-sm p-4 lg:hidden z-40">
+        <div className="flex gap-3 max-w-lg mx-auto">
+          <button
+            onClick={() => {
+              navigator.clipboard.writeText(`claudeflows install ${wf.name}`);
+            }}
+            className="flex-1 rounded-xl bg-neutral-900 py-3 text-sm font-medium text-white"
+          >
+            Copy install command
+          </button>
+          <a
+            href={`mailto:hello@claudeflows.com?subject=Setup%20Help%20-%20${encodeURIComponent(wf.name)}`}
+            className="flex-1 rounded-xl border border-neutral-300 bg-white py-3 text-sm font-medium text-neutral-700 text-center"
+          >
+            Get help
+          </a>
         </div>
       </div>
     </div>
