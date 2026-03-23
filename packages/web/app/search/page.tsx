@@ -45,7 +45,7 @@ function SearchContent() {
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       {/* Search header */}
       <div className="mb-10">
-        <h1 className="text-3xl font-extrabold text-[#1A1A1A]">
+        <h1 className="text-3xl font-extrabold text-[#171717]">
           Search Workflows
         </h1>
         <p className="mt-2 text-[#6B7280]">
@@ -74,7 +74,7 @@ function SearchContent() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name, category, tag, or description..."
-            className="w-full rounded-xl border border-black/[0.08] bg-white py-4 pl-12 pr-4 text-base text-[#1A1A1A] placeholder-[#9CA3AF] shadow-sm outline-none transition-colors focus:border-[#E8590C]/50 focus:ring-1 focus:ring-[#E8590C]/25"
+            className="w-full rounded-xl border border-black/[0.08] bg-white py-4 pl-12 pr-4 text-base text-[#171717] placeholder-[#9CA3AF] shadow-sm outline-none transition-colors focus:border-[#C2410C]/50 focus:ring-1 focus:ring-[#C2410C]/25"
             autoFocus
           />
         </div>
@@ -90,7 +90,7 @@ function SearchContent() {
                 <>
                   {" "}
                   for{" "}
-                  <span className="text-[#1A1A1A]">
+                  <span className="text-[#171717]">
                     &ldquo;{query.trim()}&rdquo;
                   </span>
                 </>
@@ -105,7 +105,7 @@ function SearchContent() {
         </div>
       ) : (
         <div className="flex flex-col items-center py-20 text-center">
-          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#F5F3F0]">
+          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#F5F5F5]">
             <svg
               className="h-8 w-8 text-[#9CA3AF]"
               fill="none"
@@ -120,13 +120,13 @@ function SearchContent() {
               />
             </svg>
           </div>
-          <h3 className="mb-2 text-lg font-semibold text-[#1A1A1A]">
+          <h3 className="mb-2 text-lg font-semibold text-[#171717]">
             No workflows found
           </h3>
           <p className="max-w-sm text-sm text-[#6B7280]">
             No workflows matched your search for &ldquo;{query}&rdquo;. Try a
             different query or{" "}
-            <a href="/" className="text-[#E8590C] hover:underline">
+            <a href="/" className="text-[#C2410C] hover:underline">
               browse all workflows
             </a>
             .
@@ -143,7 +143,7 @@ export default function SearchPage() {
       fallback={
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="mb-10">
-            <h1 className="text-3xl font-extrabold text-[#1A1A1A]">
+            <h1 className="text-3xl font-extrabold text-[#171717]">
               Search Workflows
             </h1>
             <p className="mt-2 text-[#6B7280]">

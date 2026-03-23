@@ -71,19 +71,19 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
 
       {/* Total */}
       <div className="flex items-baseline justify-between">
-        <span className="text-2xl font-bold text-[#1A1A1A]">
+        <span className="text-2xl font-bold text-[#171717]">
           ~{formatTokens(estimate.totalTokens)}
         </span>
         <span className="text-xs text-[#9CA3AF]">tokens per run</span>
       </div>
 
       {/* API cost */}
-      <div className="rounded-lg bg-[#F5F3F0] px-3 py-2.5">
+      <div className="rounded-lg bg-[#F5F5F5] px-3 py-2.5">
         <div className="flex items-center justify-between">
           <span className="text-[10px] uppercase tracking-wider text-[#9CA3AF]">
             API cost (Sonnet)
           </span>
-          <span className="text-sm font-semibold text-[#1A1A1A]">
+          <span className="text-sm font-semibold text-[#171717]">
             {formatUsd(apiCost)}
           </span>
         </div>
@@ -94,7 +94,7 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
 
       {/* Plan usage comparison */}
       <div className="rounded-lg border border-black/[0.06] overflow-hidden">
-        <div className="bg-[#F5F3F0] px-3 py-1.5">
+        <div className="bg-[#F5F5F5] px-3 py-1.5">
           <p className="text-[10px] font-semibold uppercase tracking-wider text-[#6B7280]">
             % of your 5-hour limit
           </p>
@@ -106,7 +106,7 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
             return (
               <div key={plan.id} className="flex items-center gap-2.5 px-3 py-2">
                 <div className="w-16 shrink-0">
-                  <span className="text-[11px] font-medium text-[#1A1A1A]">{plan.label}</span>
+                  <span className="text-[11px] font-medium text-[#171717]">{plan.label}</span>
                   <span className="block text-[9px] text-[#9CA3AF]">{plan.price}</span>
                 </div>
                 <div className="flex-1 h-2 rounded-full bg-black/[0.04] overflow-hidden">
@@ -136,7 +136,7 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
 
       {/* Input / Output split */}
       <div className="flex gap-3">
-        <div className="flex-1 rounded-lg bg-[#F5F3F0] px-3 py-2">
+        <div className="flex-1 rounded-lg bg-[#F5F5F5] px-3 py-2">
           <span className="block text-[10px] uppercase tracking-wider text-[#9CA3AF]">
             Input
           </span>
@@ -144,7 +144,7 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
             {formatTokens(estimate.inputTokens)}
           </span>
         </div>
-        <div className="flex-1 rounded-lg bg-[#F5F3F0] px-3 py-2">
+        <div className="flex-1 rounded-lg bg-[#F5F5F5] px-3 py-2">
           <span className="block text-[10px] uppercase tracking-wider text-[#9CA3AF]">
             Output
           </span>
@@ -170,9 +170,9 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
                   <span className="w-24 shrink-0 truncate text-[11px] text-[#6B7280]">
                     {step.name}
                   </span>
-                  <div className="flex-1 h-2 rounded-full bg-[#F5F3F0] overflow-hidden">
+                  <div className="flex-1 h-2 rounded-full bg-[#F5F5F5] overflow-hidden">
                     <div
-                      className="h-full rounded-full bg-[#E8590C]"
+                      className="h-full rounded-full bg-[#C2410C]"
                       style={{ width: `${Math.max(pct, 4)}%` }}
                     />
                   </div>

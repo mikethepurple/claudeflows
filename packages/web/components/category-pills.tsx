@@ -17,8 +17,8 @@ export default function CategoryPills({
         onClick={() => onSelect("all")}
         className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
           selected === "all"
-            ? "bg-[#E8590C] text-white shadow-sm"
-            : "bg-[#F5F3F0] text-[#6B7280] hover:bg-[#E8590C]/10 hover:text-[#E8590C]"
+            ? "bg-neutral-900 text-white shadow-sm"
+            : "bg-neutral-100 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-700"
         }`}
       >
         All
@@ -29,8 +29,8 @@ export default function CategoryPills({
           onClick={() => onSelect(cat.slug)}
           className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
             selected === cat.slug
-              ? "bg-[#E8590C] text-white shadow-sm"
-              : "bg-[#F5F3F0] text-[#6B7280] hover:bg-[#E8590C]/10 hover:text-[#E8590C]"
+              ? "bg-neutral-900 text-white shadow-sm"
+              : "bg-neutral-100 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-700"
           }`}
         >
           {cat.name}

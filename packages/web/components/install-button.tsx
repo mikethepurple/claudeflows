@@ -200,7 +200,7 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
         className={`group relative flex items-center justify-between gap-3 rounded-xl px-5 py-4 font-mono text-sm transition-all ${
           copied
             ? "bg-[#16A34A] text-white"
-            : "bg-[#1A1A1A] text-[#E5E7EB] hover:bg-[#2A2A2A]"
+            : "bg-[#171717] text-[#E5E7EB] hover:bg-[#2A2A2A]"
         }`}
       >
         <span className="flex-1 text-left overflow-x-auto whitespace-nowrap scrollbar-none">
@@ -235,7 +235,7 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
       <div className="border-t border-black/[0.06] pt-3">
         <button
           onClick={() => setShowGuide(!showGuide)}
-          className="flex items-center gap-1.5 text-xs text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+          className="flex items-center gap-1.5 text-xs text-[#6B7280] hover:text-[#171717] transition-colors"
         >
           <svg
             className={`h-3 w-3 transition-transform ${showGuide ? "rotate-90" : ""}`}
@@ -257,7 +257,7 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
                   onClick={() => setPlatform(p)}
                   className={`rounded-md px-2 py-1 text-[11px] font-medium transition-colors ${
                     platform === p
-                      ? "bg-[#E8590C]/10 text-[#E8590C]"
+                      ? "bg-[#C2410C]/10 text-[#C2410C]"
                       : "text-[#9CA3AF] hover:text-[#6B7280]"
                   }`}
                 >
@@ -288,7 +288,7 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
             {/* Terminal hint toggle */}
             <button
               onClick={() => setShowTerminalHint(!showTerminalHint)}
-              className="flex items-center gap-1.5 text-[11px] text-[#6B7280] hover:text-[#1A1A1A] transition-colors self-start"
+              className="flex items-center gap-1.5 text-[11px] text-[#6B7280] hover:text-[#171717] transition-colors self-start"
             >
               <svg
                 className={`h-3 w-3 transition-transform ${showTerminalHint ? "rotate-90" : ""}`}
@@ -334,7 +334,7 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
                         {isDone && <CheckIcon className="h-3 w-3" />}
                       </button>
                       <div className="flex-1 min-w-0">
-                        <p className={`text-sm font-medium ${isDone ? "text-[#16A34A] line-through" : "text-[#1A1A1A]"}`}>
+                        <p className={`text-sm font-medium ${isDone ? "text-[#16A34A] line-through" : "text-[#171717]"}`}>
                           {step.title}
                         </p>
                         {!isDone && (
@@ -353,13 +353,13 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
                             href={step.action.links[platform]}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-[#E8590C] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#D04E0A] transition-colors"
+                            className="inline-flex items-center gap-1.5 rounded-lg bg-[#C2410C] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#9A3412] transition-colors"
                           >
                             <DownloadIcon className="h-3.5 w-3.5" />
                             {step.action.labels[platform]}
                           </a>
                         ) : (
-                          <div className="flex items-center gap-1.5 rounded-md bg-[#1A1A1A] px-2.5 py-2">
+                          <div className="flex items-center gap-1.5 rounded-md bg-[#171717] px-2.5 py-2">
                             <code className="flex-1 overflow-x-auto whitespace-nowrap text-[11px] text-[#E5E7EB] scrollbar-none font-mono leading-relaxed">
                               {step.action.commands[platform]}
                             </code>

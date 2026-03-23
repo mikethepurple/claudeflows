@@ -11,44 +11,53 @@ type SortOption = "popular" | "new" | "rating";
 function CompactHero() {
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#E8590C]/[0.06] via-transparent to-transparent" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[300px] w-[600px] rounded-full bg-[#E8590C]/[0.04] blur-[100px]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-orange-800/[0.04] via-transparent to-transparent" />
 
       <div className="relative mx-auto max-w-6xl px-4 pb-8 pt-12 sm:px-6 sm:pt-16">
         <div className="text-center max-w-2xl mx-auto">
-          <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-[#1A1A1A] sm:text-4xl">
-            AI Workflows That Actually{" "}
-            <span className="bg-gradient-to-r from-[#E8590C] to-[#16A34A] bg-clip-text text-transparent">
-              Get Things Done
+          <p className="mb-3 text-sm font-medium text-neutral-400 uppercase tracking-wider">
+            For Claude Code
+          </p>
+
+          <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-neutral-900 sm:text-4xl">
+            Ready-made AI workflows{" "}
+            <span className="text-orange-800">
+              you just run
             </span>
           </h1>
 
-          {/* Value prop pills */}
-          <div className="mb-6 flex flex-wrap items-center justify-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#E8590C]/10 px-3.5 py-1.5 text-xs font-medium text-[#E8590C]">
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-              </svg>
-              Skip hours of prompt engineering
+          <p className="mb-6 text-base text-neutral-500 max-w-xl mx-auto leading-relaxed">
+            You know Claude can research, analyze, and build things — but getting good results
+            takes hours of prompting and trial-and-error. These workflows already know how.
+            Someone figured out the right approach, tested it, and packaged it up.
+          </p>
+
+          {/* How it works in one line */}
+          <div className="mb-6 flex items-center justify-center gap-2 text-sm text-neutral-400">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1">
+              <span className="font-mono text-xs text-neutral-500">1</span>
+              Install a workflow
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3.5 py-1.5 text-xs font-medium text-emerald-700">
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Production-tested by real teams
+            <svg className="h-3 w-3 text-neutral-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1">
+              <span className="font-mono text-xs text-neutral-500">2</span>
+              Tell it your task
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 px-3.5 py-1.5 text-xs font-medium text-blue-700">
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
-              </svg>
-              One command to install
+            <svg className="h-3 w-3 text-neutral-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1">
+              <span className="font-mono text-xs text-neutral-500">3</span>
+              Get deliverables
             </span>
           </div>
 
           {/* Search bar */}
           <Link
             href="/search"
-            className="mx-auto flex max-w-md items-center gap-3 rounded-xl border border-black/[0.08] bg-white px-4 py-3.5 text-sm text-[#9CA3AF] shadow-sm transition-all hover:border-[#E8590C]/30 hover:shadow-md"
+            className="mx-auto flex max-w-md items-center gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-3.5 text-sm text-neutral-400 shadow-sm transition-all hover:border-neutral-300 hover:shadow-md"
           >
             <svg
               className="h-4 w-4 shrink-0"
@@ -63,17 +72,16 @@ function CompactHero() {
                 d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
               />
             </svg>
-            Search workflows...
+            What do you need done?
           </Link>
 
-          {/* Dual CTA */}
-          <p className="mt-3 text-sm text-[#9CA3AF]">
+          <p className="mt-3 text-sm text-neutral-400">
             or{" "}
             <Link
               href="/publish"
-              className="font-medium text-[#E8590C] hover:text-[#E8590C]/80 transition-colors"
+              className="font-medium text-orange-800 hover:text-orange-900 transition-colors"
             >
-              Share your own workflow &rarr;
+              List your own workflow &rarr;
             </Link>
           </p>
         </div>
@@ -96,15 +104,15 @@ function SortTabs({
   ];
 
   return (
-    <div className="flex gap-1 rounded-lg bg-[#F5F3F0] p-1">
+    <div className="flex gap-1 rounded-lg bg-neutral-100 p-1">
       {options.map((opt) => (
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
           className={`rounded-md px-3 py-1 text-xs font-medium transition-all ${
             active === opt.value
-              ? "bg-[#E8590C] text-white shadow-sm"
-              : "text-[#6B7280] hover:text-[#1A1A1A]"
+              ? "bg-neutral-900 text-white shadow-sm"
+              : "text-neutral-500 hover:text-neutral-900"
           }`}
         >
           {opt.label}
@@ -114,64 +122,54 @@ function SortTabs({
   );
 }
 
-function FeaturedCreators() {
-  // Deduplicate authors from sample workflows
-  const creatorsMap = new Map<string, { name: string; github: string; bio: string; count: number }>();
-  for (const wf of SAMPLE_WORKFLOWS) {
-    const key = wf.author.github;
-    const existing = creatorsMap.get(key);
-    if (existing) {
-      existing.count++;
-    } else {
-      creatorsMap.set(key, {
-        name: wf.author.name,
-        github: wf.author.github,
-        bio: wf.author.bio || "Building AI workflows for the community.",
-        count: 1,
-      });
-    }
-  }
-  const creators = Array.from(creatorsMap.values());
-
-  const AVATAR_GRADIENTS = [
-    "from-orange-400 to-red-500",
-    "from-green-400 to-emerald-500",
-    "from-pink-400 to-rose-500",
-    "from-blue-400 to-indigo-500",
+function UseCasesSection() {
+  const useCases = [
+    {
+      question: "I need to research an industry fast",
+      answer: "Scout pulls 20+ startup profiles with funding, founders, and business models from public sources. Takes 30 minutes instead of 3 days.",
+      workflow: "scout",
+    },
+    {
+      question: "I have a startup idea but don't know if it's any good",
+      answer: "The Venture Studio workflow validates your idea in 6 phases — audience research, competitor analysis, business model, even a landing page. You just review and decide.",
+      workflow: "venture-studio",
+    },
+    {
+      question: "I want a thorough code review but my team is busy",
+      answer: "Deep Code Reviewer does 3 separate passes — correctness, security vulnerabilities, and performance bottlenecks. Line-by-line feedback with specific fixes.",
+      workflow: "code-reviewer",
+    },
+    {
+      question: "I need to write a blog post but I'm staring at a blank page",
+      answer: "Content Pipeline researches your topic across 15-30 real sources, outlines, writes, optimizes for SEO, and edits. You guide the direction.",
+      workflow: "content-pipeline",
+    },
   ];
 
   return (
-    <section className="bg-white border-y border-black/[0.06]">
+    <section className="border-y border-neutral-100 bg-white">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-[#1A1A1A]">Featured Creators</h2>
-          <p className="mt-2 text-[#6B7280]">
-            The people building workflows you can trust
+          <h2 className="text-2xl font-bold text-neutral-900">What can I use this for?</h2>
+          <p className="mt-2 text-neutral-500">
+            Real problems, real workflows, real results
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-3">
-          {creators.map((creator, i) => (
-            <div
-              key={creator.github}
-              className="flex flex-col items-center rounded-xl border border-black/[0.06] bg-[#FAF9F7] p-6 text-center transition-all hover:border-[#E8590C]/30 hover:shadow-sm"
+        <div className="grid gap-4 sm:grid-cols-2">
+          {useCases.map((uc) => (
+            <Link
+              key={uc.workflow}
+              href={`/w/${uc.workflow}`}
+              className="group rounded-xl border border-neutral-200 bg-neutral-50 p-5 transition-all hover:border-neutral-300 hover:bg-white hover:shadow-sm"
             >
-              <div
-                className={`mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br ${AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length]} text-white text-lg font-bold`}
-              >
-                {creator.name.charAt(0).toUpperCase()}
-              </div>
-              <h3 className="text-sm font-semibold text-[#1A1A1A]">
-                {creator.name}
-              </h3>
-              <p className="mt-0.5 text-xs text-[#9CA3AF]">@{creator.github}</p>
-              <p className="mt-2 text-xs leading-relaxed text-[#6B7280]">
-                {creator.bio}
+              <p className="mb-2 text-sm font-semibold text-neutral-900 group-hover:text-orange-800 transition-colors">
+                &ldquo;{uc.question}&rdquo;
               </p>
-              <p className="mt-3 text-xs font-medium text-[#E8590C]">
-                {creator.count} workflow{creator.count !== 1 ? "s" : ""}
+              <p className="text-sm leading-relaxed text-neutral-500">
+                {uc.answer}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -182,13 +180,13 @@ function FeaturedCreators() {
 function HowItWorksSection() {
   const steps = [
     {
-      number: "01",
-      title: "Find",
+      number: "1",
+      title: "Pick a workflow",
       description:
-        "Browse workflows by category or search for what you need. Each one is built for a specific task.",
+        "Browse by what you need done — not by technology. Each workflow handles a specific job from start to finish.",
       icon: (
         <svg
-          className="h-6 w-6"
+          className="h-5 w-5"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
@@ -203,13 +201,13 @@ function HowItWorksSection() {
       ),
     },
     {
-      number: "02",
-      title: "Set up",
+      number: "2",
+      title: "Set it up once",
       description:
-        "One command installs everything. A plain-English setup guide walks you through any connections needed.",
+        "A plain-English guide walks you through setup — usually under 15 minutes. No coding required.",
       icon: (
         <svg
-          className="h-6 w-6"
+          className="h-5 w-5"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
@@ -218,19 +216,19 @@ function HowItWorksSection() {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
       ),
     },
     {
-      number: "03",
-      title: "Go",
+      number: "3",
+      title: "Tell it what you need",
       description:
-        "Tell the AI what you need and it handles the work. You guide the direction, it does the heavy lifting.",
+        "Describe your task in plain English. The workflow handles research, analysis, and output. You review and steer.",
       icon: (
         <svg
-          className="h-6 w-6"
+          className="h-5 w-5"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
@@ -247,28 +245,28 @@ function HowItWorksSection() {
   ];
 
   return (
-    <section className="border-y border-black/[0.06] bg-white">
+    <section className="border-y border-neutral-100 bg-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="mb-10 text-center">
-          <h2 className="text-2xl font-bold text-[#1A1A1A]">How It Works</h2>
-          <p className="mt-2 text-[#6B7280]">
-            From discovery to results in three steps
+          <h2 className="text-2xl font-bold text-neutral-900">How it works</h2>
+          <p className="mt-2 text-neutral-500">
+            From &ldquo;I need this done&rdquo; to done
           </p>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-3">
           {steps.map((step) => (
             <div key={step.number} className="text-center">
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#E8590C]/10 text-[#E8590C]">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100 text-neutral-600">
                 {step.icon}
               </div>
-              <div className="mb-2 text-xs font-bold uppercase tracking-widest text-[#E8590C]">
+              <div className="mb-2 text-xs font-bold uppercase tracking-widest text-neutral-400">
                 Step {step.number}
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-[#1A1A1A]">
+              <h3 className="mb-2 text-lg font-semibold text-neutral-900">
                 {step.title}
               </h3>
-              <p className="text-sm leading-relaxed text-[#6B7280]">
+              <p className="text-sm leading-relaxed text-neutral-500">
                 {step.description}
               </p>
             </div>
@@ -292,8 +290,8 @@ function TrustBar() {
       <div className="flex items-center justify-center gap-8 sm:gap-12">
         {stats.map((stat) => (
           <div key={stat.label} className="text-center">
-            <div className="text-lg font-bold text-[#1A1A1A]">{stat.value}</div>
-            <div className="text-xs text-[#9CA3AF]">{stat.label}</div>
+            <div className="text-lg font-bold text-neutral-900">{stat.value}</div>
+            <div className="text-xs text-neutral-400">{stat.label}</div>
           </div>
         ))}
       </div>
@@ -335,7 +333,7 @@ export default function HomePage() {
         <CategoryPills selected={category} onSelect={setCategory} />
 
         <div className="mt-6 mb-4 flex items-center justify-between">
-          <span className="text-sm text-[#6B7280]">
+          <span className="text-sm text-neutral-500">
             {filtered.length} workflow{filtered.length !== 1 ? "s" : ""}
           </span>
           <SortTabs active={sort} onChange={setSort} />
@@ -348,13 +346,13 @@ export default function HomePage() {
         </div>
 
         {filtered.length === 0 && (
-          <div className="py-16 text-center text-[#6B7280]">
+          <div className="py-16 text-center text-neutral-500">
             No workflows in this category yet.
           </div>
         )}
       </section>
 
-      <FeaturedCreators />
+      <UseCasesSection />
       <HowItWorksSection />
       <TrustBar />
     </>

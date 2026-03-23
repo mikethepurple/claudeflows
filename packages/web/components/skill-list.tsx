@@ -21,13 +21,13 @@ function SkillCard({
   return (
     <button
       onClick={() => setExpanded(!expanded)}
-      className="w-full text-left rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm transition-all hover:border-[#E8590C]/30 hover:shadow-md"
+      className="w-full text-left rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm transition-all hover:border-[#C2410C]/30 hover:shadow-md"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#E8590C]/10">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#C2410C]/10">
             <svg
-              className="h-4 w-4 text-[#E8590C]"
+              className="h-4 w-4 text-[#C2410C]"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
@@ -41,7 +41,7 @@ function SkillCard({
             </svg>
           </div>
           <div>
-            <span className="font-semibold text-[#1A1A1A] text-sm">
+            <span className="font-semibold text-[#171717] text-sm">
               {skill.name}
             </span>
           </div>
@@ -66,8 +66,8 @@ function SkillCard({
       {expanded && (
         <div className="mt-3 border-t border-black/[0.06] pt-3">
           <p className="mb-2 text-sm text-[#6B7280]">{skill.description}</p>
-          <div className="rounded-lg bg-[#F5F3F0] px-3 py-2">
-            <code className="text-xs text-[#E8590C] font-mono">{command}</code>
+          <div className="rounded-lg bg-[#F5F5F5] px-3 py-2">
+            <code className="text-xs text-[#C2410C] font-mono">{command}</code>
           </div>
         </div>
       )}

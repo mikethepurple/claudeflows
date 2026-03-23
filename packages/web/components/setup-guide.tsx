@@ -10,14 +10,14 @@ export default function SetupGuide({ steps }: SetupGuideProps) {
       {steps.map((step, index) => (
         <li
           key={step.title}
-          className="flex gap-3 rounded-lg bg-[#F5F3F0] p-3"
+          className="flex gap-3 rounded-lg bg-[#F5F5F5] p-3"
         >
-          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E8590C]/20 text-xs font-bold text-[#E8590C]">
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#C2410C]/20 text-xs font-bold text-[#C2410C]">
             {index + 1}
           </div>
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-[#1A1A1A]">
+              <span className="text-sm font-medium text-[#171717]">
                 {step.title}
               </span>
               {!step.required && (

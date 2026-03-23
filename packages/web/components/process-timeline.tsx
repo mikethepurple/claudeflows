@@ -13,11 +13,11 @@ export default function ProcessTimeline({ steps }: ProcessTimelineProps) {
             {/* Step */}
             <div className="flex flex-col items-center text-center w-40">
               {/* Numbered circle */}
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E8590C] text-sm font-bold text-white shadow-sm">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#C2410C] text-sm font-bold text-white shadow-sm">
                 {index + 1}
               </div>
               {/* Step name */}
-              <h4 className="mt-3 text-sm font-semibold text-[#1A1A1A]">
+              <h4 className="mt-3 text-sm font-semibold text-[#171717]">
                 {step.name}
               </h4>
               {/* Step description */}
@@ -26,7 +26,7 @@ export default function ProcessTimeline({ steps }: ProcessTimelineProps) {
               </p>
               {/* Methodology badge */}
               {step.methodologyCount > 0 && (
-                <span className="mt-2 inline-flex items-center rounded-full bg-[#E8590C]/10 px-2 py-0.5 text-[10px] font-medium text-[#E8590C]">
+                <span className="mt-2 inline-flex items-center rounded-full bg-[#C2410C]/10 px-2 py-0.5 text-[10px] font-medium text-[#C2410C]">
                   {step.methodologyCount} method{step.methodologyCount !== 1 ? "s" : ""}
                 </span>
               )}

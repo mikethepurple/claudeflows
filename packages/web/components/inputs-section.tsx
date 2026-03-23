@@ -14,16 +14,16 @@ export default function InputsSection({
       {inputs.map((input) => (
         <div
           key={input.name}
-          className="rounded-lg border border-black/[0.06] bg-[#F5F3F0] p-4"
+          className="rounded-lg border border-black/[0.06] bg-[#F5F5F5] p-4"
         >
-          <div className="mb-1 text-sm font-medium text-[#1A1A1A]">
+          <div className="mb-1 text-sm font-medium text-[#171717]">
             {input.name}
           </div>
           <p className="text-xs text-[#6B7280]">{input.description}</p>
           {input.example && (
             <div className="mt-2 rounded-md bg-white px-3 py-2 border border-black/[0.04]">
               <span className="text-xs text-[#9CA3AF]">Example: </span>
-              <span className="text-xs text-[#E8590C]">
+              <span className="text-xs text-[#C2410C]">
                 &ldquo;{input.example}&rdquo;
               </span>
             </div>

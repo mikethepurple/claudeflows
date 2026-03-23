@@ -2,43 +2,21 @@ import Link from "next/link";
 import type { Workflow } from "@/lib/types";
 import DifficultyBadge from "@/components/difficulty-badge";
 
-const CATEGORY_COLORS: Record<string, string> = {
-  business: "bg-white/20 text-white",
-  development: "bg-white/20 text-white",
-  data: "bg-white/20 text-white",
-  research: "bg-white/20 text-white",
-  marketing: "bg-white/20 text-white",
-  design: "bg-white/20 text-white",
-  operations: "bg-white/20 text-white",
-  productivity: "bg-white/20 text-white",
-  finance: "bg-white/20 text-white",
+const CATEGORY_ICONS: Record<string, string> = {
+  business: "briefcase",
+  development: "code",
+  research: "search",
+  marketing: "megaphone",
+  data: "database",
+  design: "palette",
+  operations: "server",
+  productivity: "zap",
+  finance: "chart",
 };
 
-const HERO_GRADIENTS: Record<string, string> = {
-  "from-orange-500 to-red-600": "from-orange-500 to-red-600",
-  "from-yellow-500 to-amber-600": "from-yellow-500 to-amber-600",
-  "from-green-500 to-emerald-600": "from-green-500 to-emerald-600",
-  "from-pink-500 to-rose-600": "from-pink-500 to-rose-600",
-};
-
-function fallbackGradient(name: string): string {
-  const gradients = [
-    "from-blue-500 to-indigo-600",
-    "from-violet-500 to-purple-600",
-    "from-cyan-500 to-teal-600",
-    "from-orange-500 to-red-600",
-  ];
-  const idx = name.charCodeAt(0) % gradients.length;
-  return gradients[idx];
-}
-
-function CategoryBadge({ category }: { category: string }) {
-  const colorClass =
-    CATEGORY_COLORS[category] ?? "bg-white/20 text-white";
+function CategoryTag({ category }: { category: string }) {
   return (
-    <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide backdrop-blur-sm ${colorClass}`}
-    >
+    <span className="inline-flex items-center rounded-md bg-neutral-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-neutral-500">
       {category}
     </span>
   );
@@ -48,12 +26,12 @@ function StarRating({ rating }: { rating: number }) {
   const full = Math.floor(rating);
   const hasHalf = rating - full >= 0.5;
   return (
-    <span className="inline-flex items-center gap-0.5 text-yellow-500 text-xs">
+    <span className="inline-flex items-center gap-0.5 text-amber-400 text-xs">
       {Array.from({ length: full }).map((_, i) => (
         <span key={i}>&#9733;</span>
       ))}
       {hasHalf && <span>&#9734;</span>}
-      <span className="ml-1 text-[#6B7280]">{rating.toFixed(1)}</span>
+      <span className="ml-1 text-neutral-400">{rating.toFixed(1)}</span>
     </span>
   );
 }
@@ -63,58 +41,50 @@ interface WorkflowCardProps {
 }
 
 export default function WorkflowCard({ workflow }: WorkflowCardProps) {
-  const gradient =
-    (workflow.heroColor && HERO_GRADIENTS[workflow.heroColor]) ||
-    fallbackGradient(workflow.name);
-
   return (
     <Link
       href={`/w/${workflow.name}`}
-      className="group block overflow-hidden rounded-xl border border-black/[0.08] bg-white shadow-sm transition-all duration-200 hover:border-[#E8590C]/40 hover:shadow-md hover:scale-[1.02]"
+      className="group block overflow-hidden rounded-xl border border-neutral-200 bg-white transition-all duration-200 hover:border-neutral-300 hover:shadow-md"
     >
-      {/* Gradient hero banner */}
-      <div
-        className={`relative h-16 bg-gradient-to-r ${gradient} transition-all duration-200 group-hover:brightness-110`}
-      >
-        <div className="absolute bottom-2 left-3">
-          <CategoryBadge category={workflow.category} />
-        </div>
-      </div>
+      {/* Subtle top accent bar */}
+      <div className="h-1 bg-gradient-to-r from-orange-700/60 to-orange-700/20" />
 
-      <div className="p-5 pt-4">
-        <h3 className="mb-1 text-base font-semibold text-[#1A1A1A] group-hover:text-[#E8590C] transition-colors">
+      <div className="p-5">
+        <div className="mb-3 flex items-start justify-between">
+          <CategoryTag category={workflow.category} />
+          {workflow.difficulty && (
+            <DifficultyBadge difficulty={workflow.difficulty} />
+          )}
+        </div>
+
+        <h3 className="mb-1 text-base font-semibold text-neutral-900 group-hover:text-orange-800 transition-colors">
           {workflow.displayName}
         </h3>
 
-        <p className="mb-1 text-xs text-[#9CA3AF]">
+        <p className="mb-1 text-xs text-neutral-400">
           by{" "}
-          <span className="text-[#6B7280]">{workflow.author.name}</span>
+          <span className="text-neutral-500">{workflow.author.name}</span>
         </p>
 
         {workflow.tagline ? (
-          <p className="mb-3 text-sm font-medium text-[#374151]">
+          <p className="mb-3 text-sm text-neutral-600 leading-relaxed">
             {workflow.tagline}
           </p>
         ) : (
-          <p className="mb-3 line-clamp-2 text-sm leading-relaxed text-[#6B7280]">
+          <p className="mb-3 line-clamp-2 text-sm leading-relaxed text-neutral-500">
             {workflow.description}
           </p>
         )}
 
-        <div className="mb-3 flex flex-wrap items-center gap-1.5">
-          {workflow.difficulty && (
-            <DifficultyBadge difficulty={workflow.difficulty} />
-          )}
-          {workflow.estimatedTime && (
-            <span className="rounded-full bg-[#F5F3F0] px-2 py-0.5 text-[10px] text-[#6B7280]">
-              {workflow.estimatedTime}
-            </span>
-          )}
-        </div>
+        {workflow.estimatedTime && (
+          <p className="mb-3 text-xs text-neutral-400">
+            {workflow.estimatedTime}
+          </p>
+        )}
 
-        <div className="flex items-center justify-between border-t border-black/[0.06] pt-3">
+        <div className="flex items-center justify-between border-t border-neutral-100 pt-3">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1 text-xs text-[#6B7280]">
+            <div className="flex items-center gap-1 text-xs text-neutral-400">
               <svg
                 className="h-3.5 w-3.5"
                 fill="none"
@@ -132,7 +102,7 @@ export default function WorkflowCard({ workflow }: WorkflowCardProps) {
             </div>
             <StarRating rating={workflow.rating} />
           </div>
-          <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-700">
+          <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
             Free
           </span>
         </div>

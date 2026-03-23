@@ -10,7 +10,7 @@ function StatusDot({ required }: { required: boolean }) {
   return (
     <span
       className={`inline-block h-2 w-2 rounded-full ${
-        required ? "bg-[#E8590C]" : "bg-[#D1D5DB]"
+        required ? "bg-[#C2410C]" : "bg-[#D1D5DB]"
       }`}
       title={required ? "Required" : "Optional"}
     />
@@ -37,7 +37,7 @@ export default function Requirements({
             {mcpEntries.map(([name, config]) => (
               <li
                 key={name}
-                className="flex items-center gap-2 rounded-lg bg-[#F5F3F0] px-3 py-2"
+                className="flex items-center gap-2 rounded-lg bg-[#F5F5F5] px-3 py-2"
               >
                 <StatusDot required={config.required} />
                 <code className="text-sm text-[#374151] font-mono">{name}</code>
@@ -60,7 +60,7 @@ export default function Requirements({
             {envEntries.map(([name, config]) => (
               <li
                 key={name}
-                className="flex items-center gap-2 rounded-lg bg-[#F5F3F0] px-3 py-2"
+                className="flex items-center gap-2 rounded-lg bg-[#F5F5F5] px-3 py-2"
               >
                 <StatusDot required={config.required} />
                 <code className="text-sm text-[#374151] font-mono">{name}</code>
@@ -79,14 +79,14 @@ export default function Requirements({
           Runtime
         </h4>
         <ul className="flex flex-col gap-1.5">
-          <li className="flex items-center gap-2 rounded-lg bg-[#F5F3F0] px-3 py-2">
+          <li className="flex items-center gap-2 rounded-lg bg-[#F5F5F5] px-3 py-2">
             <StatusDot required={true} />
             <code className="text-sm text-[#374151] font-mono">
               Claude Code
             </code>
             <span className="ml-auto text-xs text-[#9CA3AF]">required</span>
           </li>
-          <li className="flex items-center gap-2 rounded-lg bg-[#F5F3F0] px-3 py-2">
+          <li className="flex items-center gap-2 rounded-lg bg-[#F5F5F5] px-3 py-2">
             <StatusDot required={true} />
             <code className="text-sm text-[#374151] font-mono">
               @claudeflows/cli
@@ -106,7 +106,7 @@ export default function Requirements({
             {dependencies.map((dep) => (
               <li
                 key={dep}
-                className="flex items-center gap-2 rounded-lg bg-[#F5F3F0] px-3 py-2"
+                className="flex items-center gap-2 rounded-lg bg-[#F5F5F5] px-3 py-2"
               >
                 <StatusDot required={true} />
                 <code className="text-sm text-[#374151] font-mono">{dep}</code>

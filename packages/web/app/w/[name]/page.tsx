@@ -226,9 +226,9 @@ function Highlights({ wf }: { wf: Workflow }) {
         {badges.map((badge) => (
           <span
             key={badge.label}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-[#F5F3F0] px-3 py-1.5 text-xs font-medium text-[#374151]"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-[#F5F5F5] px-3 py-1.5 text-xs font-medium text-[#374151]"
           >
-            <span className="text-[#E8590C]">{badge.icon}</span>
+            <span className="text-[#C2410C]">{badge.icon}</span>
             {badge.label}
           </span>
         ))}
@@ -320,7 +320,7 @@ function Sidebar({ wf }: { wf: Workflow }) {
                 {mcpEntries.map(([name, config]) => (
                   <div key={name} className="flex flex-col gap-1 py-1">
                     <div className="flex items-center gap-2">
-                      <span className={`h-1.5 w-1.5 rounded-full ${config.required ? "bg-[#E8590C]" : "bg-[#D1D5DB]"}`} />
+                      <span className={`h-1.5 w-1.5 rounded-full ${config.required ? "bg-[#C2410C]" : "bg-[#D1D5DB]"}`} />
                       <span className="text-sm font-medium text-[#374151]">
                         {config.plainName || name}
                       </span>
@@ -338,7 +338,7 @@ function Sidebar({ wf }: { wf: Workflow }) {
                         href={config.setupUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="ml-3.5 inline-flex items-center gap-1 text-xs text-[#E8590C] hover:underline"
+                        className="ml-3.5 inline-flex items-center gap-1 text-xs text-[#C2410C] hover:underline"
                       >
                         Setup guide
                         <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
@@ -365,7 +365,7 @@ function Sidebar({ wf }: { wf: Workflow }) {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-[#6B7280]">Installs</span>
-              <span className="text-sm font-medium text-[#1A1A1A]">
+              <span className="text-sm font-medium text-[#171717]">
                 {wf.installs.toLocaleString()}
               </span>
             </div>
@@ -386,13 +386,13 @@ function Sidebar({ wf }: { wf: Workflow }) {
             {wf.estimatedTime && (
               <div className="flex items-center justify-between">
                 <span className="text-sm text-[#6B7280]">Per-use time</span>
-                <span className="text-sm text-[#1A1A1A]">{wf.estimatedTime}</span>
+                <span className="text-sm text-[#171717]">{wf.estimatedTime}</span>
               </div>
             )}
             {wf.setupTime && (
               <div className="flex items-center justify-between">
                 <span className="text-sm text-[#6B7280]">Setup time</span>
-                <span className="text-sm text-[#1A1A1A]">{wf.setupTime}</span>
+                <span className="text-sm text-[#171717]">{wf.setupTime}</span>
               </div>
             )}
           </div>
@@ -408,7 +408,7 @@ function Sidebar({ wf }: { wf: Workflow }) {
               href={wf.repository}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+              className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#171717] transition-colors"
             >
               <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -419,7 +419,7 @@ function Sidebar({ wf }: { wf: Workflow }) {
               href={`${wf.repository}/issues`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+              className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#171717] transition-colors"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
@@ -430,7 +430,7 @@ function Sidebar({ wf }: { wf: Workflow }) {
               href={`${wf.repository}#readme`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+              className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#171717] transition-colors"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
@@ -446,13 +446,13 @@ function Sidebar({ wf }: { wf: Workflow }) {
             Provider
           </h3>
           <div className="flex items-center gap-3 mb-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#E8590C] to-[#16A34A] text-sm font-bold text-white">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-neutral-800 text-sm font-bold text-white">
               {wf.author.name.charAt(0).toUpperCase()}
             </div>
             <div>
               <Link
                 href={`/u/${wf.author.name}`}
-                className="text-sm font-medium text-[#1A1A1A] hover:text-[#E8590C] transition-colors"
+                className="text-sm font-medium text-[#171717] hover:text-[#C2410C] transition-colors"
               >
                 {wf.author.name}
               </Link>
@@ -468,7 +468,7 @@ function Sidebar({ wf }: { wf: Workflow }) {
           </div>
           <Link
             href={`/u/${wf.author.name}`}
-            className="block text-center text-xs text-[#E8590C] hover:underline"
+            className="block text-center text-xs text-[#C2410C] hover:underline"
           >
             View all workflows by this provider
           </Link>
@@ -484,7 +484,7 @@ function Sidebar({ wf }: { wf: Workflow }) {
               <Link
                 key={tag}
                 href={`/search?q=${encodeURIComponent(tag)}`}
-                className="rounded-lg bg-[#F5F3F0] px-2.5 py-1 text-xs text-[#6B7280] transition-colors hover:bg-[#E8590C]/10 hover:text-[#E8590C]"
+                className="rounded-lg bg-[#F5F5F5] px-2.5 py-1 text-xs text-[#6B7280] transition-colors hover:bg-[#C2410C]/10 hover:text-[#C2410C]"
               >
                 {tag}
               </Link>
@@ -510,7 +510,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
 
       {/* Description */}
       <section className="mb-8">
-        <h2 className="mb-3 text-lg font-semibold text-[#1A1A1A]">
+        <h2 className="mb-3 text-lg font-semibold text-[#171717]">
           Description
         </h2>
         <p className="text-base leading-relaxed text-[#6B7280]">
@@ -521,7 +521,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
       {/* How This Actually Works */}
       {wf.detailedProcess && (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             How This Actually Works
           </h2>
           <div className="rounded-xl border border-black/[0.08] bg-white p-6 shadow-sm">
@@ -533,13 +533,13 @@ function OverviewTab({ wf }: { wf: Workflow }) {
       {/* What You Get */}
       {wf.outputDescription && (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             What You Get
           </h2>
           <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
             <div className="flex gap-3">
-              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#E8590C]/10">
-                <svg className="h-4 w-4 text-[#E8590C]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#C2410C]/10">
+                <svg className="h-4 w-4 text-[#C2410C]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                 </svg>
               </div>
@@ -555,14 +555,14 @@ function OverviewTab({ wf }: { wf: Workflow }) {
       {((wf.differentiators && wf.differentiators.length > 0) ||
         (wf.limitations && wf.limitations.length > 0)) && (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             Where It Shines / Where It Doesn&apos;t
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {/* Strengths */}
             {wf.differentiators && wf.differentiators.length > 0 && (
               <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-                <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#1A1A1A]">
+                <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#171717]">
                   <svg className="h-4 w-4 text-[#16A34A]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
@@ -584,7 +584,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
             {/* Limitations */}
             {wf.limitations && wf.limitations.length > 0 && (
               <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
-                <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#1A1A1A]">
+                <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#171717]">
                   <svg className="h-4 w-4 text-[#D97706]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                   </svg>
@@ -609,7 +609,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
       {/* What You'll Get (benefits) */}
       {wf.benefits && wf.benefits.length > 0 && (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             What You&apos;ll Get
           </h2>
           <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
@@ -622,7 +622,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
       {((wf.inputs && wf.inputs.length > 0) ||
         (wf.prerequisites && wf.prerequisites.length > 0)) && (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             What You&apos;ll Need
           </h2>
           <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
@@ -637,7 +637,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
       {/* Good to Know */}
       {(wf.difficulty || wf.estimatedTime || wf.setupTime) && (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             Good to Know
           </h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
@@ -654,7 +654,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
                 <span className="mb-1 block text-xs text-[#9CA3AF]">
                   Per-use time
                 </span>
-                <span className="text-sm font-medium text-[#1A1A1A]">
+                <span className="text-sm font-medium text-[#171717]">
                   {wf.estimatedTime}
                 </span>
               </div>
@@ -664,7 +664,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
                 <span className="mb-1 block text-xs text-[#9CA3AF]">
                   First-time setup
                 </span>
-                <span className="text-sm font-medium text-[#1A1A1A]">
+                <span className="text-sm font-medium text-[#171717]">
                   {wf.setupTime}
                 </span>
               </div>
@@ -673,7 +673,7 @@ function OverviewTab({ wf }: { wf: Workflow }) {
               <span className="mb-1 block text-xs text-[#9CA3AF]">
                 Commands
               </span>
-              <span className="text-sm font-medium text-[#1A1A1A]">
+              <span className="text-sm font-medium text-[#171717]">
                 {wf.skills.length} available
               </span>
             </div>
@@ -684,13 +684,13 @@ function OverviewTab({ wf }: { wf: Workflow }) {
       {/* Commands Quick Preview */}
       {wf.skills.length > 0 && (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             Commands
           </h2>
           <div className="rounded-xl border border-black/[0.08] bg-white shadow-sm divide-y divide-black/[0.04]">
             {wf.skills.map((skill) => (
               <div key={skill.name} className="flex items-start gap-3 px-5 py-3.5">
-                <code className="mt-0.5 shrink-0 rounded-md bg-[#F5F3F0] px-2 py-0.5 text-xs font-mono font-semibold text-[#E8590C]">
+                <code className="mt-0.5 shrink-0 rounded-md bg-[#F5F5F5] px-2 py-0.5 text-xs font-mono font-semibold text-[#C2410C]">
                   /{skill.name}
                 </code>
                 <p className="text-sm text-[#6B7280] leading-relaxed">
@@ -706,12 +706,12 @@ function OverviewTab({ wf }: { wf: Workflow }) {
       {otherWorkflows.length > 0 && (
         <section className="mb-8">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-[#1A1A1A]">
+            <h2 className="text-lg font-semibold text-[#171717]">
               More From This Provider
             </h2>
             <Link
               href={`/u/${wf.author.name}`}
-              className="text-sm text-[#E8590C] hover:underline"
+              className="text-sm text-[#C2410C] hover:underline"
             >
               View all
             </Link>
@@ -721,15 +721,15 @@ function OverviewTab({ wf }: { wf: Workflow }) {
               <Link
                 key={other.name}
                 href={`/w/${other.name}`}
-                className="flex items-start gap-3 rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm transition-all hover:border-[#E8590C]/30 hover:shadow-md"
+                className="flex items-start gap-3 rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm transition-all hover:border-[#C2410C]/30 hover:shadow-md"
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#E8590C]/10 text-base">
-                  <span className="font-mono font-bold text-[#E8590C]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#C2410C]/10 text-base">
+                  <span className="font-mono font-bold text-[#C2410C]">
                     {other.name.charAt(0).toUpperCase()}
                   </span>
                 </div>
                 <div className="min-w-0">
-                  <h4 className="text-sm font-semibold text-[#1A1A1A]">
+                  <h4 className="text-sm font-semibold text-[#171717]">
                     {other.displayName}
                   </h4>
                   {other.tagline && (
@@ -761,7 +761,7 @@ function HowItWorksTab({ wf }: { wf: Workflow }) {
       {/* Process Timeline */}
       {wf.steps && wf.steps.length > 0 && (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             Process Flow
           </h2>
           <div className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
@@ -773,7 +773,7 @@ function HowItWorksTab({ wf }: { wf: Workflow }) {
       {/* README */}
       {wf.readme && (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             Details
           </h2>
           <div className="rounded-xl border border-black/[0.08] bg-white p-6 shadow-sm">
@@ -811,7 +811,7 @@ function SetupTab({ wf }: { wf: Workflow }) {
                   </div>
                   <div>
                     <span className="block text-xs text-[#9CA3AF]">First-time setup</span>
-                    <span className="text-sm font-semibold text-[#1A1A1A]">{wf.setupTime}</span>
+                    <span className="text-sm font-semibold text-[#171717]">{wf.setupTime}</span>
                   </div>
                 </div>
               </div>
@@ -826,7 +826,7 @@ function SetupTab({ wf }: { wf: Workflow }) {
                   </div>
                   <div>
                     <span className="block text-xs text-[#9CA3AF]">Per-use time</span>
-                    <span className="text-sm font-semibold text-[#1A1A1A]">{wf.estimatedTime}</span>
+                    <span className="text-sm font-semibold text-[#171717]">{wf.estimatedTime}</span>
                   </div>
                 </div>
               </div>
@@ -838,7 +838,7 @@ function SetupTab({ wf }: { wf: Workflow }) {
       {/* Prerequisite Cards */}
       {wf.prerequisiteDetails && wf.prerequisiteDetails.length > 0 && (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             Prerequisites
           </h2>
           <div className="flex flex-col gap-3">
@@ -848,11 +848,11 @@ function SetupTab({ wf }: { wf: Workflow }) {
                 className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#E8590C]/10 text-sm font-bold text-[#E8590C]">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#C2410C]/10 text-sm font-bold text-[#C2410C]">
                     {i + 1}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-semibold text-[#1A1A1A]">
+                    <h3 className="text-sm font-semibold text-[#171717]">
                       {prereq.label}
                     </h3>
                     <p className="mt-1 text-sm text-[#6B7280] leading-relaxed">
@@ -864,7 +864,7 @@ function SetupTab({ wf }: { wf: Workflow }) {
                           href={prereq.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 rounded-lg bg-[#E8590C] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#D04E0A] transition-colors"
+                          className="inline-flex items-center gap-1.5 rounded-lg bg-[#C2410C] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#9A3412] transition-colors"
                         >
                           Get started
                           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
@@ -900,7 +900,7 @@ function SetupTab({ wf }: { wf: Workflow }) {
       {/* Setup Guide (existing setup steps) */}
       {wf.setupSteps && wf.setupSteps.length > 0 ? (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             Setup Guide
           </h2>
           <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
@@ -909,7 +909,7 @@ function SetupTab({ wf }: { wf: Workflow }) {
         </section>
       ) : (
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+          <h2 className="mb-4 text-lg font-semibold text-[#171717]">
             Requirements
           </h2>
           <div className="rounded-xl border border-black/[0.08] bg-white p-5 shadow-sm">
@@ -919,7 +919,7 @@ function SetupTab({ wf }: { wf: Workflow }) {
       )}
 
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+        <h2 className="mb-4 text-lg font-semibold text-[#171717]">
           Available Commands ({wf.skills.length})
         </h2>
         <SkillList skills={wf.skills} workflowName={wf.name} />
@@ -937,13 +937,13 @@ function ReviewsTab({ wf }: { wf: Workflow }) {
     <section className="mb-8">
       {/* Rating summary */}
       <div className="rounded-xl border border-black/[0.08] bg-white p-6 shadow-sm mb-6">
-        <h2 className="mb-4 text-lg font-semibold text-[#1A1A1A]">
+        <h2 className="mb-4 text-lg font-semibold text-[#171717]">
           Rating Summary
         </h2>
         <div className="flex items-start gap-8">
           {/* Large rating */}
           <div className="text-center">
-            <div className="text-5xl font-bold text-[#1A1A1A]">
+            <div className="text-5xl font-bold text-[#171717]">
               {wf.rating.toFixed(1)}
             </div>
             <div className="mt-1">
@@ -958,7 +958,7 @@ function ReviewsTab({ wf }: { wf: Workflow }) {
                 <span className="w-8 text-right text-xs text-[#6B7280]">
                   {stars} &#9733;
                 </span>
-                <div className="flex-1 h-2 rounded-full bg-[#F5F3F0] overflow-hidden">
+                <div className="flex-1 h-2 rounded-full bg-[#F5F5F5] overflow-hidden">
                   <div
                     className="h-full rounded-full bg-yellow-400"
                     style={{ width: "0%" }}
@@ -973,7 +973,7 @@ function ReviewsTab({ wf }: { wf: Workflow }) {
 
       {/* Sort controls placeholder */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-[#1A1A1A]">Reviews</h2>
+        <h2 className="text-lg font-semibold text-[#171717]">Reviews</h2>
         <div className="flex items-center gap-2">
           <span className="text-xs text-[#9CA3AF]">Sort by:</span>
           <select
@@ -989,7 +989,7 @@ function ReviewsTab({ wf }: { wf: Workflow }) {
 
       {/* Empty state */}
       <div className="rounded-xl border border-black/[0.08] bg-white p-8 shadow-sm text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F5F3F0]">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F5F5F5]">
           <svg
             className="h-7 w-7 text-[#9CA3AF]"
             fill="none"
@@ -1004,13 +1004,13 @@ function ReviewsTab({ wf }: { wf: Workflow }) {
             />
           </svg>
         </div>
-        <h3 className="mb-2 text-base font-semibold text-[#1A1A1A]">
+        <h3 className="mb-2 text-base font-semibold text-[#171717]">
           No reviews yet
         </h3>
         <p className="mb-4 text-sm text-[#6B7280]">
           Be the first to share your experience with this workflow.
         </p>
-        <button className="inline-flex items-center gap-2 rounded-lg bg-[#E8590C] px-4 py-2 text-sm font-medium text-white hover:bg-[#D04E0A] transition-colors">
+        <button className="inline-flex items-center gap-2 rounded-lg bg-[#C2410C] px-4 py-2 text-sm font-medium text-white hover:bg-[#9A3412] transition-colors">
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
           </svg>
@@ -1031,19 +1031,19 @@ export default function WorkflowDetailPage({ params }: PageProps) {
   if (!wf) notFound();
 
   return (
-    <div className="bg-[#FAF9F7]">
+    <div className="bg-[#FAFAFA]">
       {/* Header section */}
       <div className="border-b border-black/[0.08] bg-white">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
           {/* Breadcrumb */}
           <nav className="mb-5 flex items-center gap-2 text-sm text-[#9CA3AF]">
-            <Link href="/" className="hover:text-[#E8590C] transition-colors">
+            <Link href="/" className="hover:text-[#C2410C] transition-colors">
               Workflows
             </Link>
             <span>/</span>
             <Link
               href={`/search?q=${encodeURIComponent(wf.category)}`}
-              className="hover:text-[#E8590C] transition-colors capitalize"
+              className="hover:text-[#C2410C] transition-colors capitalize"
             >
               {wf.category}
             </Link>
@@ -1052,14 +1052,14 @@ export default function WorkflowDetailPage({ params }: PageProps) {
           </nav>
 
           <div className="flex items-center gap-4 mb-3">
-            <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#E8590C]/10 text-2xl">
-              <span className="font-mono font-bold text-[#E8590C]">
+            <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#C2410C]/10 text-2xl">
+              <span className="font-mono font-bold text-[#C2410C]">
                 {wf.name.charAt(0).toUpperCase()}
               </span>
             </div>
             <div className="flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl font-extrabold text-[#1A1A1A] sm:text-3xl">
+                <h1 className="text-2xl font-extrabold text-[#171717] sm:text-3xl">
                   {wf.displayName}
                 </h1>
                 <span
@@ -1069,7 +1069,7 @@ export default function WorkflowDetailPage({ params }: PageProps) {
                 >
                   {wf.category}
                 </span>
-                <code className="rounded-md bg-[#F5F3F0] px-2 py-0.5 text-xs font-mono text-[#6B7280]">
+                <code className="rounded-md bg-[#F5F5F5] px-2 py-0.5 text-xs font-mono text-[#6B7280]">
                   v{wf.version}
                 </code>
               </div>
@@ -1077,7 +1077,7 @@ export default function WorkflowDetailPage({ params }: PageProps) {
                 by{" "}
                 <Link
                   href={`/u/${wf.author.name}`}
-                  className="text-[#E8590C] hover:underline"
+                  className="text-[#C2410C] hover:underline"
                 >
                   {wf.author.name}
                 </Link>

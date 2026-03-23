@@ -3,32 +3,32 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CloudFlows — AI Workflow Marketplace",
+  title: "Claude Flows — Ready-Made AI Workflows You Just Run",
   description:
-    "Discover AI workflows that handle real tasks. One command to install, then just tell it what you need.",
+    "Packaged AI workflows for Claude Code. Research industries, validate startup ideas, review code, write content. Install one and tell it what you need.",
   openGraph: {
-    title: "CloudFlows — AI Workflow Marketplace",
+    title: "Claude Flows — Ready-Made AI Workflows You Just Run",
     description:
-      "Discover AI workflows that handle real tasks. One command to install, then just tell it what you need.",
+      "Packaged AI workflows for Claude Code. Research industries, validate startup ideas, review code, write content. Install one and tell it what you need.",
     type: "website",
   },
 };
 
 function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 border-b border-black/[0.08] bg-white/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#E8590C]">
-            <span className="text-sm font-bold text-white">CF</span>
+    <nav className="sticky top-0 z-50 border-b border-neutral-200 bg-white/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-neutral-900">
+            <span className="text-xs font-bold text-white">CF</span>
           </div>
-          <span className="text-lg font-bold text-[#1A1A1A]">CloudFlows</span>
+          <span className="text-base font-semibold text-neutral-900">Claude Flows</span>
         </Link>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <Link
             href="/search"
-            className="hidden sm:flex items-center gap-2 rounded-lg border border-black/[0.08] bg-[#F5F3F0] px-3 py-1.5 text-sm text-[#6B7280] transition-colors hover:border-[#E8590C]/30 hover:text-[#1A1A1A]"
+            className="hidden sm:flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-neutral-500 transition-colors hover:text-neutral-900 hover:bg-neutral-100"
           >
             <svg
               className="h-3.5 w-3.5"
@@ -47,9 +47,9 @@ function Navbar() {
           </Link>
           <Link
             href="/publish"
-            className="rounded-lg border border-[#E8590C] px-4 py-2 text-sm font-medium text-[#E8590C] transition-colors hover:bg-[#E8590C] hover:text-white"
+            className="rounded-lg bg-neutral-900 px-3.5 py-1.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
           >
-            Create
+            List a workflow
           </Link>
         </div>
       </div>
@@ -70,27 +70,27 @@ function Footer() {
   ];
 
   return (
-    <footer className="border-t border-black/[0.08] bg-[#F5F3F0]">
+    <footer className="border-t border-neutral-200 bg-neutral-50">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
-            <div className="flex items-center gap-2.5 mb-3">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#E8590C]">
-                <span className="text-xs font-bold text-white">CF</span>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="flex h-6 w-6 items-center justify-center rounded-md bg-neutral-900">
+                <span className="text-[10px] font-bold text-white">CF</span>
               </div>
-              <span className="text-base font-bold text-[#1A1A1A]">
-                CloudFlows
+              <span className="text-sm font-semibold text-neutral-900">
+                Claude Flows
               </span>
             </div>
-            <p className="text-sm text-[#6B7280] max-w-xs">
-              AI workflows that handle real tasks. Install in one command.
+            <p className="text-sm text-neutral-500 max-w-xs">
+              AI workflows that handle real tasks. Pick one, tell it what you need, get results.
             </p>
           </div>
 
           {/* Browse by Category */}
           <div>
-            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
+            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
               Browse
             </h4>
             <ul className="flex flex-col gap-2">
@@ -98,7 +98,7 @@ function Footer() {
                 <li key={cat.name}>
                   <Link
                     href={cat.href}
-                    className="text-sm text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+                    className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
                   >
                     {cat.name}
                   </Link>
@@ -108,7 +108,7 @@ function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
+            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
               &nbsp;
             </h4>
             <ul className="flex flex-col gap-2">
@@ -116,7 +116,7 @@ function Footer() {
                 <li key={cat.name}>
                   <Link
                     href={cat.href}
-                    className="text-sm text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+                    className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
                   >
                     {cat.name}
                   </Link>
@@ -127,16 +127,16 @@ function Footer() {
 
           {/* For Creators */}
           <div>
-            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
+            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
               For Creators
             </h4>
             <ul className="flex flex-col gap-2">
               <li>
                 <Link
                   href="/publish"
-                  className="text-sm text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
                 >
-                  Share a Workflow
+                  List a Workflow
                 </Link>
               </li>
               <li>
@@ -144,7 +144,7 @@ function Footer() {
                   href="https://github.com/mikethepurple/claudeflows/blob/main/docs/schema.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
                 >
                   Creator Guide
                 </a>
@@ -154,7 +154,7 @@ function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
+            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
               Resources
             </h4>
             <ul className="flex flex-col gap-2">
@@ -163,7 +163,7 @@ function Footer() {
                   href="https://github.com/mikethepurple/claudeflows/blob/main/docs/schema.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
                 >
                   Documentation
                 </a>
@@ -173,7 +173,7 @@ function Footer() {
                   href="https://github.com/mikethepurple/claudeflows"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
                 >
                   GitHub
                 </a>
@@ -181,7 +181,7 @@ function Footer() {
               <li>
                 <Link
                   href="/"
-                  className="text-sm text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
                 >
                   About
                 </Link>
@@ -190,8 +190,8 @@ function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-black/[0.06] pt-6 text-center text-xs text-[#9CA3AF]">
-          &copy; {new Date().getFullYear()} CloudFlows. All rights reserved.
+        <div className="mt-10 border-t border-neutral-200 pt-6 text-center text-xs text-neutral-400">
+          &copy; {new Date().getFullYear()} Claude Flows
         </div>
       </div>
     </footer>
@@ -205,7 +205,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#FAF9F7] text-[#1A1A1A] antialiased">
+      <body className="min-h-screen bg-[#FAFAFA] text-neutral-900 antialiased">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

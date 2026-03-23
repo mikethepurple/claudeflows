@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 function CodeBlock({ children }: { children: string }) {
   return (
-    <pre className="overflow-x-auto rounded-xl border border-black/[0.08] bg-[#F5F3F0] p-4 text-sm leading-relaxed">
-      <code className="text-[#1A1A1A] font-mono">{children}</code>
+    <pre className="overflow-x-auto rounded-xl border border-black/[0.08] bg-[#F5F5F5] p-4 text-sm leading-relaxed">
+      <code className="text-[#171717] font-mono">{children}</code>
     </pre>
   );
 }
@@ -26,13 +26,13 @@ function StepCard({
   return (
     <div className="flex gap-5">
       <div className="flex flex-col items-center">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E8590C]/20 border border-[#E8590C]/30">
-          <span className="text-sm font-bold text-[#E8590C]">{number}</span>
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#C2410C]/20 border border-[#C2410C]/30">
+          <span className="text-sm font-bold text-[#C2410C]">{number}</span>
         </div>
         <div className="mt-2 w-px flex-1 bg-black/[0.08]" />
       </div>
       <div className="pb-10">
-        <h3 className="mb-3 text-lg font-semibold text-[#1A1A1A]">{title}</h3>
+        <h3 className="mb-3 text-lg font-semibold text-[#171717]">{title}</h3>
         <div className="text-sm leading-relaxed text-[#6B7280]">{children}</div>
       </div>
     </div>
@@ -92,10 +92,10 @@ export default function PublishPage() {
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       {/* Header */}
       <div className="mb-12">
-        <div className="mb-4 inline-flex items-center rounded-full border border-[#E8590C]/20 bg-[#E8590C]/10 px-3 py-1 text-xs font-medium text-[#E8590C]">
+        <div className="mb-4 inline-flex items-center rounded-full border border-[#C2410C]/20 bg-[#C2410C]/10 px-3 py-1 text-xs font-medium text-[#C2410C]">
           Publishing Guide
         </div>
-        <h1 className="text-3xl font-extrabold text-[#1A1A1A] sm:text-4xl">
+        <h1 className="text-3xl font-extrabold text-[#171717] sm:text-4xl">
           Share a Workflow
         </h1>
         <p className="mt-3 text-lg text-[#6B7280]">
@@ -108,7 +108,7 @@ export default function PublishPage() {
       <div className="mb-12">
         <StepCard number="1" title="Create your workflow.json">
           <p className="mb-4">
-            Every workflow starts with a <code className="rounded bg-[#F5F3F0] px-1.5 py-0.5 text-[#374151]">workflow.json</code> manifest file. This file
+            Every workflow starts with a <code className="rounded bg-[#F5F5F5] px-1.5 py-0.5 text-[#374151]">workflow.json</code> manifest file. This file
             describes your workflow&apos;s skills, steps, requirements, and
             metadata.
           </p>
@@ -126,7 +126,7 @@ export default function PublishPage() {
           <p>
             Commands are registered automatically when the
             workflow is installed. Users run them with{" "}
-            <code className="rounded bg-[#F5F3F0] px-1.5 py-0.5 text-[#374151]">/workflow-name-skill-name</code>.
+            <code className="rounded bg-[#F5F5F5] px-1.5 py-0.5 text-[#374151]">/workflow-name-skill-name</code>.
           </p>
         </StepCard>
 
@@ -170,7 +170,7 @@ export default function PublishPage() {
 
       {/* Example workflow.json */}
       <section className="mb-12">
-        <h2 className="mb-4 text-xl font-bold text-[#1A1A1A]">
+        <h2 className="mb-4 text-xl font-bold text-[#171717]">
           Example workflow.json
         </h2>
         <p className="mb-4 text-sm text-[#6B7280]">
@@ -182,7 +182,7 @@ export default function PublishPage() {
 
       {/* Schema reference */}
       <section className="rounded-xl border border-black/[0.08] bg-white p-6 shadow-sm">
-        <h2 className="mb-3 text-lg font-semibold text-[#1A1A1A]">
+        <h2 className="mb-3 text-lg font-semibold text-[#171717]">
           Schema Reference
         </h2>
         <p className="mb-4 text-sm text-[#6B7280]">
@@ -302,7 +302,7 @@ export default function PublishPage() {
             href="https://github.com/mikethepurple/claudeflows/blob/main/docs/schema.md"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm text-[#E8590C] hover:underline"
+            className="inline-flex items-center gap-1.5 text-sm text-[#C2410C] hover:underline"
           >
             View full JSON Schema documentation
             <svg

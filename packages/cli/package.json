@@ -1,6 +1,6 @@
 {
-  "name": "@claudeflows/cli",
-  "version": "0.1.4",
+  "name": "claudeflows",
+  "version": "0.2.0",
   "description": "CLI tool for installing and managing Claude Code agentic workflows",
   "type": "module",
   "bin": {

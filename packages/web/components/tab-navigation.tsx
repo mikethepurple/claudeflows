@@ -25,13 +25,13 @@ export default function TabNavigation({
             onClick={() => onTabChange(tab.id)}
             className={`relative shrink-0 px-5 py-3 text-sm font-medium transition-colors ${
               activeTab === tab.id
-                ? "text-[#E8590C]"
-                : "text-[#6B7280] hover:text-[#1A1A1A]"
+                ? "text-[#C2410C]"
+                : "text-[#6B7280] hover:text-[#171717]"
             }`}
           >
             {tab.label}
             {activeTab === tab.id && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#E8590C] rounded-t-full" />
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C2410C] rounded-t-full" />
             )}
           </button>
         ))}
