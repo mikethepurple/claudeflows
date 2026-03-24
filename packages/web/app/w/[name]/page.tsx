@@ -349,18 +349,29 @@ export default function WorkflowDetailPage({ params }: PageProps) {
         <div className="flex flex-col gap-8 lg:flex-row">
           <div className="flex-1 min-w-0 lg:max-w-[calc(100%-21rem)]">
 
-            {/* Hero: File tree + Terminal preview */}
-            <section className="mb-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FileTreePreview wf={wf} />
-                <TerminalPreview wf={wf} />
-              </div>
-            </section>
-
             {/* About — short description, always shown */}
             <section className="mb-8">
               <h2 className="mb-3 text-lg font-semibold text-[#171717]">About</h2>
               <p className="text-base leading-relaxed text-[#6B7280]">{wf.description}</p>
+            </section>
+
+            {/* Preview: File tree + Terminal */}
+            <section className="mb-8">
+              <h2 className="mb-4 text-lg font-semibold text-[#171717]">Preview</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <figure>
+                  <FileTreePreview wf={wf} />
+                  <figcaption className="mt-2 text-center text-xs text-[#9CA3AF]">
+                    Skill file structure
+                  </figcaption>
+                </figure>
+                <figure>
+                  <TerminalPreview wf={wf} />
+                  <figcaption className="mt-2 text-center text-xs text-[#9CA3AF]">
+                    Running in Claude Code
+                  </figcaption>
+                </figure>
+              </div>
             </section>
 
             {/* What You Get — short bullets, ONLY if outputDescription exists */}
