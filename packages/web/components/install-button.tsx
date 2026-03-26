@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import Link from "next/link";
 
 interface InstallButtonProps {
   workflowName: string;
@@ -152,6 +153,8 @@ const TERMINAL_HINTS: Record<Platform, string> = {
   windows: "Open WSL: press Win, type \"Ubuntu\" or \"WSL\", hit Enter.",
 };
 
+const UNLOCK_KEY = "cf_install_unlocked";
+
 export default function InstallButton({ workflowName }: InstallButtonProps) {
   const [copied, setCopied] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
@@ -159,12 +162,57 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
   const [completed, setCompleted] = useState<Set<string>>(new Set());
   const [showTerminalHint, setShowTerminalHint] = useState(false);
 
+  // Email gate state
+  const [unlocked, setUnlocked] = useState(false);
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const installCommand = `claudeflows install ${workflowName}`;
   const steps = buildSteps(workflowName);
 
   useEffect(() => {
     setPlatform(detectPlatform());
+    try {
+      if (localStorage.getItem(UNLOCK_KEY) === "true") {
+        setUnlocked(true);
+      }
+    } catch {
+      // localStorage unavailable
+    }
   }, []);
+
+  const handleSubscribe = useCallback(async () => {
+    setError(null);
+    const trimmed = email.trim();
+    if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmed, source_skill: workflowName }),
+      });
+      if (res.ok) {
+        setUnlocked(true);
+        try {
+          localStorage.setItem(UNLOCK_KEY, "true");
+        } catch {
+          // ignore
+        }
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error ?? "Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }, [email, workflowName]);
 
   const handleCopyInstall = useCallback(async () => {
     try {
@@ -194,42 +242,73 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
 
   return (
     <div className="flex flex-col gap-3">
-      {/* Primary: copy install command */}
-      <button
-        onClick={handleCopyInstall}
-        className={`group relative flex items-center justify-between gap-3 rounded-xl px-5 py-4 font-mono text-sm transition-all ${
-          copied
-            ? "bg-[#16A34A] text-white"
-            : "bg-[#171717] text-[#E5E7EB] hover:bg-[#2A2A2A]"
-        }`}
-      >
-        <span className="flex-1 text-left overflow-x-auto whitespace-nowrap scrollbar-none">
-          <span className={copied ? "text-white/60" : "text-[#16A34A]"}>$</span>{" "}
-          {installCommand}
-        </span>
-        <span className={`shrink-0 flex items-center gap-1.5 text-xs font-sans transition-colors ${
-          copied ? "text-white" : "text-white/40 group-hover:text-white/70"
-        }`}>
-          {copied ? (
-            <>
-              <CheckIcon className="h-3.5 w-3.5" />
-              Copied!
-            </>
-          ) : (
-            <>
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9.75a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
-              </svg>
-              Copy
-            </>
+      {!unlocked ? (
+        /* Email gate */
+        <div>
+          <div className="flex gap-2">
+            <input
+              type="email"
+              placeholder="your@email.com"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); setError(null); }}
+              onKeyDown={(e) => { if (e.key === "Enter") handleSubscribe(); }}
+              className="flex-1 rounded-lg border border-black/[0.08] bg-[#F5F5F5] px-3 py-2.5 text-sm text-[#171717] placeholder-[#9CA3AF] outline-none focus:border-[#C2410C]/30 focus:ring-1 focus:ring-[#C2410C]/20"
+            />
+            <button
+              onClick={handleSubscribe}
+              disabled={submitting}
+              className="shrink-0 rounded-lg bg-[#171717] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#2A2A2A] disabled:opacity-50 transition-colors"
+            >
+              {submitting ? "..." : "Get command"}
+            </button>
+          </div>
+          {error && (
+            <p className="mt-1.5 text-center text-xs text-red-500">{error}</p>
           )}
-        </span>
-      </button>
+          <p className="mt-2 text-center text-[10px] text-[#9CA3AF]">
+            We&apos;ll send setup tips. Unsubscribe anytime.
+          </p>
+        </div>
+      ) : (
+        <>
+          {/* Primary: copy install command */}
+          <button
+            onClick={handleCopyInstall}
+            className={`group relative flex items-center justify-between gap-3 rounded-xl px-5 py-4 font-mono text-sm transition-all ${
+              copied
+                ? "bg-[#16A34A] text-white"
+                : "bg-[#171717] text-[#E5E7EB] hover:bg-[#2A2A2A]"
+            }`}
+          >
+            <span className="flex-1 text-left overflow-x-auto whitespace-nowrap scrollbar-none">
+              <span className={copied ? "text-white/60" : "text-[#16A34A]"}>$</span>{" "}
+              {installCommand}
+            </span>
+            <span className={`shrink-0 flex items-center gap-1.5 text-xs font-sans transition-colors ${
+              copied ? "text-white" : "text-white/40 group-hover:text-white/70"
+            }`}>
+              {copied ? (
+                <>
+                  <CheckIcon className="h-3.5 w-3.5" />
+                  Copied!
+                </>
+              ) : (
+                <>
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9.75a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+                  </svg>
+                  Copy
+                </>
+              )}
+            </span>
+          </button>
 
-      <p className="text-center text-xs text-[#9CA3AF]">
-        Paste into your terminal. Requires Node.js and{" "}
-        <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#6B7280]">Claude Code</a>.
-      </p>
+          <p className="text-center text-xs text-[#9CA3AF]">
+            Paste into your terminal. Requires Node.js and{" "}
+            <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#6B7280]">Claude Code</a>.
+          </p>
+        </>
+      )}
 
       {/* Expandable guided setup for beginners */}
       <div className="border-t border-black/[0.06] pt-3">
@@ -403,12 +482,12 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
       {/* Consulting CTA */}
       <div className="text-center border-t border-black/[0.06] pt-3">
         <p className="text-xs text-[#9CA3AF] mb-2">Not technical?</p>
-        <a
-          href={`mailto:hello@claudeflows.com?subject=Setup%20Help%20-%20${encodeURIComponent(workflowName)}`}
+        <Link
+          href={`/consulting?from=${encodeURIComponent(workflowName)}`}
           className="inline-flex items-center gap-1.5 rounded-lg border border-orange-200 bg-orange-50 px-4 py-2 text-xs font-medium text-orange-800 hover:bg-orange-100 transition-colors"
         >
           Get this set up for me
-        </a>
+        </Link>
       </div>
     </div>
   );

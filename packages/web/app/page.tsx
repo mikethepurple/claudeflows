@@ -61,12 +61,12 @@ function CompactHero() {
             >
               Browse Skills
             </Link>
-            <a
-              href="mailto:hello@claudeflows.com?subject=Help me get set up"
+            <Link
+              href="/consulting"
               className="inline-flex rounded-xl border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 hover:border-neutral-400 hover:bg-neutral-50 transition-colors"
             >
               Get this set up for me
-            </a>
+            </Link>
           </div>
 
           <p className="mt-3 text-sm text-neutral-400">
@@ -197,9 +197,9 @@ function ConsultingCTA() {
         <p className="text-neutral-400 mb-6 max-w-lg mx-auto">
           We&apos;ll set up the right AI skills for your team, train your people, and make sure it actually works. First consultation is free.
         </p>
-        <a href="mailto:hello@claudeflows.com?subject=Consulting Inquiry" className="inline-flex rounded-xl bg-orange-700 px-6 py-3 text-sm font-medium text-white hover:bg-orange-800 transition-colors">
+        <Link href="/consulting" className="inline-flex rounded-xl bg-orange-700 px-6 py-3 text-sm font-medium text-white hover:bg-orange-800 transition-colors">
           Book a free consultation
-        </a>
+        </Link>
       </div>
     </section>
   );

@@ -475,12 +475,12 @@ export default function WorkflowDetailPage({ params }: PageProps) {
           >
             Copy install command
           </button>
-          <a
-            href={`mailto:hello@claudeflows.com?subject=Setup%20Help%20-%20${encodeURIComponent(wf.name)}`}
+          <Link
+            href={`/consulting?from=${encodeURIComponent(wf.name)}`}
             className="flex-1 rounded-xl border border-neutral-300 bg-white py-3 text-sm font-medium text-neutral-700 text-center"
           >
             Get help
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -4,9 +4,9 @@ export const SAMPLE_WORKFLOWS: Workflow[] = [
   {
     name: "venture-studio",
     displayName: "AI Venture Studio",
-    tagline: "Turn an idea into a validated business plan",
+    tagline: "Validate your startup idea before spending a dollar",
     description:
-      "Start with a rough startup idea — even just a sentence — and the AI researches your target audience, analyzes competitors, designs a business model, and builds a live landing page. You review each phase and decide when to move forward. At the end, you have a validated business plan with real data, not just guesses.",
+      "You have an idea but no way to know if it's worth your time and money. This skill runs it through a 6-step gauntlet — audience research, competitor analysis, solution design, business model, metrics, and execution — so you get a validated plan backed by data, not gut feelings.",
     detailedProcess: `Here's exactly what happens when you run this workflow:
 
 **Phase 1 — Audience & Problems.** The AI searches the web for your target market. It reads forums, social media, review sites, and industry reports to find what problems real people are complaining about. It produces a report with specific quotes, pain points ranked by frequency, and audience segments you might not have considered. You review the findings and tell it which problems look worth solving.
@@ -241,9 +241,9 @@ cd my-project
   {
     name: "scout",
     displayName: "Scout — Startup Research Engine",
-    tagline: "Research any industry in minutes, not days",
+    tagline: "Research any industry in 30 minutes, not 3 days",
     description:
-      "Tell it an industry and get back a structured database of 20+ startups — funding raised, valuation, founders, business models, and more. The AI searches public sources, verifies financial data with a second pass, and syncs everything to Google Sheets so your team can filter, sort, and share the results.",
+      "Researching an industry from scratch means days of Googling, tab-hopping, and spreadsheet wrangling. This skill profiles 20+ companies with funding data, market positioning, and competitive gaps — all verified with a second pass and delivered in one structured report.",
     detailedProcess: `Here's exactly what happens when you run Scout:
 
 **Step 1 — You name an industry.** You type something like "AI developer tools" or "B2B fintech in Europe" and the AI starts working.
