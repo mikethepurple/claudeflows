@@ -1,0 +1,17 @@
+{
+  "name": "hiring-kit",
+  "displayName": "Job Description + Interview Kit",
+  "version": "1.0.0",
+  "description": "Hiring someone? Stop spending 3 hours writing a job description and making up interview questions on the spot. Give it the role and level, get back a polished JD, structured interview scorecard, behavioral questions with scoring rubrics, and a take-home assignment.",
+  "tagline": "Everything you need to hire well, in 5 minutes",
+  "author": { "name": "claudeflows", "github": "mikethepurple" },
+  "category": "business",
+  "tags": ["hiring", "HR", "job-description", "interview", "recruiting"],
+  "skills": [
+    { "name": "create-kit", "description": "Generate a complete hiring kit for any role" }
+  ],
+  "mcp": {},
+  "repository": "https://github.com/mikethepurple/claudeflows",
+  "difficulty": "beginner",
+  "estimatedTime": "5 minutes"
+}

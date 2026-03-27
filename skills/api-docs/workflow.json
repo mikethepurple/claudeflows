@@ -1,0 +1,17 @@
+{
+  "name": "api-docs",
+  "displayName": "API Documentation Generator",
+  "version": "1.0.0",
+  "description": "Your API works but nobody can figure out how to use it because the docs are either missing or auto-generated garbage. Point this at your codebase and get back clean, developer-friendly documentation with examples, error handling guides, and quickstart tutorials.",
+  "tagline": "API docs developers actually want to read",
+  "author": { "name": "claudeflows", "github": "mikethepurple" },
+  "category": "development",
+  "tags": ["API", "documentation", "developer-tools", "REST", "reference"],
+  "skills": [
+    { "name": "generate-docs", "description": "Generate comprehensive API documentation from your codebase" }
+  ],
+  "mcp": {},
+  "repository": "https://github.com/mikethepurple/claudeflows",
+  "difficulty": "intermediate",
+  "estimatedTime": "10-20 minutes"
+}

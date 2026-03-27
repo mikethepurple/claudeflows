@@ -1,0 +1,17 @@
+{
+  "name": "content-repurpose",
+  "displayName": "Content Repurposing Engine",
+  "version": "1.0.0",
+  "description": "You wrote a blog post. Now you need it as a LinkedIn carousel, a Twitter thread, a newsletter intro, and an email nurture sequence. This skill takes one piece of content and transforms it into 5+ formats, matching the tone and conventions of each platform.",
+  "tagline": "One blog post → five platforms, zero extra writing",
+  "author": { "name": "claudeflows", "github": "mikethepurple" },
+  "category": "marketing",
+  "tags": ["content", "repurposing", "social-media", "linkedin", "twitter", "newsletter"],
+  "skills": [
+    { "name": "repurpose", "description": "Transform one piece of content into multiple platform-specific formats" }
+  ],
+  "mcp": {},
+  "repository": "https://github.com/mikethepurple/claudeflows",
+  "difficulty": "beginner",
+  "estimatedTime": "3-5 minutes"
+}

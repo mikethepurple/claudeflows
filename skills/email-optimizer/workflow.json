@@ -1,0 +1,17 @@
+{
+  "name": "email-optimizer",
+  "displayName": "Email Sequence Optimizer",
+  "version": "1.0.0",
+  "description": "Your welcome sequence has a 12% open rate and you're not sure why. Paste your existing emails and get back a line-by-line audit: what's killing your opens, where you're losing readers, and rewritten versions that fix each issue. Includes A/B test suggestions and conversion scoring.",
+  "tagline": "Audit and fix your email sequences",
+  "author": { "name": "claudeflows", "github": "mikethepurple" },
+  "category": "marketing",
+  "tags": ["email", "optimization", "conversion", "copywriting", "A/B-testing"],
+  "skills": [
+    { "name": "optimize", "description": "Audit existing email sequences and generate optimized versions" }
+  ],
+  "mcp": {},
+  "repository": "https://github.com/mikethepurple/claudeflows",
+  "difficulty": "beginner",
+  "estimatedTime": "5-10 minutes"
+}

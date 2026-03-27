@@ -1,0 +1,17 @@
+{
+  "name": "sop-generator",
+  "displayName": "SOP & Process Documentation",
+  "version": "1.0.0",
+  "description": "Your team does the same thing every week but it only lives in one person's head. Describe the process in plain English — messy is fine — and get back a clean, structured SOP with numbered steps, decision points, checklists, and role assignments. Ready to drop into Notion, Confluence, or Google Docs.",
+  "tagline": "Turn tribal knowledge into documented processes",
+  "author": { "name": "claudeflows", "github": "mikethepurple" },
+  "category": "operations",
+  "tags": ["SOP", "process", "documentation", "operations", "procedures", "onboarding"],
+  "skills": [
+    { "name": "create-sop", "description": "Generate a structured SOP from a plain-English process description" }
+  ],
+  "mcp": {},
+  "repository": "https://github.com/mikethepurple/claudeflows",
+  "difficulty": "beginner",
+  "estimatedTime": "5-10 minutes"
+}

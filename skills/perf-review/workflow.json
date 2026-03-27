@@ -1,0 +1,17 @@
+{
+  "name": "perf-review",
+  "displayName": "Performance Review Writer",
+  "version": "1.0.0",
+  "description": "It's review season and you have 8 direct reports to write reviews for. You know what you want to say but staring at the blank form is painful. Give it bullet points about each person's work, get back a complete, nuanced review that sounds like you wrote it thoughtfully — because the input IS thoughtful, just unstructured.",
+  "tagline": "Write thoughtful reviews in minutes, not hours",
+  "author": { "name": "claudeflows", "github": "mikethepurple" },
+  "category": "business",
+  "tags": ["performance-review", "HR", "management", "feedback", "career-development"],
+  "skills": [
+    { "name": "write-review", "description": "Generate a structured performance review from rough notes" }
+  ],
+  "mcp": {},
+  "repository": "https://github.com/mikethepurple/claudeflows",
+  "difficulty": "beginner",
+  "estimatedTime": "5 minutes per review"
+}

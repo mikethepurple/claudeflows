@@ -1,0 +1,19 @@
+{
+  "name": "vendor-compare",
+  "displayName": "Vendor Comparison Report",
+  "version": "1.0.0",
+  "description": "Evaluating 4 CRM tools and drowning in feature comparison tabs? Give it the vendors and your requirements, get back a structured comparison matrix with scoring, pros/cons, pricing analysis, and a clear recommendation with reasoning. The kind of analysis a consultant would charge $2K for.",
+  "tagline": "Compare vendors objectively, decide in minutes",
+  "author": { "name": "claudeflows", "github": "mikethepurple" },
+  "category": "operations",
+  "tags": ["vendor", "comparison", "procurement", "evaluation", "RFP"],
+  "skills": [
+    { "name": "compare", "description": "Generate a structured vendor comparison report" }
+  ],
+  "mcp": {
+    "brave-search": { "required": true, "plainName": "Web Search", "plainDescription": "Research vendor features and pricing" }
+  },
+  "repository": "https://github.com/mikethepurple/claudeflows",
+  "difficulty": "beginner",
+  "estimatedTime": "5-10 minutes"
+}

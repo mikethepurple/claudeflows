@@ -307,7 +307,7 @@ function HowItWorksSection() {
 
 function TrustBar() {
   const stats = [
-    { label: "Skills", value: "4" },
+    { label: "Skills", value: "14" },
     { label: "Installs", value: "529" },
     { label: "Creators", value: "3" },
   ];

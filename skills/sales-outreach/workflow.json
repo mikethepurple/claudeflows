@@ -1,0 +1,17 @@
+{
+  "name": "sales-outreach",
+  "displayName": "Sales Outreach Sequence Generator",
+  "version": "1.0.0",
+  "description": "Cold emails that don't sound like cold emails. Give it your target persona and value prop, get back a complete 5-7 step outreach sequence with subject lines, personalization hooks, follow-up timing, and A/B variants. Replaces $37-99/mo tools like Instantly or Lemlist.",
+  "tagline": "Cold outreach sequences that actually get replies",
+  "author": { "name": "claudeflows", "github": "mikethepurple" },
+  "category": "marketing",
+  "tags": ["sales", "outreach", "email", "cold-email", "sequences", "SDR"],
+  "skills": [
+    { "name": "generate-sequence", "description": "Generate a complete outreach sequence from persona + value prop" }
+  ],
+  "mcp": {},
+  "repository": "https://github.com/mikethepurple/claudeflows",
+  "difficulty": "beginner",
+  "estimatedTime": "5-10 minutes"
+}

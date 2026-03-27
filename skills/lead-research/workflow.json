@@ -1,0 +1,19 @@
+{
+  "name": "lead-research",
+  "displayName": "Lead Research & Prospect Briefing",
+  "version": "1.0.0",
+  "description": "Your next sales call is in 30 minutes and you know nothing about the prospect. This skill researches any company and builds you a complete briefing: what they do, recent news, tech stack, decision makers, pain points, and exactly what to say on the call.",
+  "tagline": "Know everything about your prospect in 2 minutes",
+  "author": { "name": "claudeflows", "github": "mikethepurple" },
+  "category": "business",
+  "tags": ["sales", "lead-research", "prospect", "briefing", "account-research"],
+  "skills": [
+    { "name": "research-prospect", "description": "Research a company and generate a sales briefing" }
+  ],
+  "mcp": {
+    "brave-search": { "required": true, "plainName": "Web Search", "plainDescription": "Search the web for company information" }
+  },
+  "repository": "https://github.com/mikethepurple/claudeflows",
+  "difficulty": "beginner",
+  "estimatedTime": "2-3 minutes"
+}

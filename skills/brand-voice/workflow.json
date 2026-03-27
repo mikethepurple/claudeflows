@@ -1,0 +1,17 @@
+{
+  "name": "brand-voice",
+  "displayName": "Voice DNA & Brand Guide",
+  "version": "1.0.0",
+  "description": "Your brand sounds different in every email, social post, and landing page because there's no written guide. Paste 5-10 samples of your best content and get back a complete brand voice guide: tone dimensions, vocabulary rules, do's and don'ts, and before/after rewrites showing your voice applied consistently.",
+  "tagline": "Extract your brand voice into a guide anyone can follow",
+  "author": { "name": "claudeflows", "github": "mikethepurple" },
+  "category": "marketing",
+  "tags": ["brand", "voice", "tone", "copywriting", "style-guide", "content-strategy"],
+  "skills": [
+    { "name": "extract-voice", "description": "Analyze content samples and generate a brand voice guide" }
+  ],
+  "mcp": {},
+  "repository": "https://github.com/mikethepurple/claudeflows",
+  "difficulty": "beginner",
+  "estimatedTime": "5-10 minutes"
+}
