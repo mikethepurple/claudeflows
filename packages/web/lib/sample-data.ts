@@ -2,6 +2,24 @@ import type { Workflow, TokenEstimate } from "./types";
 
 export const SAMPLE_WORKFLOWS: Workflow[] = [
   {
+    name: "checkpoint",
+    displayName: "Session Checkpoint",
+    tagline: "Never lose session context again",
+    description: "Long Claude Code sessions lose context. Important decisions evaporate. You pick up tomorrow and Claude has no idea what happened today. This skill saves your session state in under 30 seconds — environment, pending actions, decisions made, known issues — so you or the next session can resume exactly where you left off.",
+    author: { name: "claudeflows", github: "mikethepurple" },
+    version: "1.0.0",
+    category: "development",
+    tags: ["context", "session", "save", "state", "productivity", "memory"],
+    installs: 0,
+    rating: 0,
+    skills: [{ name: "checkpoint", description: "Save current session state — environment, decisions, pending work, issues" }],
+    mcp: {},
+    repository: "https://github.com/mikethepurple/claudeflows",
+    license: "MIT",
+    difficulty: "beginner",
+    estimatedTime: "30 seconds",
+  },
+  {
     name: "venture-studio",
     displayName: "AI Venture Studio",
     tagline: "Validate your startup idea before spending a dollar",

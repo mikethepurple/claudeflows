@@ -1,0 +1,18 @@
+{
+  "name": "checkpoint",
+  "displayName": "Session Checkpoint",
+  "version": "1.0.0",
+  "description": "Long Claude Code sessions lose context. Important decisions evaporate. You pick up tomorrow and Claude has no idea what happened today. This skill saves your session state in under 30 seconds — environment, pending actions, decisions made, known issues — so you or the next session can resume exactly where you left off.",
+  "tagline": "Never lose session context again",
+  "author": { "name": "claudeflows", "github": "mikethepurple" },
+  "category": "development",
+  "tags": ["context", "session", "save", "state", "productivity", "memory"],
+  "skills": [
+    { "name": "checkpoint", "description": "Save current session state — environment, decisions, pending work, issues" }
+  ],
+  "mcp": {},
+  "repository": "https://github.com/mikethepurple/claudeflows",
+  "license": "MIT",
+  "difficulty": "beginner",
+  "estimatedTime": "30 seconds"
+}
