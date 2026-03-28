@@ -1,14 +1,20 @@
 # Session Checkpoint
 
-Quick state save for Claude Code sessions. Run `/checkpoint` at any point to capture what's happened so far — decisions, progress, environment state, issues — without a full session wrap-up.
+Quick state save for Claude Code sessions. Captures decisions, progress, environment state, and issues — so the next session can resume where this one left off.
 
-## When to use
+## Auto-trigger rule
 
-- Before context gets too long and compression kicks in
-- When switching between projects mid-session
-- Before doing something risky (deploy, refactor, migration)
-- At natural breakpoints in multi-hour sessions
-- End of day when you'll continue tomorrow
+**Run `/checkpoint` automatically after:**
+- Deploying to staging or production
+- Completing a multi-step feature or batch of changes
+- 1+ hours of work without a checkpoint
+- Before any risky operation (migration, major refactor, data changes)
+
+Do NOT ask the user. Just do it. If the project has a STATE.md, it should always reflect reality.
+
+## Manual trigger
+
+The user can also run `/checkpoint` anytime — before a break, before switching projects, end of day.
 
 ## What it saves
 
