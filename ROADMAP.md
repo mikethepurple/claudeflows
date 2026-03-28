@@ -12,10 +12,11 @@
 - [ ] Verify email capture + consulting form work end-to-end on staging
 - [ ] Deploy to production
 
-### Skill Auto-Sync (Build → Display Pipeline)
-- [ ] Build script: scan `skills/*/workflow.json` → generate `sample-data.ts` at build time
-- [ ] Remove hardcoded sample data — all skills read from filesystem
-- [ ] Bonus: make this a general-purpose skill for the marketplace ("Skill Publisher" — auto-generates marketplace listings from workflow.json)
+### Skill Auto-Sync (Build → Display Pipeline) ✅
+- [x] Build script: `scripts/generate-sample-data.ts` scans `skills/*/workflow.json` → generates `sample-data.ts`
+- [x] Runs on prebuild — edit workflow.json, deploy, website updates
+- [x] Token estimates auto-calculated from prompt file sizes
+- [ ] `claudeflows publish` command — push paid prompts to Supabase for authenticated delivery
 
 ---
 

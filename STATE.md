@@ -2,20 +2,22 @@
 
 ## Environment
 
-- **Staging:** claudeflows-staging.vercel.app (deployed, latest commit 5aaae3e)
+- **Staging:** claudeflows-staging.vercel.app (deployed, latest commit 3a2deb4)
 - **Production:** claudeflows.vercel.app (OLD — pre-redesign, has not been updated)
 - **Supabase:** myzmadvevthaegdetfjr (linked, migrations 001-002 applied, 003_leads_tables NOT yet applied — user needs to run SQL in dashboard)
 - **npm:** claudeflows@0.2.0 (published, unscoped)
-- **GitHub:** mikethepurple/claudeflows (READMEs committed, not pushed to remote yet — 8 commits ahead)
+- **GitHub:** mikethepurple/claudeflows (~10 commits ahead of remote, not pushed)
 - **Skills:** 15 total in `skills/` directory (11 new + 4 original)
+- **Auto-sync:** `scripts/generate-sample-data.ts` reads workflow.json → generates sample-data.ts on prebuild
 
 ## Pending Actions
 
 1. **Apply Supabase migration 003** — email_subscribers + consulting_leads tables. SQL ready, user needs to paste into dashboard (IPv6 blocks CLI push)
-2. **Push to GitHub** — 8 local commits not pushed to remote
+2. **Push to GitHub** — ~10 local commits not pushed to remote
 3. **Deploy to production** — staging is fully updated, production is old pre-redesign version
-4. **Paid skill IP protection** — all skill prompts (including future paid ones) are in public repo. Need to split free/paid storage before charging.
+4. **Paid skill IP protection** — all skill prompts (including future paid ones) are in public repo. Decided: prompts go in Supabase for paid delivery, git stays source of truth for dev. `claudeflows publish` command needed.
 5. **Claude Flows needs its own venture-studio project structure** — user flagged this, not yet created
+6. **System-level skills** — /save needs CLAUDE.md auto-trigger, /roadmap skill doesn't exist yet
 
 ## Decisions Made This Session
 
