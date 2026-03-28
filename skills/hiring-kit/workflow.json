@@ -13,5 +13,9 @@
   "mcp": {},
   "repository": "https://github.com/mikethepurple/claudeflows",
   "difficulty": "beginner",
-  "estimatedTime": "5 minutes"
+  "estimatedTime": "5 minutes",
+  "setupTime": "Instant — no setup needed",
+  "outputDescription": "A complete hiring kit: polished job description, structured interview scorecard, 8-10 behavioral questions with rubrics, take-home assignment, and offer talking points.",
+  "costInfo": "~$0.45 per run",
+  "price": 0
 }

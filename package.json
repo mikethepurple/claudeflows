@@ -8,11 +8,16 @@
     "packages/web"
   ],
   "scripts": {
+    "generate": "tsx scripts/generate-sample-data.ts",
+    "prebuild": "npm run generate",
     "build": "npm run build --workspaces",
     "build:cli": "npm run build -w packages/cli",
     "build:web": "npm run build -w packages/web",
     "dev:web": "npm run dev -w packages/web",
     "lint": "npm run lint --workspaces"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
   },
   "engines": {
     "node": ">=18.0.0"

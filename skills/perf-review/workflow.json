@@ -13,5 +13,9 @@
   "mcp": {},
   "repository": "https://github.com/mikethepurple/claudeflows",
   "difficulty": "beginner",
-  "estimatedTime": "5 minutes per review"
+  "estimatedTime": "5 minutes per review",
+  "setupTime": "Instant — no setup needed",
+  "outputDescription": "A structured performance review with summary, key accomplishments, strengths, development areas, SMART goals, and rating recommendation.",
+  "costInfo": "~$0.30 per run",
+  "price": 0
 }

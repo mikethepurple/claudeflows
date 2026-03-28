@@ -13,5 +13,9 @@
   "mcp": {},
   "repository": "https://github.com/mikethepurple/claudeflows",
   "difficulty": "beginner",
-  "estimatedTime": "5-10 minutes"
+  "estimatedTime": "5-10 minutes",
+  "setupTime": "Instant — no setup needed",
+  "outputDescription": "A per-email audit with scores, issue diagnosis, and complete rewrites, plus sequence-level flow analysis, timing recommendations, and a prioritized A/B test plan.",
+  "costInfo": "~$0.45 per run",
+  "price": 0
 }

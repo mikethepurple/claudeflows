@@ -13,5 +13,9 @@
   "mcp": {},
   "repository": "https://github.com/mikethepurple/claudeflows",
   "difficulty": "beginner",
-  "estimatedTime": "3-5 minutes"
+  "estimatedTime": "3-5 minutes",
+  "setupTime": "Instant — no setup needed",
+  "outputDescription": "Your content transformed into 5 platform-native formats: LinkedIn post, Twitter thread, newsletter section, email nurture, and Instagram caption.",
+  "costInfo": "~$0.25 per run",
+  "price": 0
 }

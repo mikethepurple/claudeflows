@@ -13,5 +13,9 @@
   "mcp": {},
   "repository": "https://github.com/mikethepurple/claudeflows",
   "difficulty": "beginner",
-  "estimatedTime": "5-10 minutes"
+  "estimatedTime": "5-10 minutes",
+  "setupTime": "Instant — no setup needed",
+  "outputDescription": "A complete brand voice guide with tone dimensions, vocabulary rules, do's and don'ts, before/after rewrites, and platform-specific adaptations.",
+  "costInfo": "~$0.30 per run",
+  "price": 0
 }

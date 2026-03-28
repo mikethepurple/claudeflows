@@ -13,5 +13,9 @@
   "mcp": {},
   "repository": "https://github.com/mikethepurple/claudeflows",
   "difficulty": "beginner",
-  "estimatedTime": "5-10 minutes"
+  "estimatedTime": "5-10 minutes",
+  "setupTime": "Instant — no setup needed",
+  "outputDescription": "A complete SOP document with numbered steps, decision points, role assignments, checklists, troubleshooting table, and revision history — ready for Notion or Confluence.",
+  "costInfo": "~$0.30 per run",
+  "price": 0
 }

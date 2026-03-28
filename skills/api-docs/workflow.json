@@ -13,5 +13,9 @@
   "mcp": {},
   "repository": "https://github.com/mikethepurple/claudeflows",
   "difficulty": "intermediate",
-  "estimatedTime": "10-20 minutes"
+  "estimatedTime": "10-20 minutes",
+  "setupTime": "Instant — just point it at your codebase",
+  "outputDescription": "Complete API documentation with quickstart guide, authentication docs, full endpoint reference with curl/JS/Python examples, error handling guide, and rate limit info.",
+  "costInfo": "~$1.00 per run",
+  "price": 0
 }

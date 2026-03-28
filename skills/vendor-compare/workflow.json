@@ -15,5 +15,9 @@
   },
   "repository": "https://github.com/mikethepurple/claudeflows",
   "difficulty": "beginner",
-  "estimatedTime": "5-10 minutes"
+  "estimatedTime": "5-10 minutes",
+  "setupTime": "Requires Brave Search MCP server configured",
+  "outputDescription": "A scored comparison matrix, per-vendor profiles with pricing breakdowns and gotchas, true cost analysis, migration risks, and a ranked recommendation.",
+  "costInfo": "~$0.80 per run",
+  "price": 0
 }

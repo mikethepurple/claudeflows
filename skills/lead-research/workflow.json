@@ -15,5 +15,9 @@
   },
   "repository": "https://github.com/mikethepurple/claudeflows",
   "difficulty": "beginner",
-  "estimatedTime": "2-3 minutes"
+  "estimatedTime": "2-3 minutes",
+  "setupTime": "Requires Brave Search MCP server configured",
+  "outputDescription": "A scannable prospect briefing with company snapshot, recent news, key people, tech stack, pain points, competitive context, and a tailored talk track.",
+  "costInfo": "~$0.60 per run",
+  "price": 0
 }

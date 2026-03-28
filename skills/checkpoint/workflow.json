@@ -14,5 +14,9 @@
   "repository": "https://github.com/mikethepurple/claudeflows",
   "license": "MIT",
   "difficulty": "beginner",
-  "estimatedTime": "30 seconds"
+  "estimatedTime": "30 seconds",
+  "setupTime": "Instant — no setup needed",
+  "outputDescription": "Updated STATE.md with environment snapshot, pending actions, decisions, and known issues for seamless session resumption.",
+  "costInfo": "~$0.05 per run",
+  "price": 0
 }
