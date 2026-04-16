@@ -55,7 +55,7 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-[rgba(255,255,255,0.36)]">
           Token Usage
         </h3>
         <span
@@ -71,45 +71,45 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
 
       {/* Total */}
       <div className="flex items-baseline justify-between">
-        <span className="text-2xl font-bold text-[#171717]">
+        <span className="text-2xl font-bold text-[rgba(255,255,255,0.92)]">
           ~{formatTokens(estimate.totalTokens)}
         </span>
-        <span className="text-xs text-[#9CA3AF]">tokens per run</span>
+        <span className="text-xs text-[rgba(255,255,255,0.36)]">tokens per run</span>
       </div>
 
       {/* API cost */}
-      <div className="rounded-lg bg-[#F5F5F5] px-3 py-2.5">
+      <div className="rounded-lg bg-[rgba(255,255,255,0.04)] px-3 py-2.5">
         <div className="flex items-center justify-between">
-          <span className="text-[10px] uppercase tracking-wider text-[#9CA3AF]">
+          <span className="text-[10px] uppercase tracking-wider text-[rgba(255,255,255,0.36)]">
             API cost (Sonnet)
           </span>
-          <span className="text-sm font-semibold text-[#171717]">
+          <span className="text-sm font-semibold text-[rgba(255,255,255,0.92)]">
             {formatUsd(apiCost)}
           </span>
         </div>
-        <p className="mt-0.5 text-[10px] text-[#9CA3AF]">
+        <p className="mt-0.5 text-[10px] text-[rgba(255,255,255,0.36)]">
           $3/M input + $15/M output
         </p>
       </div>
 
       {/* Plan usage comparison */}
-      <div className="rounded-lg border border-black/[0.06] overflow-hidden">
-        <div className="bg-[#F5F5F5] px-3 py-1.5">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-[#6B7280]">
+      <div className="rounded-lg border border-[rgba(255,255,255,0.06)] overflow-hidden">
+        <div className="bg-[rgba(255,255,255,0.04)] px-3 py-1.5">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-[rgba(255,255,255,0.60)]">
             % of your 5-hour limit
           </p>
         </div>
-        <div className="divide-y divide-black/[0.04]">
+        <div className="divide-y divide-[rgba(255,255,255,0.04)]">
           {PLANS.map((plan) => {
             const pct = (estimate.totalTokens / plan.budget5hr) * 100;
             const exceeds = pct > 100;
             return (
               <div key={plan.id} className="flex items-center gap-2.5 px-3 py-2">
                 <div className="w-16 shrink-0">
-                  <span className="text-[11px] font-medium text-[#171717]">{plan.label}</span>
-                  <span className="block text-[9px] text-[#9CA3AF]">{plan.price}</span>
+                  <span className="text-[11px] font-medium text-[rgba(255,255,255,0.92)]">{plan.label}</span>
+                  <span className="block text-[9px] text-[rgba(255,255,255,0.36)]">{plan.price}</span>
                 </div>
-                <div className="flex-1 h-2 rounded-full bg-black/[0.04] overflow-hidden">
+                <div className="flex-1 h-2 rounded-full bg-[rgba(255,255,255,0.06)] overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all ${barColor(pct)}`}
                     style={{ width: `${Math.min(pct, 100)}%` }}
@@ -126,8 +126,8 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
         </div>
         {/* Warning if exceeds Pro */}
         {estimate.totalTokens > PLANS[0].budget5hr && (
-          <div className="border-t border-black/[0.04] bg-red-50 px-3 py-2">
-            <p className="text-[10px] text-red-700">
+          <div className="border-t border-[rgba(255,255,255,0.04)] bg-red-950/40 px-3 py-2">
+            <p className="text-[10px] text-red-400">
               Exceeds Pro 5-hour limit — you&apos;ll need multiple sessions or a Max plan.
             </p>
           </div>
@@ -136,19 +136,19 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
 
       {/* Input / Output split */}
       <div className="flex gap-3">
-        <div className="flex-1 rounded-lg bg-[#F5F5F5] px-3 py-2">
-          <span className="block text-[10px] uppercase tracking-wider text-[#9CA3AF]">
+        <div className="flex-1 rounded-lg bg-[rgba(255,255,255,0.04)] px-3 py-2">
+          <span className="block text-[10px] uppercase tracking-wider text-[rgba(255,255,255,0.36)]">
             Input
           </span>
-          <span className="text-sm font-semibold text-[#374151]">
+          <span className="text-sm font-semibold text-[rgba(255,255,255,0.60)]">
             {formatTokens(estimate.inputTokens)}
           </span>
         </div>
-        <div className="flex-1 rounded-lg bg-[#F5F5F5] px-3 py-2">
-          <span className="block text-[10px] uppercase tracking-wider text-[#9CA3AF]">
+        <div className="flex-1 rounded-lg bg-[rgba(255,255,255,0.04)] px-3 py-2">
+          <span className="block text-[10px] uppercase tracking-wider text-[rgba(255,255,255,0.36)]">
             Output
           </span>
-          <span className="text-sm font-semibold text-[#374151]">
+          <span className="text-sm font-semibold text-[rgba(255,255,255,0.60)]">
             {formatTokens(estimate.outputTokens)}
           </span>
         </div>
@@ -157,7 +157,7 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
       {/* Per-step bar chart */}
       {stepsWithTokens.length > 0 && (
         <div className="mt-1">
-          <p className="mb-2 text-[10px] uppercase tracking-wider text-[#9CA3AF]">
+          <p className="mb-2 text-[10px] uppercase tracking-wider text-[rgba(255,255,255,0.36)]">
             Per step
           </p>
           <div className="flex flex-col gap-1.5">
@@ -167,16 +167,16 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
                 : 0;
               return (
                 <div key={step.name} className="flex items-center gap-2">
-                  <span className="w-24 shrink-0 truncate text-[11px] text-[#6B7280]">
+                  <span className="w-24 shrink-0 truncate text-[11px] text-[rgba(255,255,255,0.60)]">
                     {step.name}
                   </span>
-                  <div className="flex-1 h-2 rounded-full bg-[#F5F5F5] overflow-hidden">
+                  <div className="flex-1 h-2 rounded-full bg-[rgba(255,255,255,0.06)] overflow-hidden">
                     <div
-                      className="h-full rounded-full bg-[#C2410C]"
+                      className="h-full rounded-full bg-[#6366F1]"
                       style={{ width: `${Math.max(pct, 4)}%` }}
                     />
                   </div>
-                  <span className="w-10 shrink-0 text-right text-[11px] text-[#9CA3AF]">
+                  <span className="w-10 shrink-0 text-right text-[11px] text-[rgba(255,255,255,0.36)]">
                     {formatTokens(step.tokenEstimate!.totalTokens)}
                   </span>
                 </div>
@@ -188,12 +188,12 @@ export default function TokenEstimate({ estimate, steps }: TokenEstimateProps) {
 
       {/* Note */}
       {estimate.note && (
-        <p className="text-[11px] leading-relaxed text-[#9CA3AF]">
+        <p className="text-[11px] leading-relaxed text-[rgba(255,255,255,0.36)]">
           {estimate.note}
         </p>
       )}
 
-      <p className="text-[10px] leading-relaxed text-[#D1D5DB]">
+      <p className="text-[10px] leading-relaxed text-[rgba(255,255,255,0.20)]">
         Plan limits are approximate — Anthropic doesn&apos;t publish exact token budgets. API rates are for Claude Sonnet.
       </p>
     </div>

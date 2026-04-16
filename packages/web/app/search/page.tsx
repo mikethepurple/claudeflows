@@ -45,10 +45,10 @@ function SearchContent() {
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       {/* Search header */}
       <div className="mb-10">
-        <h1 className="text-3xl font-extrabold text-[#171717]">
+        <h1 className="text-3xl font-extrabold text-[rgba(255,255,255,0.92)]">
           Search Skills
         </h1>
-        <p className="mt-2 text-[#6B7280]">
+        <p className="mt-2 text-[rgba(255,255,255,0.60)]">
           Find the right AI skill for your task
         </p>
       </div>
@@ -57,7 +57,7 @@ function SearchContent() {
       <form onSubmit={handleSubmit} className="mb-10">
         <div className="relative">
           <svg
-            className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#9CA3AF]"
+            className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[rgba(255,255,255,0.36)]"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
@@ -74,7 +74,7 @@ function SearchContent() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name, category, tag, or description..."
-            className="w-full rounded-xl border border-black/[0.08] bg-white py-4 pl-12 pr-4 text-base text-[#171717] placeholder-[#9CA3AF] shadow-sm outline-none transition-colors focus:border-[#C2410C]/50 focus:ring-1 focus:ring-[#C2410C]/25"
+            className="w-full rounded-xl border border-[rgba(255,255,255,0.10)] bg-[rgba(255,255,255,0.03)] py-4 pl-12 pr-4 text-base text-[rgba(255,255,255,0.92)] placeholder-[rgba(255,255,255,0.36)] outline-none transition-colors focus:border-[rgba(99,102,241,0.50)] focus:ring-1 focus:ring-[rgba(99,102,241,0.25)]"
             autoFocus
           />
         </div>
@@ -84,13 +84,13 @@ function SearchContent() {
       {results.length > 0 ? (
         <div>
           <div className="mb-5 flex items-end justify-between">
-            <span className="text-sm text-[#6B7280]">
+            <span className="text-sm text-[rgba(255,255,255,0.60)]">
               {results.length} result{results.length !== 1 ? "s" : ""}
               {query.trim() ? (
                 <>
                   {" "}
                   for{" "}
-                  <span className="text-[#171717]">
+                  <span className="text-[rgba(255,255,255,0.92)]">
                     &ldquo;{query.trim()}&rdquo;
                   </span>
                 </>
@@ -105,9 +105,9 @@ function SearchContent() {
         </div>
       ) : (
         <div className="flex flex-col items-center py-20 text-center">
-          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#F5F5F5]">
+          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[rgba(255,255,255,0.04)]">
             <svg
-              className="h-8 w-8 text-[#9CA3AF]"
+              className="h-8 w-8 text-[rgba(255,255,255,0.36)]"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
@@ -120,13 +120,13 @@ function SearchContent() {
               />
             </svg>
           </div>
-          <h3 className="mb-2 text-lg font-semibold text-[#171717]">
+          <h3 className="mb-2 text-lg font-semibold text-[rgba(255,255,255,0.92)]">
             No workflows found
           </h3>
-          <p className="max-w-sm text-sm text-[#6B7280]">
+          <p className="max-w-sm text-sm text-[rgba(255,255,255,0.60)]">
             No workflows matched your search for &ldquo;{query}&rdquo;. Try a
             different query or{" "}
-            <a href="/" className="text-[#C2410C] hover:underline">
+            <a href="/" className="text-[#6366F1] hover:underline">
               browse all workflows
             </a>
             .
@@ -143,14 +143,14 @@ export default function SearchPage() {
       fallback={
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="mb-10">
-            <h1 className="text-3xl font-extrabold text-[#171717]">
+            <h1 className="text-3xl font-extrabold text-[rgba(255,255,255,0.92)]">
               Search Skills
             </h1>
-            <p className="mt-2 text-[#6B7280]">
+            <p className="mt-2 text-[rgba(255,255,255,0.60)]">
               Find the right AI skill for your task
             </p>
           </div>
-          <div className="h-14 w-full rounded-xl border border-black/[0.08] bg-white animate-pulse shadow-sm" />
+          <div className="h-14 w-full rounded-xl border border-[rgba(255,255,255,0.10)] bg-[rgba(255,255,255,0.03)] animate-pulse" />
         </div>
       }
     >

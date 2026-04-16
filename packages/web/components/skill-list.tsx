@@ -21,13 +21,13 @@ function SkillCard({
   return (
     <button
       onClick={() => setExpanded(!expanded)}
-      className="w-full text-left rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm transition-all hover:border-[#C2410C]/30 hover:shadow-md"
+      className="w-full text-left rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-4 transition-all hover:border-[rgba(99,102,241,0.30)] hover:bg-[rgba(255,255,255,0.05)]"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#C2410C]/10">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[rgba(99,102,241,0.15)]">
             <svg
-              className="h-4 w-4 text-[#C2410C]"
+              className="h-4 w-4 text-[#6366F1]"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
@@ -41,13 +41,13 @@ function SkillCard({
             </svg>
           </div>
           <div>
-            <span className="font-semibold text-[#171717] text-base">
+            <span className="font-semibold text-[rgba(255,255,255,0.92)] text-base">
               {skill.name}
             </span>
           </div>
         </div>
         <svg
-          className={`h-4 w-4 text-[#9CA3AF] transition-transform ${
+          className={`h-4 w-4 text-[rgba(255,255,255,0.36)] transition-transform ${
             expanded ? "rotate-180" : ""
           }`}
           fill="none"
@@ -64,16 +64,16 @@ function SkillCard({
       </div>
 
       {expanded && (
-        <div className="mt-3 border-t border-black/[0.06] pt-3">
-          <p className="mb-2 text-sm text-[#6B7280]">{skill.description}</p>
-          <div className="rounded-lg bg-[#F5F5F5] px-3 py-2">
-            <code className="text-xs text-[#C2410C] font-mono">{command}</code>
+        <div className="mt-3 border-t border-[rgba(255,255,255,0.08)] pt-3">
+          <p className="mb-2 text-sm text-[rgba(255,255,255,0.60)]">{skill.description}</p>
+          <div className="rounded-lg bg-[rgba(255,255,255,0.04)] px-3 py-2">
+            <code className="text-xs text-[#6366F1] font-mono">{command}</code>
           </div>
         </div>
       )}
 
       {!expanded && (
-        <p className="mt-1.5 text-xs text-[#9CA3AF]">{skill.description}</p>
+        <p className="mt-1.5 text-xs text-[rgba(255,255,255,0.36)]">{skill.description}</p>
       )}
     </button>
   );

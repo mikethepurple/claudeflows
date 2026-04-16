@@ -1,23 +1,44 @@
-# Claude Flows State — Last updated: 2026-03-28
+# Claude Flows State — Last updated: 2026-04-16
 
 ## Environment
 
-- **Staging:** claudeflows-staging.vercel.app (deployed, latest commit 3a2deb4)
-- **Production:** claudeflows.vercel.app (OLD — pre-redesign, has not been updated)
-- **Supabase:** myzmadvevthaegdetfjr (linked, migrations 001-002 applied, 003_leads_tables NOT yet applied — user needs to run SQL in dashboard)
+- **Staging:** claudeflows-staging.vercel.app (OLD — pre-dark-mode)
+- **Production:** claudeflows.vercel.app (OLD — pre-redesign)
+- **Local dev:** localhost:3847 (dark mode redesign, fully functional)
+- **Supabase:** myzmadvevthaegdetfjr (linked, migrations 001-002 applied, 003 NOT yet applied)
 - **npm:** claudeflows@0.2.0 (published, unscoped)
-- **GitHub:** mikethepurple/claudeflows (~10 commits ahead of remote, not pushed)
-- **Skills:** 15 total in `skills/` directory (11 new + 4 original)
+- **GitHub:** mikethepurple/claudeflows (many commits ahead, not pushed)
+- **Skills on site:** 16 in catalog (11 non-technical + 5 power skills: Memory System, Market Watch, Vibecheck, Daily Report, Blueprint)
 - **Auto-sync:** `scripts/generate-sample-data.ts` reads workflow.json → generates sample-data.ts on prebuild
+
+## What Was Built This Session (2026-04-16)
+
+### Research (complete)
+- 31-agent research pipeline: 25 discovery → 4 synthesis → 2 gap evaluation
+- All outputs in `research/redesign/` (wave-1/, wave-2/, wave-3/)
+- Gap evaluator verdict: `good` — proceed to build
+- Key findings: Agent37 is HIGH threat ($5.8K MRR), 6-9 month window, SKILL.md is cross-platform (35+ tools)
+
+### Site Redesign (in progress)
+- **Dark mode foundation:** globals.css, layout.tsx, Inter + JetBrains Mono, #13111C + #6366F1
+- **Homepage:** Hero (person intro → headline → CLI block), featured skills, how it works, Blueprint tips (indigo zone), consulting CTA, email capture
+- **Consulting page:** 3-card packages, add-ons, retainer, case studies (Vanga, IC, research pipeline), how it works, Us vs DIY table, FAQ
+- **Skills page:** category filters, skill cards with icons + tints + CLI fingerprint, "Request a Skill" form
+- **Blog scaffold:** 2 coming-soon articles
+- **12 secondary files** dark-mode converted by background agent
+- **5 power skills added to catalog:** Memory System, Market Watch, Vibecheck, Daily Report, Blueprint
 
 ## Pending Actions
 
-1. **Apply Supabase migration 003** — email_subscribers + consulting_leads tables. SQL ready, user needs to paste into dashboard (IPv6 blocks CLI push)
-2. **Push to GitHub** — ~10 local commits not pushed to remote
-3. **Deploy to production** — staging is fully updated, production is old pre-redesign version
-4. **Paid skill IP protection** — all skill prompts (including future paid ones) are in public repo. Decided: prompts go in Supabase for paid delivery, git stays source of truth for dev. `claudeflows publish` command needed.
-5. **Claude Flows needs its own venture-studio project structure** — user flagged this, not yet created
-6. **System-level skills** — /save needs CLAUDE.md auto-trigger, /roadmap skill doesn't exist yet
+1. **Apply Supabase migration 003** — email_subscribers + consulting_leads tables
+2. **Push to GitHub** — many local commits not pushed
+3. **Deploy to staging** then production (Vercel) — need /vibecheck first
+4. **Smart installer (Phase 5)** — setup skill that Claude Code runs to install complex skills
+5. **Stripe / Lemon Squeezy** — payment processing for paid skills
+6. **OG images** — Vercel OG / Satori for per-skill dynamic generation
+7. **Real blog posts** — "10 Claude Code skills I install on every project"
+8. **GitHub distribution** — tag repos, submit PRs to awesome-lists
+9. **Cal.com setup** — replace placeholder URLs in consulting page
 
 ## Decisions Made This Session
 

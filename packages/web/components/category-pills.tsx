@@ -1,31 +1,13 @@
 "use client";
 
-const JOB_FUNCTIONS = [
+const CATEGORIES = [
   { name: "All", slug: "all" },
+  { name: "Business", slug: "business" },
   { name: "Research", slug: "research" },
-  { name: "Strategy", slug: "strategy" },
-  { name: "Engineering", slug: "engineering" },
-  { name: "Design", slug: "design" },
+  { name: "Development", slug: "development" },
   { name: "Marketing", slug: "marketing" },
   { name: "Operations", slug: "operations" },
 ] as const;
-
-/** Maps backend workflow categories to frontend job-function slugs */
-const CATEGORY_TO_JOB_FUNCTION: Record<string, string> = {
-  business: "strategy",
-  development: "engineering",
-  data: "research",
-  research: "research",
-  marketing: "marketing",
-  design: "design",
-  operations: "operations",
-  productivity: "operations",
-  finance: "strategy",
-};
-
-export function mapCategoryToJobFunction(category: string): string {
-  return CATEGORY_TO_JOB_FUNCTION[category] ?? "operations";
-}
 
 interface CategoryPillsProps {
   selected: string;
@@ -38,17 +20,17 @@ export default function CategoryPills({
 }: CategoryPillsProps) {
   return (
     <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-      {JOB_FUNCTIONS.map((jf) => (
+      {CATEGORIES.map((cat) => (
         <button
-          key={jf.slug}
-          onClick={() => onSelect(jf.slug)}
+          key={cat.slug}
+          onClick={() => onSelect(cat.slug)}
           className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
-            selected === jf.slug
-              ? "bg-neutral-900 text-white shadow-sm"
-              : "bg-neutral-100 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-700"
+            selected === cat.slug
+              ? "bg-[#6366F1] text-white shadow-sm"
+              : "bg-[rgba(255,255,255,0.06)] text-[rgba(255,255,255,0.60)] hover:bg-[rgba(255,255,255,0.10)] hover:text-[rgba(255,255,255,0.92)]"
           }`}
         >
-          {jf.name}
+          {cat.name}
         </button>
       ))}
     </div>

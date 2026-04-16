@@ -1,15 +1,15 @@
 const DIFFICULTY_CONFIG = {
   beginner: {
     label: "Beginner",
-    color: "bg-green-100 text-green-700",
+    color: "bg-[rgba(16,185,129,0.15)] text-[#10B981]",
   },
   intermediate: {
     label: "Intermediate",
-    color: "bg-yellow-100 text-yellow-700",
+    color: "bg-[rgba(245,158,11,0.15)] text-[#F59E0B]",
   },
   advanced: {
     label: "Advanced",
-    color: "bg-red-100 text-red-700",
+    color: "bg-[rgba(239,68,68,0.15)] text-[#EF4444]",
   },
 } as const;
 

@@ -122,7 +122,7 @@ function CopyButton({ text, variant = "dark" }: { text: string; variant?: "dark"
         : "bg-white/10 text-white/60 hover:bg-white/20 hover:text-white"
       : copied
       ? "bg-[#16A34A]/10 text-[#16A34A]"
-      : "text-[#9CA3AF] hover:bg-black/[0.06] hover:text-[#374151]";
+      : "text-[rgba(255,255,255,0.36)] hover:bg-[rgba(255,255,255,0.06)] hover:text-[rgba(255,255,255,0.60)]";
 
   return (
     <button
@@ -252,12 +252,12 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
               value={email}
               onChange={(e) => { setEmail(e.target.value); setError(null); }}
               onKeyDown={(e) => { if (e.key === "Enter") handleSubscribe(); }}
-              className="flex-1 rounded-lg border border-black/[0.08] bg-[#F5F5F5] px-3 py-2.5 text-sm text-[#171717] placeholder-[#9CA3AF] outline-none focus:border-[#C2410C]/30 focus:ring-1 focus:ring-[#C2410C]/20"
+              className="flex-1 rounded-lg border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.04)] px-3 py-2.5 text-sm text-[rgba(255,255,255,0.92)] placeholder-[rgba(255,255,255,0.36)] outline-none focus:border-[rgba(99,102,241,0.50)] focus:ring-1 focus:ring-[rgba(99,102,241,0.12)]"
             />
             <button
               onClick={handleSubscribe}
               disabled={submitting}
-              className="shrink-0 rounded-lg bg-[#171717] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#2A2A2A] disabled:opacity-50 transition-colors"
+              className="shrink-0 rounded-lg bg-[#6366F1] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#4F46E5] disabled:opacity-50 transition-colors"
             >
               {submitting ? "..." : "Get command"}
             </button>
@@ -265,7 +265,7 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
           {error && (
             <p className="mt-1.5 text-center text-xs text-red-500">{error}</p>
           )}
-          <p className="mt-2 text-center text-[10px] text-[#9CA3AF]">
+          <p className="mt-2 text-center text-[10px] text-[rgba(255,255,255,0.36)]">
             We&apos;ll send setup tips. Unsubscribe anytime.
           </p>
         </div>
@@ -277,7 +277,7 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
             className={`group relative flex items-center justify-between gap-3 rounded-xl px-5 py-4 font-mono text-sm transition-all ${
               copied
                 ? "bg-[#16A34A] text-white"
-                : "bg-[#171717] text-[#E5E7EB] hover:bg-[#2A2A2A]"
+                : "bg-[rgba(0,0,0,0.45)] text-[rgba(255,255,255,0.92)] hover:bg-[rgba(0,0,0,0.55)]"
             }`}
           >
             <span className="flex-1 text-left overflow-x-auto whitespace-nowrap scrollbar-none">
@@ -303,18 +303,18 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
             </span>
           </button>
 
-          <p className="text-center text-xs text-[#9CA3AF]">
+          <p className="text-center text-xs text-[rgba(255,255,255,0.36)]">
             Paste into your terminal. Requires Node.js and{" "}
-            <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#6B7280]">Claude Code</a>.
+            <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener noreferrer" className="underline hover:text-[rgba(255,255,255,0.60)]">Claude Code</a>.
           </p>
         </>
       )}
 
       {/* Expandable guided setup for beginners */}
-      <div className="border-t border-black/[0.06] pt-3">
+      <div className="border-t border-[rgba(255,255,255,0.06)] pt-3">
         <button
           onClick={() => setShowGuide(!showGuide)}
-          className="flex items-center gap-1.5 text-xs text-[#6B7280] hover:text-[#171717] transition-colors"
+          className="flex items-center gap-1.5 text-xs text-[rgba(255,255,255,0.36)] hover:text-[rgba(255,255,255,0.92)] transition-colors"
         >
           <svg
             className={`h-3 w-3 transition-transform ${showGuide ? "rotate-90" : ""}`}
@@ -329,15 +329,15 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
           <div className="mt-3 flex flex-col gap-3">
             {/* Platform selector */}
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] uppercase tracking-wider text-[#9CA3AF] mr-1">System:</span>
+              <span className="text-[10px] uppercase tracking-wider text-[rgba(255,255,255,0.36)] mr-1">System:</span>
               {(["mac", "linux", "windows"] as Platform[]).map((p) => (
                 <button
                   key={p}
                   onClick={() => setPlatform(p)}
                   className={`rounded-md px-2 py-1 text-[11px] font-medium transition-colors ${
                     platform === p
-                      ? "bg-[#C2410C]/10 text-[#C2410C]"
-                      : "text-[#9CA3AF] hover:text-[#6B7280]"
+                      ? "bg-[rgba(99,102,241,0.15)] text-[#6366F1]"
+                      : "text-[rgba(255,255,255,0.36)] hover:text-[rgba(255,255,255,0.60)]"
                   }`}
                 >
                   {PLATFORM_LABELS[p]}
@@ -347,9 +347,9 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
 
             {/* Windows WSL notice */}
             {platform === "windows" && (
-              <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5">
-                <p className="text-xs font-medium text-amber-800 mb-1">Windows requires WSL</p>
-                <p className="text-[11px] text-amber-700 leading-relaxed">
+              <div className="rounded-lg border border-[rgba(245,158,11,0.20)] bg-[rgba(245,158,11,0.08)] px-3 py-2.5">
+                <p className="text-xs font-medium text-[#F59E0B] mb-1">Windows requires WSL</p>
+                <p className="text-[11px] text-[rgba(245,158,11,0.80)] leading-relaxed">
                   Claude Code runs on Linux/macOS. On Windows, install{" "}
                   <a
                     href="https://learn.microsoft.com/en-us/windows/wsl/install"
@@ -367,7 +367,7 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
             {/* Terminal hint toggle */}
             <button
               onClick={() => setShowTerminalHint(!showTerminalHint)}
-              className="flex items-center gap-1.5 text-[11px] text-[#6B7280] hover:text-[#171717] transition-colors self-start"
+              className="flex items-center gap-1.5 text-[11px] text-[rgba(255,255,255,0.36)] hover:text-[rgba(255,255,255,0.92)] transition-colors self-start"
             >
               <svg
                 className={`h-3 w-3 transition-transform ${showTerminalHint ? "rotate-90" : ""}`}
@@ -378,8 +378,8 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
               New to the terminal?
             </button>
             {showTerminalHint && (
-              <div className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2.5">
-                <p className="text-[11px] text-blue-800 leading-relaxed">
+              <div className="rounded-lg border border-[rgba(99,102,241,0.20)] bg-[rgba(99,102,241,0.08)] px-3 py-2.5">
+                <p className="text-[11px] text-[rgba(99,102,241,0.80)] leading-relaxed">
                   {TERMINAL_HINTS[platform]}{" "}
                   Then paste the commands below (Cmd+V on Mac, Ctrl+Shift+V in most Linux terminals).
                 </p>
@@ -397,7 +397,7 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
                     className={`rounded-lg border p-3 transition-all ${
                       isDone
                         ? "border-[#16A34A]/20 bg-[#16A34A]/5"
-                        : "border-black/[0.06] bg-white shadow-sm"
+                        : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)]"
                     }`}
                   >
                     {/* Header row */}
@@ -407,17 +407,17 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
                         className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
                           isDone
                             ? "border-[#16A34A] bg-[#16A34A] text-white"
-                            : "border-[#D1D5DB] hover:border-[#9CA3AF]"
+                            : "border-[rgba(255,255,255,0.20)] hover:border-[rgba(255,255,255,0.36)]"
                         }`}
                       >
                         {isDone && <CheckIcon className="h-3 w-3" />}
                       </button>
                       <div className="flex-1 min-w-0">
-                        <p className={`text-sm font-medium ${isDone ? "text-[#16A34A] line-through" : "text-[#171717]"}`}>
+                        <p className={`text-sm font-medium ${isDone ? "text-[#16A34A] line-through" : "text-[rgba(255,255,255,0.92)]"}`}>
                           {step.title}
                         </p>
                         {!isDone && (
-                          <p className="mt-0.5 text-[11px] leading-relaxed text-[#6B7280]">
+                          <p className="mt-0.5 text-[11px] leading-relaxed text-[rgba(255,255,255,0.60)]">
                             {step.description}
                           </p>
                         )}
@@ -432,13 +432,13 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
                             href={step.action.links[platform]}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-[#C2410C] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#9A3412] transition-colors"
+                            className="inline-flex items-center gap-1.5 rounded-lg bg-[#6366F1] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#4F46E5] transition-colors"
                           >
                             <DownloadIcon className="h-3.5 w-3.5" />
                             {step.action.labels[platform]}
                           </a>
                         ) : (
-                          <div className="flex items-center gap-1.5 rounded-md bg-[#171717] px-2.5 py-2">
+                          <div className="flex items-center gap-1.5 rounded-md bg-[rgba(0,0,0,0.45)] px-2.5 py-2">
                             <code className="flex-1 overflow-x-auto whitespace-nowrap text-[11px] text-[#E5E7EB] scrollbar-none font-mono leading-relaxed">
                               {step.action.commands[platform]}
                             </code>
@@ -450,12 +450,12 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
                         <div className="mt-2 flex items-center gap-3">
                           <button
                             onClick={() => toggleCompleted(step.id)}
-                            className="text-[11px] text-[#9CA3AF] hover:text-[#6B7280] transition-colors"
+                            className="text-[11px] text-[rgba(255,255,255,0.36)] hover:text-[rgba(255,255,255,0.60)] transition-colors"
                           >
                             {step.check ? "I already have this" : "Done"}
                           </button>
                           {step.check && (
-                            <span className="text-[10px] text-[#D1D5DB]">
+                            <span className="text-[10px] text-[rgba(255,255,255,0.20)]">
                               {step.check}
                             </span>
                           )}
@@ -480,11 +480,11 @@ export default function InstallButton({ workflowName }: InstallButtonProps) {
       </div>
 
       {/* Consulting CTA */}
-      <div className="text-center border-t border-black/[0.06] pt-3">
-        <p className="text-xs text-[#9CA3AF] mb-2">Not technical?</p>
+      <div className="text-center border-t border-[rgba(255,255,255,0.06)] pt-3">
+        <p className="text-xs text-[rgba(255,255,255,0.36)] mb-2">Not technical?</p>
         <Link
           href={`/consulting?from=${encodeURIComponent(workflowName)}`}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-orange-200 bg-orange-50 px-4 py-2 text-xs font-medium text-orange-800 hover:bg-orange-100 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-[rgba(99,102,241,0.20)] bg-[rgba(99,102,241,0.08)] px-4 py-2 text-xs font-medium text-[#6366F1] hover:bg-[rgba(99,102,241,0.15)] transition-colors"
         >
           Get this set up for me
         </Link>

@@ -17,7 +17,7 @@ export default function TabNavigation({
   onTabChange,
 }: TabNavigationProps) {
   return (
-    <div className="border-b border-black/[0.08] overflow-x-auto scrollbar-hide">
+    <div className="border-b border-[rgba(255,255,255,0.08)] overflow-x-auto scrollbar-hide">
       <div className="flex gap-0">
         {tabs.map((tab) => (
           <button
@@ -25,13 +25,13 @@ export default function TabNavigation({
             onClick={() => onTabChange(tab.id)}
             className={`relative shrink-0 px-5 py-3 text-sm font-medium transition-colors ${
               activeTab === tab.id
-                ? "text-[#C2410C]"
-                : "text-[#6B7280] hover:text-[#171717]"
+                ? "text-[#6366F1]"
+                : "text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)]"
             }`}
           >
             {tab.label}
             {activeTab === tab.id && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C2410C] rounded-t-full" />
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#6366F1] rounded-t-full" />
             )}
           </button>
         ))}

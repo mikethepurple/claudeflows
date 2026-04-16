@@ -5,15 +5,15 @@ interface ProcessTimelineProps {
 }
 
 function getStepColor(index: number, total: number): { bg: string; text: string; line: string } {
-  // Gradient from light orange to dark orange
+  // Gradient from light indigo to dark indigo
   const colors = [
-    { bg: "bg-orange-300", text: "text-white", line: "bg-orange-200" },
-    { bg: "bg-orange-400", text: "text-white", line: "bg-orange-300" },
-    { bg: "bg-orange-500", text: "text-white", line: "bg-orange-400" },
-    { bg: "bg-orange-600", text: "text-white", line: "bg-orange-500" },
-    { bg: "bg-orange-700", text: "text-white", line: "bg-orange-600" },
-    { bg: "bg-orange-800", text: "text-white", line: "bg-orange-700" },
-    { bg: "bg-orange-900", text: "text-white", line: "bg-orange-800" },
+    { bg: "bg-indigo-300", text: "text-white", line: "bg-indigo-200" },
+    { bg: "bg-indigo-400", text: "text-white", line: "bg-indigo-300" },
+    { bg: "bg-indigo-500", text: "text-white", line: "bg-indigo-400" },
+    { bg: "bg-[#6366F1]", text: "text-white", line: "bg-indigo-400" },
+    { bg: "bg-indigo-700", text: "text-white", line: "bg-indigo-600" },
+    { bg: "bg-indigo-800", text: "text-white", line: "bg-indigo-700" },
+    { bg: "bg-indigo-900", text: "text-white", line: "bg-indigo-800" },
   ];
   if (total <= 1) return colors[3];
   const idx = Math.round((index / (total - 1)) * (colors.length - 1));
@@ -32,7 +32,7 @@ export default function ProcessTimeline({ steps }: ProcessTimelineProps) {
               <div key={step.name} className="flex items-start gap-4">
                 {/* Left column: circle + connector line */}
                 <div className="flex flex-col items-center">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${color.bg} ${color.text} text-sm font-bold shadow-sm`}>
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${color.bg} ${color.text} text-sm font-bold`}>
                     {index + 1}
                   </div>
                   {index < steps.length - 1 && (
@@ -41,14 +41,14 @@ export default function ProcessTimeline({ steps }: ProcessTimelineProps) {
                 </div>
                 {/* Right column: text */}
                 <div className="pt-1.5 pb-6">
-                  <h4 className="text-sm font-semibold text-[#171717]">
+                  <h4 className="text-sm font-semibold text-[rgba(255,255,255,0.92)]">
                     {step.name}
                   </h4>
-                  <p className="mt-1 text-xs text-[#6B7280] leading-relaxed">
+                  <p className="mt-1 text-xs text-[rgba(255,255,255,0.60)] leading-relaxed">
                     {step.description}
                   </p>
                   {step.methodologyCount > 0 && (
-                    <span className="mt-2 inline-flex items-center rounded-full bg-[#C2410C]/10 px-2 py-0.5 text-[10px] font-medium text-[#C2410C]">
+                    <span className="mt-2 inline-flex items-center rounded-full bg-[rgba(99,102,241,0.15)] px-2 py-0.5 text-[10px] font-medium text-[#6366F1]">
                       {step.methodologyCount} method{step.methodologyCount !== 1 ? "s" : ""}
                     </span>
                   )}
@@ -69,20 +69,20 @@ export default function ProcessTimeline({ steps }: ProcessTimelineProps) {
                 {/* Step */}
                 <div className="flex flex-col items-center text-center w-40">
                   {/* Numbered circle */}
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${color.bg} ${color.text} text-sm font-bold shadow-sm`}>
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${color.bg} ${color.text} text-sm font-bold`}>
                     {index + 1}
                   </div>
                   {/* Step name */}
-                  <h4 className="mt-3 text-sm font-semibold text-[#171717]">
+                  <h4 className="mt-3 text-sm font-semibold text-[rgba(255,255,255,0.92)]">
                     {step.name}
                   </h4>
                   {/* Step description */}
-                  <p className="mt-1 text-xs text-[#6B7280] leading-relaxed max-w-[140px]">
+                  <p className="mt-1 text-xs text-[rgba(255,255,255,0.60)] leading-relaxed max-w-[140px]">
                     {step.description}
                   </p>
                   {/* Methodology badge */}
                   {step.methodologyCount > 0 && (
-                    <span className="mt-2 inline-flex items-center rounded-full bg-[#C2410C]/10 px-2 py-0.5 text-[10px] font-medium text-[#C2410C]">
+                    <span className="mt-2 inline-flex items-center rounded-full bg-[rgba(99,102,241,0.15)] px-2 py-0.5 text-[10px] font-medium text-[#6366F1]">
                       {step.methodologyCount} method{step.methodologyCount !== 1 ? "s" : ""}
                     </span>
                   )}

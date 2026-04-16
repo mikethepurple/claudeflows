@@ -1,13 +1,25 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    if (!body.name || !body.email) {
+    const name = typeof body.name === "string" ? body.name.trim().slice(0, 200) : "";
+    const email = typeof body.email === "string" ? body.email.trim().slice(0, 200) : "";
+
+    if (!name || !email) {
       return NextResponse.json(
         { error: "Missing required fields: name, email" },
+        { status: 400 }
+      );
+    }
+
+    if (!EMAIL_RE.test(email)) {
+      return NextResponse.json(
+        { error: "Invalid email address" },
         { status: 400 }
       );
     }
@@ -30,12 +42,12 @@ export async function POST(request: Request) {
     const { data: lead, error } = await (supabase as any)
       .from("consulting_leads")
       .insert({
-        name: body.name,
-        email: body.email,
-        role: body.role ?? null,
-        needs: body.needs ?? null,
-        budget: body.budget ?? null,
-        source_skill: body.source_skill ?? null,
+        name,
+        email,
+        role: typeof body.role === "string" ? body.role.slice(0, 200) : null,
+        needs: typeof body.needs === "string" ? body.needs.slice(0, 5000) : null,
+        budget: typeof body.budget === "string" ? body.budget.slice(0, 100) : null,
+        source_skill: typeof body.source_skill === "string" ? body.source_skill.slice(0, 200) : null,
       })
       .select("id, name, email, created_at")
       .single();

@@ -80,7 +80,11 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    if (!body.workflow || !body.author || !body.rating) {
+    const author = typeof body.author === "string" ? body.author.trim().slice(0, 100) : "";
+    const reviewBody = typeof body.body === "string" ? body.body.slice(0, 2000) : null;
+    const workflow = typeof body.workflow === "string" ? body.workflow.trim().slice(0, 100) : "";
+
+    if (!workflow || !author || !body.rating) {
       return NextResponse.json(
         { error: "Missing required fields: workflow, author, rating" },
         { status: 400 }

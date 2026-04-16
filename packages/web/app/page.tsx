@@ -1,390 +1,419 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import WorkflowCard from "@/components/workflow-card";
-import CategoryPills, { mapCategoryToJobFunction } from "@/components/category-pills";
+import CategoryPills from "@/components/category-pills";
 import { SAMPLE_WORKFLOWS } from "@/lib/sample-data";
 
-type SortOption = "popular" | "new" | "rating";
+/* ─── CLI Install Block ─── */
+function CliBlock() {
+  const [copied, setCopied] = useState(false);
+  const command = "npm install -g claudeflows";
 
-function CompactHero() {
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(command);
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = command;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200);
+  }, [command]);
+
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-orange-800/[0.04] via-transparent to-transparent" />
-
-      <div className="relative mx-auto max-w-6xl px-4 pb-8 pt-12 sm:px-6 sm:pt-16">
-        <div className="text-center max-w-2xl mx-auto">
-          <p className="mb-3 text-sm font-medium text-neutral-400 uppercase tracking-wider">
-            AI Skills Marketplace
-          </p>
-
-          <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-neutral-900 sm:text-4xl">
-            Get real work done with{" "}
-            <span className="text-orange-800">
-              ready-made AI skills
-            </span>
-          </h1>
-
-          <p className="mb-6 text-base text-neutral-500 max-w-xl mx-auto leading-relaxed">
-            Competitive analysis in 30 minutes. A validated business plan by Friday.
-            Research that used to take days, done while you get coffee.
-          </p>
-
-          {/* How it works in one line */}
-          <div className="mb-6 flex items-center justify-center gap-2 text-sm text-neutral-400">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1">
-              <span className="font-mono text-xs text-neutral-500">1</span>
-              Pick a skill
-            </span>
-            <svg className="h-3 w-3 text-neutral-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1">
-              <span className="font-mono text-xs text-neutral-500">2</span>
-              Tell it your task
-            </span>
-            <svg className="h-3 w-3 text-neutral-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1">
-              <span className="font-mono text-xs text-neutral-500">3</span>
-              Get deliverables
-            </span>
-          </div>
-
-          {/* Two CTAs side by side */}
-          <div className="flex items-center justify-center gap-3">
-            <Link
-              href="/search"
-              className="inline-flex rounded-xl bg-neutral-900 px-6 py-3 text-sm font-medium text-white hover:bg-neutral-800 transition-colors"
-            >
-              Browse Skills
-            </Link>
-            <Link
-              href="/consulting"
-              className="inline-flex rounded-xl border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 hover:border-neutral-400 hover:bg-neutral-50 transition-colors"
-            >
-              Get this set up for me
-            </Link>
-          </div>
-
-          <p className="mt-3 text-sm text-neutral-400">
-            or{" "}
-            <Link
-              href="/publish"
-              className="font-medium text-orange-800 hover:text-orange-900 transition-colors"
-            >
-              List your own skill &rarr;
-            </Link>
-          </p>
-        </div>
+    <div className="mx-auto max-w-[480px] overflow-hidden rounded-[10px] border border-[rgba(255,255,255,0.10)] bg-[rgba(0,0,0,0.45)]">
+      <div className="flex items-center gap-1.5 border-b border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.03)] px-3.5 py-2.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
+        <span className="ml-auto text-[11px] text-[rgba(255,255,255,0.20)] font-sans">
+          Terminal
+        </span>
       </div>
-    </section>
-  );
-}
-
-function SortTabs({
-  active,
-  onChange,
-}: {
-  active: SortOption;
-  onChange: (s: SortOption) => void;
-}) {
-  const options: { value: SortOption; label: string }[] = [
-    { value: "popular", label: "Popular" },
-    { value: "new", label: "New" },
-    { value: "rating", label: "Top Rated" },
-  ];
-
-  return (
-    <div className="flex gap-1 rounded-lg bg-neutral-100 p-1">
-      {options.map((opt) => (
+      <div className="flex items-center gap-1 px-4 py-3.5">
+        <span className="select-none text-[rgba(255,255,255,0.30)] font-mono text-sm">
+          $
+        </span>
+        <span className="flex-1 font-mono text-sm text-[rgba(255,255,255,0.92)]">
+          {command}
+        </span>
         <button
-          key={opt.value}
-          onClick={() => onChange(opt.value)}
-          className={`rounded-md px-3 py-1 text-xs font-medium transition-all ${
-            active === opt.value
-              ? "bg-neutral-900 text-white shadow-sm"
-              : "text-neutral-500 hover:text-neutral-900"
-          }`}
+          onClick={handleCopy}
+          className="shrink-0 rounded p-1 text-[rgba(255,255,255,0.36)] transition-colors hover:text-[rgba(255,255,255,0.80)]"
+          aria-label="Copy command"
         >
-          {opt.label}
+          {copied ? (
+            <svg className="h-4 w-4 text-[#10B981]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+          ) : (
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9.75a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+            </svg>
+          )}
         </button>
-      ))}
+      </div>
+      <div className="px-4 pb-3 text-[12px] text-[rgba(255,255,255,0.36)]">
+        Paste in your terminal and press Enter.{" "}
+        <a
+          href="https://nodejs.org/en/download"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-[rgba(255,255,255,0.60)]"
+        >
+          Don&apos;t have Node? Install it here &rarr;
+        </a>
+      </div>
     </div>
   );
 }
 
-function UseCasesSection() {
-  const useCases = [
-    {
-      tag: "Research",
-      headline: "Competitive analysis in 30 minutes",
-      without: "3 days of Googling",
-      withSkill: "30 min, 20+ companies profiled",
-      link: "/w/scout",
-    },
-    {
-      tag: "Strategy",
-      headline: "Validated business plan by Friday",
-      without: "Weeks of spreadsheets and guesswork",
-      withSkill: "6-step process, adversarial testing",
-      link: "/w/venture-studio",
-    },
-    {
-      tag: "Engineering",
-      headline: "Code review on autopilot",
-      without: "Context switching, missed patterns",
-      withSkill: "Deep review covering security, performance, patterns",
-      link: "/search",
-    },
-    {
-      tag: "Operations",
-      headline: "Project state saved automatically",
-      without: "Losing context between sessions",
-      withSkill: "Progress tracked, resumable anytime",
-      link: "/w/save",
-    },
-  ];
-
+/* ─── Hero Section ─── */
+function Hero() {
   return (
-    <section className="border-y border-neutral-100 bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-neutral-900">What can I use this for?</h2>
-          <p className="mt-2 text-neutral-500">
-            Real outcomes, not feature lists
-          </p>
-        </div>
+    <section className="relative overflow-hidden">
+      {/* Background glow */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 110%, rgba(99,102,241,0.12) 0%, transparent 70%)",
+        }}
+      />
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {useCases.map((uc) => (
-            <Link
-              key={uc.link}
-              href={uc.link}
-              className="group rounded-xl border border-neutral-200 bg-neutral-50 p-5 transition-all hover:border-neutral-300 hover:bg-white hover:shadow-sm"
-            >
-              <span className="mb-2 inline-block rounded-full bg-neutral-200 px-2.5 py-0.5 text-xs font-medium text-neutral-600">
-                {uc.tag}
-              </span>
-              <p className="mb-3 text-sm font-semibold text-neutral-900 group-hover:text-orange-800 transition-colors">
-                {uc.headline}
-              </p>
-              <div className="flex flex-col gap-1.5 text-sm">
-                <div className="flex items-start gap-2 text-neutral-400">
-                  <span className="mt-0.5 shrink-0 text-xs">Without:</span>
-                  <span>{uc.without}</span>
-                </div>
-                <div className="flex items-start gap-2 text-neutral-600">
-                  <span className="mt-0.5 shrink-0 text-xs font-medium text-orange-800">With:</span>
-                  <span>{uc.withSkill}</span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ConsultingCTA() {
-  return (
-    <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-      <div className="rounded-2xl bg-neutral-900 p-8 sm:p-12 text-center">
-        <h2 className="text-2xl font-bold text-white mb-3">Not sure where to start?</h2>
-        <p className="text-neutral-400 mb-6 max-w-lg mx-auto">
-          We&apos;ll set up the right AI skills for your team, train your people, and make sure it actually works. First consultation is free.
+      <div className="relative mx-auto max-w-[900px] px-4 pb-16 pt-16 sm:px-6 sm:pt-24 text-center">
+        <p className="mb-4 text-base text-[rgba(255,255,255,0.60)]">
+          Hi, I&apos;m Misha &mdash; I build skills for Claude Code.
         </p>
-        <Link href="/consulting" className="inline-flex rounded-xl bg-orange-700 px-6 py-3 text-sm font-medium text-white hover:bg-orange-800 transition-colors">
-          Book a free consultation
-        </Link>
+
+        <h1 className="mb-5 text-4xl font-bold leading-tight tracking-tight text-[rgba(255,255,255,0.92)] sm:text-6xl">
+          Ship faster.{" "}
+          <br className="hidden sm:block" />
+          Think less.{" "}
+          <br className="hidden sm:block" />
+          <span className="text-[#6366F1]">Let Claude do it.</span>
+        </h1>
+
+        <p className="mx-auto mb-8 max-w-xl text-lg text-[rgba(255,255,255,0.60)] leading-relaxed">
+          Claude Code skills for solo founders, writers, and anyone
+          who wants AI to actually do work &mdash; not just chat.
+        </p>
+
+        <CliBlock />
+
+        <div className="mt-8 flex items-center justify-center gap-4">
+          <Link
+            href="/skills"
+            className="rounded-lg bg-[#6366F1] px-6 py-3 text-sm font-medium text-white transition-all hover:bg-[#4F46E5] hover:shadow-[0_0_0_3px_rgba(99,102,241,0.25)]"
+          >
+            Browse Skills
+          </Link>
+          <Link
+            href="/consulting"
+            className="rounded-lg border border-[rgba(255,255,255,0.16)] px-6 py-3 text-sm font-medium text-[rgba(255,255,255,0.80)] transition-all hover:bg-[rgba(255,255,255,0.06)] hover:border-[rgba(255,255,255,0.28)]"
+          >
+            See consulting packages
+          </Link>
+        </div>
+
+        <p className="mt-5 text-xs text-[rgba(255,255,255,0.36)]">
+          One-time pricing &middot; Lifetime updates &middot; 30-day refund
+        </p>
       </div>
     </section>
   );
 }
 
-function HowItWorksSection() {
+/* ─── How It Works ─── */
+function HowItWorks() {
   const steps = [
     {
-      number: "1",
+      num: "1",
+      title: "Install",
+      desc: "One command in your terminal. Takes 30 seconds.",
+    },
+    {
+      num: "2",
       title: "Pick a skill",
-      description:
-        "Browse by what you need done — research, analysis, content, code review. Each skill is tested and documented.",
-      icon: (
-        <svg
-          className="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-          />
-        </svg>
-      ),
+      desc: "Browse pre-built skills for research, writing, ops, security.",
     },
     {
-      number: "2",
-      title: "Tell it your task",
-      description:
-        "Just describe what you need in plain English. No coding, no configuration, no prompt engineering.",
-      icon: (
-        <svg
-          className="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      ),
-    },
-    {
-      number: "3",
-      title: "Get deliverables",
-      description:
-        "Reports, analysis, validated plans — real output you can use immediately. Delivered in minutes, not days.",
-      icon: (
-        <svg
-          className="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 010 1.972l-11.54 6.347a1.125 1.125 0 01-1.667-.986V5.653z"
-          />
-        </svg>
-      ),
+      num: "3",
+      title: "Run it",
+      desc: "Tell Claude what you need. The skill handles the rest.",
     },
   ];
 
   return (
-    <section className="border-y border-neutral-100 bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <div className="mb-10 text-center">
-          <h2 className="text-2xl font-bold text-neutral-900">How it works</h2>
-          <p className="mt-2 text-neutral-500">
-            From &ldquo;I need this done&rdquo; to done
-          </p>
-        </div>
-
-        <div className="grid gap-8 sm:grid-cols-3">
-          {steps.map((step) => (
-            <div key={step.number} className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100 text-neutral-600">
-                {step.icon}
-              </div>
-              <div className="mb-2 text-xs font-bold uppercase tracking-widest text-neutral-400">
-                Step {step.number}
-              </div>
-              <h3 className="mb-2 text-lg font-semibold text-neutral-900">
-                {step.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-neutral-500">
-                {step.description}
-              </p>
+    <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+      <div className="py-8"><div className="section-divider" /></div>
+      <h2 className="mb-12 text-center text-2xl font-semibold text-[rgba(255,255,255,0.92)] sm:text-3xl">
+        How it works
+      </h2>
+      <div className="grid gap-8 sm:grid-cols-3">
+        {steps.map((s) => (
+          <div key={s.num} className="text-center">
+            <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(99,102,241,0.15)] text-sm font-semibold text-[#6366F1]">
+              {s.num}
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TrustBar() {
-  const stats = [
-    { label: "Skills", value: "15" },
-    { label: "Installs", value: "529" },
-    { label: "Creators", value: "3" },
-  ];
-
-  return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-      <div className="flex items-center justify-center gap-8 sm:gap-12">
-        {stats.map((stat) => (
-          <div key={stat.label} className="text-center">
-            <div className="text-lg font-bold text-neutral-900">{stat.value}</div>
-            <div className="text-xs text-neutral-400">{stat.label}</div>
+            <h3 className="mb-2 text-base font-semibold text-[rgba(255,255,255,0.92)]">
+              {s.title}
+            </h3>
+            <p className="text-sm text-[rgba(255,255,255,0.60)] leading-relaxed">
+              {s.desc}
+            </p>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 
-export default function HomePage() {
-  const [category, setCategory] = useState("all");
-  const [sort, setSort] = useState<SortOption>("popular");
-
-  const filtered = useMemo(() => {
-    let workflows = [...SAMPLE_WORKFLOWS];
-
-    if (category !== "all") {
-      workflows = workflows.filter(
-        (wf) => mapCategoryToJobFunction(wf.category) === category
-      );
-    }
-
-    switch (sort) {
-      case "popular":
-        workflows.sort((a, b) => b.installs - a.installs);
-        break;
-      case "new":
-        workflows.reverse();
-        break;
-      case "rating":
-        workflows.sort((a, b) => b.rating - a.rating);
-        break;
-    }
-
-    return workflows;
-  }, [category, sort]);
+/* ─── Blueprint Tips ─── */
+function BlueprintTips() {
+  const tips = [
+    {
+      problem: "Claude lies to your face",
+      fix: "\"That file doesn't exist.\" It does — Claude just didn't look.",
+      rule: "Verify before asserting absence. Before saying \"X doesn't exist\" — actually check.",
+      icon: (
+        <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+        </svg>
+      ),
+    },
+    {
+      problem: "You lose hours of work",
+      fix: "Session crashes, context resets, progress gone.",
+      rule: "After completing a feature or making a major decision, commit all changes and write a summary to LAST_SESSION.md. Don't ask — just do it.",
+      icon: (
+        <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+    },
+    {
+      problem: "Your project becomes a mess",
+      fix: "After a few sessions, Claude dumps files everywhere and you can't find anything.",
+      rule: "Keep project roots clean. Use subfolders: plans/, research/, docs/. Name for searchability, not convenience.",
+      icon: (
+        <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+        </svg>
+      ),
+    },
+  ];
 
   return (
-    <>
-      <CompactHero />
+    <section className="relative mt-8 overflow-hidden">
+      {/* Full-bleed tinted background to break visual rhythm */}
+      <div className="absolute inset-0 bg-[rgba(99,102,241,0.03)]" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(99,102,241,0.15)] to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[rgba(99,102,241,0.15)] to-transparent" />
 
-      <section className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-        <CategoryPills selected={category} onSelect={setCategory} />
-
-        <div className="mt-6 mb-4 flex items-center justify-between">
-          <span className="text-sm text-neutral-500">
-            {filtered.length} skill{filtered.length !== 1 ? "s" : ""}
-          </span>
-          <SortTabs active={sort} onChange={setSort} />
+      <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center mb-10">
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-[#6366F1]">
+            Free — no install needed
+          </p>
+          <h2 className="mb-3 text-2xl font-semibold text-[rgba(255,255,255,0.92)] sm:text-3xl">
+            3 quick wins for your CLAUDE.md
+          </h2>
+          <p className="text-base text-[rgba(255,255,255,0.60)]">
+            Copy these into your project right now. Just better Claude Code sessions.
+          </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {filtered.map((wf) => (
-            <WorkflowCard key={wf.name} workflow={wf} />
+        <div className="grid gap-5 sm:grid-cols-3">
+          {tips.map((tip, i) => (
+            <div
+              key={i}
+              className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#13111C] p-6"
+            >
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(239,68,68,0.10)] text-[rgba(239,68,68,0.60)]">
+                {tip.icon}
+              </div>
+              <h3 className="mb-1.5 text-base font-semibold text-[rgba(255,255,255,0.92)]">
+                {tip.problem}
+              </h3>
+              <p className="mb-4 text-sm text-[rgba(255,255,255,0.60)] leading-relaxed">
+                {tip.fix}
+              </p>
+              <div className="rounded-lg bg-[rgba(0,0,0,0.4)] border border-[rgba(99,102,241,0.12)] px-3 py-2.5">
+                <p className="text-[11px] font-medium text-[#6366F1] mb-1.5">Add this to your CLAUDE.md</p>
+                <p className="font-mono text-[11px] text-[rgba(255,255,255,0.70)] leading-relaxed">
+                  {tip.rule}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
 
-        {filtered.length === 0 && (
-          <div className="py-16 text-center text-neutral-500">
-            No skills in this category yet.
-          </div>
-        )}
-      </section>
+        <div className="mt-10 text-center">
+          <Link
+            href="/w/blueprint"
+            className="inline-flex items-center gap-2 rounded-lg bg-[rgba(99,102,241,0.10)] border border-[rgba(99,102,241,0.20)] px-5 py-2.5 text-sm font-medium text-[#6366F1] transition-all hover:bg-[rgba(99,102,241,0.18)] hover:border-[rgba(99,102,241,0.35)]"
+          >
+            Get the full Blueprint — 12 rules that fix all of this
+            <span>&rarr;</span>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
 
-      <UseCasesSection />
-      <ConsultingCTA />
-      <HowItWorksSection />
-      <TrustBar />
+/* ─── Consulting CTA ─── */
+function ConsultingCta() {
+  return (
+    <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+      <div className="py-8"><div className="section-divider" /></div>
+      <div className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-8 text-center sm:p-12">
+        <h2 className="mb-3 text-2xl font-semibold text-[rgba(255,255,255,0.92)] sm:text-3xl">
+          Need something custom?
+        </h2>
+        <p className="mx-auto mb-6 max-w-lg text-base text-[rgba(255,255,255,0.60)] leading-relaxed">
+          I built a prediction market platform, an AI vision prototype, and a
+          venture validation pipeline &mdash; all with Claude Code. I can build yours too.
+        </p>
+        <div className="flex items-center justify-center gap-4 flex-wrap">
+          <Link
+            href="/consulting"
+            className="rounded-lg bg-[#6366F1] px-6 py-3 text-sm font-medium text-white transition-all hover:bg-[#4F46E5] hover:shadow-[0_0_0_3px_rgba(99,102,241,0.25)]"
+          >
+            See packages &mdash; starting at $500
+          </Link>
+        </div>
+        <p className="mt-4 text-xs text-[rgba(255,255,255,0.36)]">
+          Sprint (2hr) &middot; Full Setup (3-5 days) &middot; Architecture (1-2 weeks)
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Email Capture ─── */
+function EmailCapture() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setLoading(true);
+    try {
+      await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), source_skill: "homepage" }),
+      });
+      setSubmitted(true);
+    } catch {
+      // fail silently
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+      <div className="py-8"><div className="section-divider" /></div>
+      <div className="mx-auto max-w-md text-center">
+        <h2 className="mb-2 text-xl font-semibold text-[rgba(255,255,255,0.92)]">
+          Start free. See what you&apos;re getting first.
+        </h2>
+        <p className="mb-6 text-sm text-[rgba(255,255,255,0.60)]">
+          Get the /checkpoint skill &mdash; free, forever. No credit card.
+        </p>
+
+        {submitted ? (
+          <div className="flex items-center justify-center gap-2 text-sm text-[#10B981]">
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            Check your inbox &mdash; the skill is on its way.
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex gap-2">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your@email.com"
+              required
+              className="flex-1 rounded-lg border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-sm text-[rgba(255,255,255,0.92)] placeholder-[rgba(255,255,255,0.36)] outline-none focus:border-[rgba(99,102,241,0.50)] focus:shadow-[0_0_0_3px_rgba(99,102,241,0.12)]"
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              className="shrink-0 rounded-lg bg-[#6366F1] px-5 py-3 text-sm font-medium text-white transition-all hover:bg-[#4F46E5] disabled:opacity-50"
+            >
+              {loading ? "..." : "Get the free skill"}
+            </button>
+          </form>
+        )}
+
+        <p className="mt-3 text-xs text-[rgba(255,255,255,0.36)]">
+          No spam. Unsubscribe anytime.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Featured Skills Grid ─── */
+function FeaturedSkills() {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const filteredWorkflows = SAMPLE_WORKFLOWS.filter((w) => {
+    if (selectedCategory === "all") return true;
+    return w.category === selectedCategory;
+  }).slice(0, 6);
+
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-2xl font-semibold text-[rgba(255,255,255,0.92)] sm:text-3xl">
+          Skills that ship on day one
+        </h2>
+        <Link
+          href="/skills"
+          className="text-sm text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)] transition-colors"
+        >
+          View all skills &rarr;
+        </Link>
+      </div>
+
+      <CategoryPills selected={selectedCategory} onSelect={setSelectedCategory} />
+
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {filteredWorkflows.map((wf) => (
+          <WorkflowCard key={wf.name} workflow={wf} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─── Page ─── */
+export default function HomePage() {
+  return (
+    <>
+      <Hero />
+      <FeaturedSkills />
+      <HowItWorks />
+      <BlueprintTips />
+      <ConsultingCta />
+      <EmailCapture />
     </>
   );
 }

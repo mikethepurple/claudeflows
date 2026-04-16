@@ -3,53 +3,78 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Claude Flows — Ready-Made AI Skills",
+  title: "ClaudeFlows — Claude Code Skills & Consulting",
   description:
-    "AI skills that handle real tasks. Research industries, validate ideas, review code. Pick one, tell it what you need, get results.",
+    "Pre-built Claude Code skills for solo founders, writers, and anyone who wants AI to actually do work. Install in one command. Consulting available.",
   openGraph: {
-    title: "Claude Flows — Ready-Made AI Skills",
+    title: "ClaudeFlows — Claude Code Skills & Consulting",
     description:
-      "AI skills that handle real tasks. Research industries, validate ideas, review code. Pick one, tell it what you need, get results.",
+      "Pre-built Claude Code skills for solo founders, writers, and anyone who wants AI to actually do work. Install in one command.",
     type: "website",
+    images: [
+      {
+        url: "/api/og?title=ClaudeFlows&subtitle=Claude+Code+skills+built+by+someone+who+ships+with+Claude+Code+every+day",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ClaudeFlows — Claude Code Skills & Consulting",
+    description:
+      "Pre-built Claude Code skills for solo founders, writers, and anyone who wants AI to actually do work.",
+    images: ["/api/og?title=ClaudeFlows&subtitle=Claude+Code+skills+built+by+someone+who+ships+with+Claude+Code+every+day"],
   },
 };
 
 function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 border-b border-neutral-200 bg-white/80 backdrop-blur-xl">
+    <nav className="sticky top-0 z-50 border-b border-[rgba(255,255,255,0.08)] bg-[#13111C]/80 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-neutral-900">
-            <span className="text-xs font-bold text-white">CF</span>
-          </div>
-          <span className="text-base font-semibold text-neutral-900">Claude Flows</span>
+          <span className="text-base font-semibold text-[rgba(255,255,255,0.92)]">
+            ClaudeFlows
+          </span>
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="hidden sm:flex items-center gap-6">
           <Link
-            href="/search"
-            className="hidden sm:flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-neutral-500 transition-colors hover:text-neutral-900 hover:bg-neutral-100"
+            href="/skills"
+            className="text-sm text-[rgba(255,255,255,0.60)] transition-colors hover:text-[rgba(255,255,255,0.92)]"
           >
-            <svg
-              className="h-3.5 w-3.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
-            </svg>
-            Search
+            Skills
           </Link>
           <Link
-            href="/publish"
-            className="rounded-lg bg-neutral-900 px-3.5 py-1.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
+            href="/consulting"
+            className="text-sm text-[rgba(255,255,255,0.60)] transition-colors hover:text-[rgba(255,255,255,0.92)]"
           >
-            List a skill
+            Consulting
+          </Link>
+          <Link
+            href="/blog"
+            className="text-sm text-[rgba(255,255,255,0.60)] transition-colors hover:text-[rgba(255,255,255,0.92)]"
+          >
+            Blog
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <a
+            href="https://github.com/mikethepurple/claudeflows"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[rgba(255,255,255,0.36)] transition-colors hover:text-[rgba(255,255,255,0.60)]"
+          >
+            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </a>
+          <Link
+            href="/skills"
+            className="rounded-lg bg-[#6366F1] px-3.5 py-1.5 text-sm font-medium text-white transition-all hover:bg-[#4F46E5] hover:shadow-[0_0_0_3px_rgba(99,102,241,0.25)]"
+          >
+            Browse Skills
           </Link>
         </div>
       </div>
@@ -58,89 +83,62 @@ function Navbar() {
 }
 
 function Footer() {
-  const browseCategories = [
-    { name: "Research", href: "/?category=research" },
-    { name: "Business", href: "/?category=business" },
-    { name: "Development", href: "/?category=development" },
-  ];
-
   return (
-    <footer className="border-t border-neutral-200 bg-neutral-50">
+    <footer className="border-t border-[rgba(255,255,255,0.06)]">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-5">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="flex h-6 w-6 items-center justify-center rounded-md bg-neutral-900">
-                <span className="text-[10px] font-bold text-white">CF</span>
-              </div>
-              <span className="text-sm font-semibold text-neutral-900">
-                Claude Flows
-              </span>
-            </div>
-            <p className="text-sm text-neutral-500 max-w-xs">
-              AI skills that handle real tasks. Pick one, tell it what you need, get results.
+            <span className="text-sm font-semibold text-[rgba(255,255,255,0.92)]">
+              ClaudeFlows
+            </span>
+            <p className="mt-2 text-sm text-[rgba(255,255,255,0.36)] max-w-xs leading-relaxed">
+              Claude Code skills built by someone who ships with Claude Code every day.
             </p>
           </div>
 
-          {/* Browse */}
+          {/* Skills */}
           <div>
-            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
-              Browse
+            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[rgba(255,255,255,0.36)]">
+              Skills
             </h4>
             <ul className="flex flex-col gap-2">
-              {browseCategories.map((cat) => (
-                <li key={cat.name}>
-                  <Link
-                    href={cat.href}
-                    className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
-                  >
-                    {cat.name}
-                  </Link>
-                </li>
-              ))}
               <li>
-                <Link
-                  href="/search"
-                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
-                >
-                  All Skills
+                <Link href="/skills" className="text-sm text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)] transition-colors">
+                  Browse All
+                </Link>
+              </li>
+              <li>
+                <Link href="/skills?tier=free" className="text-sm text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)] transition-colors">
+                  Free Skills
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* For Creators */}
+          {/* Services */}
           <div>
-            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
-              For Creators
+            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[rgba(255,255,255,0.36)]">
+              Services
             </h4>
             <ul className="flex flex-col gap-2">
               <li>
-                <Link
-                  href="/publish"
-                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
-                >
-                  List a Skill
+                <Link href="/consulting" className="text-sm text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)] transition-colors">
+                  Consulting
                 </Link>
               </li>
               <li>
-                <a
-                  href="https://github.com/mikethepurple/claudeflows/blob/main/docs/schema.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
-                >
-                  Publishing Guide
-                </a>
+                <Link href="/blog" className="text-sm text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)] transition-colors">
+                  Blog
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Connect */}
           <div>
-            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
-              Resources
+            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[rgba(255,255,255,0.36)]">
+              Connect
             </h4>
             <ul className="flex flex-col gap-2">
               <li>
@@ -148,17 +146,28 @@ function Footer() {
                   href="https://github.com/mikethepurple/claudeflows"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
+                  className="text-sm text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)] transition-colors"
                 >
                   GitHub
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://twitter.com/maboroshi_tech"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)] transition-colors"
+                >
+                  Twitter
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-neutral-200 pt-6 text-center text-xs text-neutral-400">
-          &copy; {new Date().getFullYear()} Claude Flows
+        <div className="section-divider mt-10 mb-6" />
+        <div className="text-center text-xs text-[rgba(255,255,255,0.20)]">
+          Built by Misha Erikov &middot; &copy; {new Date().getFullYear()} ClaudeFlows
         </div>
       </div>
     </footer>
@@ -172,9 +181,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#FAFAFA] text-neutral-900 antialiased">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="relative min-h-screen antialiased">
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="relative z-10 flex-1">{children}</main>
         <Footer />
       </body>
     </html>
