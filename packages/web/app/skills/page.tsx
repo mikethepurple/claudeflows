@@ -40,7 +40,7 @@ function RequestSkill() {
           Don&apos;t see what you need?
         </h2>
         <p className="mb-6 text-sm text-[rgba(255,255,255,0.60)]">
-          Tell me what workflow you wish existed. Popular requests get built first.
+          Describe the automation you wish existed. Popular requests get built first.
           Complex ones become consulting projects.
         </p>
 
@@ -49,14 +49,14 @@ function RequestSkill() {
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
-            Got it. I&apos;ll follow up if I build it.
+            Got it. We&apos;ll follow up when it ships.
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-3">
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="I wish I had a skill that..."
+              placeholder="I wish I had an automation that..."
               rows={3}
               required
               className="w-full rounded-lg border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-sm text-[rgba(255,255,255,0.92)] placeholder-[rgba(255,255,255,0.36)] outline-none focus:border-[rgba(99,102,241,0.50)] focus:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] resize-none"
@@ -96,10 +96,10 @@ export default function SkillsPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       <h1 className="mb-2 text-3xl font-bold text-[rgba(255,255,255,0.92)]">
-        Skills
+        Curated Flows
       </h1>
       <p className="mb-8 text-base text-[rgba(255,255,255,0.60)]">
-        Pre-built Claude Code workflows. Install in one command. One-time pricing.
+        Battle-tested AI automations with smart installers. Every flow is production-proven before it hits the shelf. One-time pricing.
       </p>
 
       <CategoryPills selected={selectedCategory} onSelect={setSelectedCategory} />
@@ -112,7 +112,7 @@ export default function SkillsPage() {
 
       {filteredWorkflows.length === 0 && (
         <p className="mt-12 text-center text-sm text-[rgba(255,255,255,0.36)]">
-          No skills in this category yet.
+          No flows in this category yet.
         </p>
       )}
 

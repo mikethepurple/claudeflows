@@ -7,7 +7,7 @@ export default function BlogPage() {
         Blog
       </h1>
       <p className="mb-12 text-base text-[rgba(255,255,255,0.60)]">
-        How I actually use Claude Code &mdash; builds, lessons, and workflows.
+        Builds, lessons, and production flows from the team behind Curated Flows.
       </p>
 
       <div className="space-y-6">

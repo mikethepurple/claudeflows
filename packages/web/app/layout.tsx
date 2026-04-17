@@ -3,17 +3,17 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ClaudeFlows — Claude Code Skills & Consulting",
+  title: "Curated Flows — Battle-Tested AI Automations",
   description:
-    "Pre-built Claude Code skills for solo founders, writers, and anyone who wants AI to actually do work. Install in one command. Consulting available.",
+    "Hand-picked AI automation flows for founders, operators, and teams. Not skill files — full workflows with smart installers, tested in production. Consulting available.",
   openGraph: {
-    title: "ClaudeFlows — Claude Code Skills & Consulting",
+    title: "Curated Flows — Battle-Tested AI Automations",
     description:
-      "Pre-built Claude Code skills for solo founders, writers, and anyone who wants AI to actually do work. Install in one command.",
+      "Hand-picked AI automation flows for founders, operators, and teams. Not skill files — full workflows with smart installers, tested in production.",
     type: "website",
     images: [
       {
-        url: "/api/og?title=ClaudeFlows&subtitle=Claude+Code+skills+built+by+someone+who+ships+with+Claude+Code+every+day",
+        url: "/api/og?title=Curated+Flows&subtitle=Battle-tested+AI+automations.+Hand-picked.+Production-proven.",
         width: 1200,
         height: 630,
       },
@@ -21,10 +21,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ClaudeFlows — Claude Code Skills & Consulting",
+    title: "Curated Flows — Battle-Tested AI Automations",
     description:
-      "Pre-built Claude Code skills for solo founders, writers, and anyone who wants AI to actually do work.",
-    images: ["/api/og?title=ClaudeFlows&subtitle=Claude+Code+skills+built+by+someone+who+ships+with+Claude+Code+every+day"],
+      "Hand-picked AI automation flows for founders, operators, and teams. Not skill files — full workflows with smart installers, tested in production.",
+    images: ["/api/og?title=Curated+Flows&subtitle=Battle-tested+AI+automations.+Hand-picked.+Production-proven."],
   },
 };
 
@@ -34,7 +34,7 @@ function Navbar() {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2">
           <span className="text-base font-semibold text-[rgba(255,255,255,0.92)]">
-            ClaudeFlows
+            Curated Flows
           </span>
         </Link>
 
@@ -43,7 +43,7 @@ function Navbar() {
             href="/skills"
             className="text-sm text-[rgba(255,255,255,0.60)] transition-colors hover:text-[rgba(255,255,255,0.92)]"
           >
-            Skills
+            Flows
           </Link>
           <Link
             href="/consulting"
@@ -61,7 +61,7 @@ function Navbar() {
 
         <div className="flex items-center gap-3">
           <a
-            href="https://github.com/mikethepurple/claudeflows"
+            href="https://github.com/mikethepurple/curatedflows"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[rgba(255,255,255,0.36)] transition-colors hover:text-[rgba(255,255,255,0.60)]"
@@ -74,7 +74,7 @@ function Navbar() {
             href="/skills"
             className="rounded-lg bg-[#6366F1] px-3.5 py-1.5 text-sm font-medium text-white transition-all hover:bg-[#4F46E5] hover:shadow-[0_0_0_3px_rgba(99,102,241,0.25)]"
           >
-            Browse Skills
+            Browse Flows
           </Link>
         </div>
       </div>
@@ -90,17 +90,17 @@ function Footer() {
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
             <span className="text-sm font-semibold text-[rgba(255,255,255,0.92)]">
-              ClaudeFlows
+              Curated Flows
             </span>
             <p className="mt-2 text-sm text-[rgba(255,255,255,0.36)] max-w-xs leading-relaxed">
-              Claude Code skills built by someone who ships with Claude Code every day.
+              Battle-tested AI automations. Hand-picked. Production-proven.
             </p>
           </div>
 
-          {/* Skills */}
+          {/* Flows */}
           <div>
             <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[rgba(255,255,255,0.36)]">
-              Skills
+              Flows
             </h4>
             <ul className="flex flex-col gap-2">
               <li>
@@ -110,7 +110,7 @@ function Footer() {
               </li>
               <li>
                 <Link href="/skills?tier=free" className="text-sm text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)] transition-colors">
-                  Free Skills
+                  Free Flows
                 </Link>
               </li>
             </ul>
@@ -143,7 +143,7 @@ function Footer() {
             <ul className="flex flex-col gap-2">
               <li>
                 <a
-                  href="https://github.com/mikethepurple/claudeflows"
+                  href="https://github.com/mikethepurple/curatedflows"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)] transition-colors"
@@ -167,7 +167,7 @@ function Footer() {
 
         <div className="section-divider mt-10 mb-6" />
         <div className="text-center text-xs text-[rgba(255,255,255,0.20)]">
-          Built by Misha Erikov &middot; &copy; {new Date().getFullYear()} ClaudeFlows
+          Built by Misha Erikov &middot; &copy; {new Date().getFullYear()} Curated Flows
         </div>
       </div>
     </footer>

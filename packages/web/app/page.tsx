@@ -9,7 +9,7 @@ import { SAMPLE_WORKFLOWS } from "@/lib/sample-data";
 /* ─── CLI Install Block ─── */
 function CliBlock() {
   const [copied, setCopied] = useState(false);
-  const command = "npm install -g claudeflows";
+  const command = "npm install -g curatedflows";
 
   const handleCopy = useCallback(async () => {
     try {
@@ -91,20 +91,20 @@ function Hero() {
 
       <div className="relative mx-auto max-w-[900px] px-4 pb-16 pt-16 sm:px-6 sm:pt-24 text-center">
         <p className="mb-4 text-base text-[rgba(255,255,255,0.60)]">
-          Hi, I&apos;m Misha &mdash; I build skills for Claude Code.
+          Hand-picked AI automations. Tested in production. Ready to install.
         </p>
 
         <h1 className="mb-5 text-4xl font-bold leading-tight tracking-tight text-[rgba(255,255,255,0.92)] sm:text-6xl">
-          Ship faster.{" "}
+          Not another{" "}
           <br className="hidden sm:block" />
-          Think less.{" "}
+          AI skills directory.{" "}
           <br className="hidden sm:block" />
-          <span className="text-[#6366F1]">Let Claude do it.</span>
+          <span className="text-[#6366F1]">These actually work.</span>
         </h1>
 
         <p className="mx-auto mb-8 max-w-xl text-lg text-[rgba(255,255,255,0.60)] leading-relaxed">
-          Claude Code skills for solo founders, writers, and anyone
-          who wants AI to actually do work &mdash; not just chat.
+          Full automation flows with smart installers &mdash; not one-file skills
+          that break on first run. Built and battle-tested by people who ship AI every day.
         </p>
 
         <CliBlock />
@@ -114,7 +114,7 @@ function Hero() {
             href="/skills"
             className="rounded-lg bg-[#6366F1] px-6 py-3 text-sm font-medium text-white transition-all hover:bg-[#4F46E5] hover:shadow-[0_0_0_3px_rgba(99,102,241,0.25)]"
           >
-            Browse Skills
+            Browse Flows
           </Link>
           <Link
             href="/consulting"
@@ -137,18 +137,18 @@ function HowItWorks() {
   const steps = [
     {
       num: "1",
-      title: "Install",
-      desc: "One command in your terminal. Takes 30 seconds.",
+      title: "Install the CLI",
+      desc: "One command adds Curated Flows to your terminal. Takes 30 seconds.",
     },
     {
       num: "2",
-      title: "Pick a skill",
-      desc: "Browse pre-built skills for research, writing, ops, security.",
+      title: "Pick a flow",
+      desc: "Browse curated automations for research, operations, marketing, and more.",
     },
     {
       num: "3",
       title: "Run it",
-      desc: "Tell Claude what you need. The skill handles the rest.",
+      desc: "The flow's smart installer sets everything up. Tell Claude what you need \u2014 it handles the rest.",
     },
   ];
 
@@ -281,8 +281,8 @@ function ConsultingCta() {
           Need something custom?
         </h2>
         <p className="mx-auto mb-6 max-w-lg text-base text-[rgba(255,255,255,0.60)] leading-relaxed">
-          I built a prediction market platform, an AI vision prototype, and a
-          venture validation pipeline &mdash; all with Claude Code. I can build yours too.
+          A prediction market platform, an AI vision prototype, and a
+          venture validation pipeline &mdash; all built with these same flows. Get one built for your team.
         </p>
         <div className="flex items-center justify-center gap-4 flex-wrap">
           <Link
@@ -332,7 +332,7 @@ function EmailCapture() {
           Start free. See what you&apos;re getting first.
         </h2>
         <p className="mb-6 text-sm text-[rgba(255,255,255,0.60)]">
-          Get the /checkpoint skill &mdash; free, forever. No credit card.
+          Get the /checkpoint flow &mdash; free, forever. No credit card.
         </p>
 
         {submitted ? (
@@ -340,7 +340,7 @@ function EmailCapture() {
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
-            Check your inbox &mdash; the skill is on its way.
+            Check your inbox &mdash; the flow is on its way.
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex gap-2">
@@ -357,7 +357,7 @@ function EmailCapture() {
               disabled={loading}
               className="shrink-0 rounded-lg bg-[#6366F1] px-5 py-3 text-sm font-medium text-white transition-all hover:bg-[#4F46E5] disabled:opacity-50"
             >
-              {loading ? "..." : "Get the free skill"}
+              {loading ? "..." : "Get the free flow"}
             </button>
           </form>
         )}
@@ -383,13 +383,13 @@ function FeaturedSkills() {
     <section className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-2xl font-semibold text-[rgba(255,255,255,0.92)] sm:text-3xl">
-          Skills that ship on day one
+          Production-proven flows
         </h2>
         <Link
           href="/skills"
           className="text-sm text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)] transition-colors"
         >
-          View all skills &rarr;
+          View all flows &rarr;
         </Link>
       </div>
 

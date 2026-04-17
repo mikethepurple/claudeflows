@@ -12,7 +12,7 @@ const PACKAGES = [
     popular: false,
     features: [
       "2-hour Claude Code setup session",
-      "1 custom skill built for your workflow",
+      "1 custom automation flow built for your workflow",
       "CLAUDE.md + memory system configured",
       "30-day async support",
       "Works or we rebuild it",
@@ -28,7 +28,7 @@ const PACKAGES = [
     popular: true,
     features: [
       "Complete Claude Code workspace setup",
-      "3-5 custom skills built for your needs",
+      "3-5 custom automation flows built for your needs",
       "MCP servers configured",
       "Memory system + session persistence",
       "Team onboarding documentation",
@@ -56,7 +56,7 @@ const PACKAGES = [
 ];
 
 const ADDONS = [
-  { name: "Extra skill built", price: "+$200", desc: "Per skill" },
+  { name: "Extra flow built", price: "+$200", desc: "Per flow" },
   { name: "Async Slack support", price: "+$300/mo", desc: "30 days direct access" },
   { name: "Rush delivery (48hr)", price: "+$150-300", desc: "Sprint or Full Setup" },
   { name: "Architecture review call", price: "$350", desc: "Standalone 60-min session" },
@@ -73,7 +73,7 @@ const DIY_COMPARISON = [
   { label: "Time to first workflow", diy: "20-40 hours", cf: "Same day" },
   { label: "Cost of your time", diy: "$1,500-3,000 at $75/hr", cf: "$500 flat" },
   { label: "Ongoing support", diy: "Your problem", cf: "Included 30-60 days" },
-  { label: "Reusable skill library", diy: "Start from scratch", cf: "Built in" },
+  { label: "Reusable flow library", diy: "Start from scratch", cf: "Built in" },
   { label: "Documentation", diy: "You write it", cf: "Delivered with handoff" },
 ];
 
@@ -172,8 +172,8 @@ export default function ConsultingPage() {
           Starting at $500
         </p>
         <p className="mx-auto mt-4 max-w-lg text-base text-[rgba(255,255,255,0.60)] leading-relaxed">
-          Setup in 2 hours, not 2 weeks. I build your Claude Code workspace with custom
-          skills, memory, and workflows &mdash; so your team ships from day one.
+          Setup in 2 hours, not 2 weeks. I build your AI automation workspace with custom
+          flows, memory, and integrations &mdash; so your team ships from day one.
         </p>
         <a
           href="https://book.vimcal.com/p/misha/30minus"
@@ -234,7 +234,7 @@ export default function ConsultingPage() {
               <svg className="h-4 w-4 text-[#6366F1]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
-              New skills deployed monthly
+              New flows deployed monthly
             </li>
             <li className="flex items-center gap-2">
               <svg className="h-4 w-4 text-[#6366F1]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
@@ -326,7 +326,7 @@ export default function ConsultingPage() {
       {/* Us vs DIY */}
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <h2 className="mb-6 text-center text-xl font-semibold text-[rgba(255,255,255,0.92)]">
-          Build it yourself vs. ClaudeFlows
+          Build it yourself vs. Curated Flows
         </h2>
         <div className="overflow-hidden rounded-xl border border-[rgba(255,255,255,0.10)]">
           <table className="w-full text-sm">
@@ -334,7 +334,7 @@ export default function ConsultingPage() {
               <tr className="border-b border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)]">
                 <th className="px-4 py-3 text-left font-medium text-[rgba(255,255,255,0.60)]"></th>
                 <th className="px-4 py-3 text-left font-medium text-[rgba(255,255,255,0.36)]">DIY</th>
-                <th className="px-4 py-3 text-left font-medium text-[#6366F1]">ClaudeFlows</th>
+                <th className="px-4 py-3 text-left font-medium text-[#6366F1]">Curated Flows</th>
               </tr>
             </thead>
             <tbody>
