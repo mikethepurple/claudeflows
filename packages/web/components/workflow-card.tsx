@@ -125,7 +125,7 @@ export default function WorkflowCard({ workflow }: WorkflowCardProps) {
 
         {/* Row 3: CLI command — unique fingerprint */}
         <p className="mb-3 font-mono text-[11px] text-[rgba(255,255,255,0.25)] tracking-tight">
-          curatedflows install {workflow.name}
+          claudeflows install {workflow.name}
         </p>
 
         {/* Row 4: Outcome tagline — the scannable element */}

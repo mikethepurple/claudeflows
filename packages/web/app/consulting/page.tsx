@@ -65,7 +65,7 @@ const ADDONS = [
 
 const PROCESS = [
   { num: "1", title: "Book a call", desc: "Pick a package, schedule a free 30-minute intro call. We'll scope your needs." },
-  { num: "2", title: "We build", desc: "I set up your Claude Code workspace with custom skills, memory, and workflows." },
+  { num: "2", title: "We build", desc: "I set up your Claude Code workspace with custom flows, memory, and integrations." },
   { num: "3", title: "You ship", desc: "Your team has a working AI workflow. Documentation included. Support continues async." },
 ];
 

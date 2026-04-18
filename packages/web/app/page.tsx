@@ -9,7 +9,7 @@ import { SAMPLE_WORKFLOWS } from "@/lib/sample-data";
 /* ─── CLI Install Block ─── */
 function CliBlock() {
   const [copied, setCopied] = useState(false);
-  const command = "npm install -g curatedflows";
+  const command = "npm install -g claudeflows";
 
   const handleCopy = useCallback(async () => {
     try {
@@ -104,7 +104,7 @@ function Hero() {
 
         <p className="mx-auto mb-8 max-w-xl text-lg text-[rgba(255,255,255,0.60)] leading-relaxed">
           Full automation flows with smart installers &mdash; not one-file skills
-          that break on first run. Built and battle-tested by people who ship AI every day.
+          that break on first run. Built and battle-tested by someone who ships AI every day.
         </p>
 
         <CliBlock />

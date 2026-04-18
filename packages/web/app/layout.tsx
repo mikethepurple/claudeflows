@@ -61,7 +61,7 @@ function Navbar() {
 
         <div className="flex items-center gap-3">
           <a
-            href="https://github.com/mikethepurple/curatedflows"
+            href="https://github.com/mikethepurple/claudeflows"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[rgba(255,255,255,0.36)] transition-colors hover:text-[rgba(255,255,255,0.60)]"
@@ -143,7 +143,7 @@ function Footer() {
             <ul className="flex flex-col gap-2">
               <li>
                 <a
-                  href="https://github.com/mikethepurple/curatedflows"
+                  href="https://github.com/mikethepurple/claudeflows"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-[rgba(255,255,255,0.60)] hover:text-[rgba(255,255,255,0.92)] transition-colors"
