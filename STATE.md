@@ -1,17 +1,25 @@
-# Claude Flows State — Last updated: 2026-04-16
+# Curated Flows State — Last updated: 2026-04-18
 
 ## Environment
 
-- **Staging:** claudeflows-staging.vercel.app (OLD — pre-dark-mode)
-- **Production:** claudeflows.vercel.app (OLD — pre-redesign)
+- **Production:** curatedflows.vercel.app (deployed 2026-04-18, rebrand complete)
+- **Custom domain:** curatedflows.com (added to Vercel, DNS A records needed on Cloudflare: @ + www → 76.76.21.21, grey cloud)
 - **Local dev:** localhost:3847 (dark mode redesign, fully functional)
 - **Supabase:** myzmadvevthaegdetfjr (linked, migrations 001-002 applied, 003 NOT yet applied)
 - **npm:** claudeflows@0.2.0 (published, unscoped)
-- **GitHub:** mikethepurple/claudeflows (many commits ahead, not pushed)
+- **GitHub:** mikethepurple/claudeflows (pushed up to ed8b79e)
 - **Skills on site:** 16 in catalog (11 non-technical + 5 power skills: Memory System, Market Watch, Vibecheck, Daily Report, Blueprint)
 - **Auto-sync:** `scripts/generate-sample-data.ts` reads workflow.json → generates sample-data.ts on prebuild
 
-## What Was Built This Session (2026-04-16)
+## What Was Done (2026-04-18)
+
+- Fixed broken GitHub/npm links pointing to non-existent `curatedflows` repo/package — reverted to `claudeflows`
+- Fixed voice inconsistency: "the team behind" → "the maker of", "people who ship" → "someone who ships"
+- Removed old `claudeflows` Vercel project, created new `curatedflows` project
+- Deployed to production at curatedflows.vercel.app
+- Added curatedflows.com + www.curatedflows.com domains on Vercel (DNS records pending on Cloudflare)
+
+## What Was Built (2026-04-16)
 
 ### Research (complete)
 - 31-agent research pipeline: 25 discovery → 4 synthesis → 2 gap evaluation
@@ -31,8 +39,7 @@
 ## Pending Actions
 
 1. **Apply Supabase migration 003** — email_subscribers + consulting_leads tables
-2. **Push to GitHub** — many local commits not pushed
-3. **Deploy to staging** then production (Vercel) — need /vibecheck first
+2. **Configure Cloudflare DNS** — A records for curatedflows.com (@ + www → 76.76.21.21, grey cloud)
 4. **Smart installer (Phase 5)** — setup skill that Claude Code runs to install complex skills
 5. **Stripe / Lemon Squeezy** — payment processing for paid skills
 6. **OG images** — Vercel OG / Satori for per-skill dynamic generation

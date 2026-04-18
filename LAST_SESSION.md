@@ -1,30 +1,23 @@
-# Last Session — 2026-04-16
+# Last Session — 2026-04-18
 
 ## Done
-- 31-agent research pipeline (25 discovery → 4 synthesis → 2 gap eval)
-- Full dark mode redesign (globals.css, layout, all 20+ components)
-- New homepage (hero, CLI block, skills grid, Blueprint tips, consulting CTA, email capture)
-- New consulting page (packages, add-ons, retainer, case studies, Us vs DIY, FAQ, Vimcal)
-- New /skills page (category icons + tints, request feature)
-- New /blog with first real post (10 skills I install on every project)
-- 5 power skills added to catalog (Memory System, Market Watch, Vibecheck, Daily Report, Blueprint)
-- OG image API route (@vercel/og)
-- Security fixes (input validation, field caps, headers)
-- All marketing content generated (Reddit, Twitter, Instagram, Upwork, Dev.to, HN, Meta ads, Google ads)
-- Deployed to production at claudeflows.vercel.app
+- Reviewed all unpushed rebrand diffs (2 commits + unstaged file moves)
+- Fixed broken links: GitHub URLs and npm install command pointed to non-existent `curatedflows` repo/package — reverted to `claudeflows`
+- Fixed voice inconsistency: blog "the team behind" → "the maker of", homepage "people who ship" → "someone who ships", consulting process step "skills" → "flows"
+- Removed old `claudeflows` Vercel project
+- Created new `curatedflows` Vercel project, deployed to production
+- Added curatedflows.com + www.curatedflows.com domains on Vercel
+- Pushed all commits to GitHub (3 total: /save, rebrand, fix)
 
 ## Open threads
-- Phase 5 installer — smart setup skill not started
-- Stripe/Lemon Squeezy for paid skills
-- Supabase migration 003 not applied
-- Ad accounts need setup (briefs ready in marketing/)
-- Reels need recording (scripts ready in marketing/)
-- GitHub awesome-list PRs not submitted
-- Blueprint pricing (free lead magnet or $19-29?)
+- Cloudflare DNS not configured yet — A records needed (@ + www → 76.76.21.21, grey cloud not orange)
+- Supabase migration 003 still not applied (email_subscribers + consulting_leads tables)
+- npm package is still `claudeflows` — may want to publish `curatedflows` later
+- GitHub repo is still `mikethepurple/claudeflows` — rename optional
 
 ## Possible next
-- Launch ads ($30/day Google + Meta)
-- Post content (all drafts ready)
-- Build installer skill (Phase 5)
-- Record Instagram Reels
-- Submit GitHub awesome-list PRs
+- Configure Cloudflare DNS for curatedflows.com
+- Apply Supabase migration 003
+- Build /vibecheck landing page (lead magnet)
+- Build /sprint landing page (Sprint booking)
+- Launch Google Ads + Reddit promoted posts
