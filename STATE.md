@@ -1,13 +1,13 @@
-# Curated Flows State — Last updated: 2026-04-18
+# CuratedFlows State — Last updated: 2026-04-18
 
 ## Environment
 
 - **Production:** curatedflows.vercel.app (deployed 2026-04-18, rebrand complete)
-- **Custom domain:** curatedflows.com (added to Vercel, DNS A records needed on Cloudflare: @ + www → 76.76.21.21, grey cloud)
+- **Custom domain:** curatedflows.com (DNS configured via Cloudflare API, A records live: @ + www → 76.76.21.21)
 - **Local dev:** localhost:3847 (dark mode redesign, fully functional)
 - **Supabase:** myzmadvevthaegdetfjr (linked, migrations 001-002 applied, 003 NOT yet applied)
 - **npm:** claudeflows@0.2.0 (published, unscoped)
-- **GitHub:** mikethepurple/claudeflows (pushed up to ed8b79e)
+- **GitHub:** mikethepurple/claudeflows (local, not pushed since ed8b79e — 2 more commits ahead)
 - **Skills on site:** 16 in catalog (11 non-technical + 5 power skills: Memory System, Market Watch, Vibecheck, Daily Report, Blueprint)
 - **Auto-sync:** `scripts/generate-sample-data.ts` reads workflow.json → generates sample-data.ts on prebuild
 
@@ -17,7 +17,9 @@
 - Fixed voice inconsistency: "the team behind" → "the maker of", "people who ship" → "someone who ships"
 - Removed old `claudeflows` Vercel project, created new `curatedflows` project
 - Deployed to production at curatedflows.vercel.app
-- Added curatedflows.com + www.curatedflows.com domains on Vercel (DNS records pending on Cloudflare)
+- Added curatedflows.com + www.curatedflows.com domains on Vercel
+- Configured Cloudflare DNS via API (A records: @ + www → 76.76.21.21)
+- Brand name standardized: "CuratedFlows" (one word) everywhere in site copy
 
 ## What Was Built (2026-04-16)
 
