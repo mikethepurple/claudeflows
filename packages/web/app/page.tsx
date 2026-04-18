@@ -138,7 +138,7 @@ function HowItWorks() {
     {
       num: "1",
       title: "Install the CLI",
-      desc: "One command adds Curated Flows to your terminal. Takes 30 seconds.",
+      desc: "One command adds CuratedFlows to your terminal. Takes 30 seconds.",
     },
     {
       num: "2",

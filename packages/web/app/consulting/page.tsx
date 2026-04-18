@@ -326,7 +326,7 @@ export default function ConsultingPage() {
       {/* Us vs DIY */}
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <h2 className="mb-6 text-center text-xl font-semibold text-[rgba(255,255,255,0.92)]">
-          Build it yourself vs. Curated Flows
+          Build it yourself vs. CuratedFlows
         </h2>
         <div className="overflow-hidden rounded-xl border border-[rgba(255,255,255,0.10)]">
           <table className="w-full text-sm">
@@ -334,7 +334,7 @@ export default function ConsultingPage() {
               <tr className="border-b border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)]">
                 <th className="px-4 py-3 text-left font-medium text-[rgba(255,255,255,0.60)]"></th>
                 <th className="px-4 py-3 text-left font-medium text-[rgba(255,255,255,0.36)]">DIY</th>
-                <th className="px-4 py-3 text-left font-medium text-[#6366F1]">Curated Flows</th>
+                <th className="px-4 py-3 text-left font-medium text-[#6366F1]">CuratedFlows</th>
               </tr>
             </thead>
             <tbody>

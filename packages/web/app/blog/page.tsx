@@ -7,7 +7,7 @@ export default function BlogPage() {
         Blog
       </h1>
       <p className="mb-12 text-base text-[rgba(255,255,255,0.60)]">
-        Builds, lessons, and production flows from the maker of Curated Flows.
+        Builds, lessons, and production flows from the maker of CuratedFlows.
       </p>
 
       <div className="space-y-6">

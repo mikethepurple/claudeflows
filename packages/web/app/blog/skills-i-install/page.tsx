@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "10 Claude Code Skills I Install on Every Project — Curated Flows",
+  title: "10 Claude Code Skills I Install on Every Project — CuratedFlows",
   description:
     "The exact setup I use across prediction markets, AI prototypes, and venture validation pipelines. Every skill explained with the problem it solves.",
   openGraph: {

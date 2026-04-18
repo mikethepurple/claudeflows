@@ -3,17 +3,17 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Curated Flows — Battle-Tested AI Automations",
+  title: "CuratedFlows — Battle-Tested AI Automations",
   description:
     "Hand-picked AI automation flows for founders, operators, and teams. Not skill files — full workflows with smart installers, tested in production. Consulting available.",
   openGraph: {
-    title: "Curated Flows — Battle-Tested AI Automations",
+    title: "CuratedFlows — Battle-Tested AI Automations",
     description:
       "Hand-picked AI automation flows for founders, operators, and teams. Not skill files — full workflows with smart installers, tested in production.",
     type: "website",
     images: [
       {
-        url: "/api/og?title=Curated+Flows&subtitle=Battle-tested+AI+automations.+Hand-picked.+Production-proven.",
+        url: "/api/og?title=CuratedFlows&subtitle=Battle-tested+AI+automations.+Hand-picked.+Production-proven.",
         width: 1200,
         height: 630,
       },
@@ -21,10 +21,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Curated Flows — Battle-Tested AI Automations",
+    title: "CuratedFlows — Battle-Tested AI Automations",
     description:
       "Hand-picked AI automation flows for founders, operators, and teams. Not skill files — full workflows with smart installers, tested in production.",
-    images: ["/api/og?title=Curated+Flows&subtitle=Battle-tested+AI+automations.+Hand-picked.+Production-proven."],
+    images: ["/api/og?title=CuratedFlows&subtitle=Battle-tested+AI+automations.+Hand-picked.+Production-proven."],
   },
 };
 
@@ -34,7 +34,7 @@ function Navbar() {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2">
           <span className="text-base font-semibold text-[rgba(255,255,255,0.92)]">
-            Curated Flows
+            CuratedFlows
           </span>
         </Link>
 
@@ -90,7 +90,7 @@ function Footer() {
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
             <span className="text-sm font-semibold text-[rgba(255,255,255,0.92)]">
-              Curated Flows
+              CuratedFlows
             </span>
             <p className="mt-2 text-sm text-[rgba(255,255,255,0.36)] max-w-xs leading-relaxed">
               Battle-tested AI automations. Hand-picked. Production-proven.
@@ -167,7 +167,7 @@ function Footer() {
 
         <div className="section-divider mt-10 mb-6" />
         <div className="text-center text-xs text-[rgba(255,255,255,0.20)]">
-          Built by Misha Erikov &middot; &copy; {new Date().getFullYear()} Curated Flows
+          Built by Misha Erikov &middot; &copy; {new Date().getFullYear()} CuratedFlows
         </div>
       </div>
     </footer>

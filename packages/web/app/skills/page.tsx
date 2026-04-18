@@ -96,7 +96,7 @@ export default function SkillsPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       <h1 className="mb-2 text-3xl font-bold text-[rgba(255,255,255,0.92)]">
-        Curated Flows
+        CuratedFlows
       </h1>
       <p className="mb-8 text-base text-[rgba(255,255,255,0.60)]">
         Battle-tested AI automations with smart installers. Every flow is production-proven before it hits the shelf. One-time pricing.

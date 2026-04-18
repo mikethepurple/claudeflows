@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Share a Flow — Curated Flows",
+  title: "Share a Flow — CuratedFlows",
   description:
-    "Learn how to create and share AI automation flows on Curated Flows.",
+    "Learn how to create and share AI automation flows on CuratedFlows.",
 };
 
 function CodeBlock({ children }: { children: string }) {
