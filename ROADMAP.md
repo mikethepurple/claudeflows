@@ -8,9 +8,12 @@
 - [x] Replace all mailto: links
 - [x] Problem-aware copy on skill pages
 - [x] 15 skills on marketplace (4 original + 11 new)
+- [x] Deploy to production (curatedflows.com — redesign v2, static HTML)
 - [ ] Apply Supabase migration (003_leads_tables.sql) — waiting on user
-- [ ] Verify email capture + consulting form work end-to-end on staging
-- [x] Deploy to production (curatedflows.vercel.app + curatedflows.com domain added)
+- [ ] Wire email capture + consulting forms to Supabase (static site needs API endpoints or form service)
+- [ ] Add /vibecheck landing page (highest-priority ad landing page per design brief)
+- [ ] Add /sprint landing page (dedicated Sprint booking page)
+- [ ] Cal.com booking integration for consulting CTAs
 
 ### Skill Auto-Sync (Build → Display Pipeline) ✅
 - [x] Build script: `scripts/generate-sample-data.ts` scans `skills/*/workflow.json` → generates `sample-data.ts`

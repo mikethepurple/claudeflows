@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CuratedFlows — Claude Code Skills & Consulting</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+  <style>/* CuratedFlows — The Workshop Ledger */
+
+:root {
+  --paper: #F4EFE6;
+  --paper-2: #EBE4D6;
+  --paper-3: #E0D7C5;
+  --ink: #17130E;
+  --ink-2: #3A342B;
+  --ink-3: #6B6256;
+  --rule: #C8BFAE;
+  --rule-2: #D9D0BE;
+  --ochre: oklch(0.64 0.14 55);
+  --ochre-ink: oklch(0.40 0.10 55);
+  --moss: oklch(0.35 0.04 150);
+  --red: oklch(0.52 0.18 25);
+
+  --serif: "Newsreader", "Source Serif Pro", Georgia, serif;
+  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  --measure: 62ch;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.55;
+  font-feature-settings: "ss01", "cv02", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; text-decoration: none; }
+a.link { border-bottom: 1px solid var(--ochre); padding-bottom: 1px; }
+a.link:hover { color: var(--ochre-ink); }
+
+hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+hr.rule-heavy { border: 0; border-top: 2px solid var(--ink); margin: 0; }
+hr.rule-double { border: 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); height: 4px; margin: 0; }
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.container-wide { max-width: 1440px; margin: 0 auto; padding: 0 40px; }
+
+/* ---------- Type ---------- */
+.display {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.96;
+}
+.display-italic { font-style: italic; font-weight: 300; }
+.smallcaps {
+  font-family: var(--sans);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+}
+.smallcaps-serif {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+}
+.mono { font-family: var(--mono); font-size: 13px; letter-spacing: -0.01em; }
+.numeral {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-feature-settings: "lnum" 1;
+}
+
+/* ---------- Header ---------- */
+.masthead {
+  border-top: 4px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.masthead-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 32px;
+  padding: 18px 40px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.masthead-left { display: flex; align-items: center; gap: 16px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+.masthead-left .dot { width: 6px; height: 6px; background: var(--ochre); border-radius: 50%; display:inline-block; }
+.wordmark {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.wordmark .amp { color: var(--ochre); font-style: italic; font-weight: 300; }
+.masthead-right { display: flex; justify-content: flex-end; align-items: center; gap: 28px; }
+.nav-links { display: flex; gap: 28px; font-size: 14px; }
+.nav-links a { color: var(--ink-2); }
+.nav-links a:hover { color: var(--ink); }
+.nav-links a.active { color: var(--ink); position: relative; }
+.nav-links a.active::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -22px; height: 2px; background: var(--ink);
+}
+.btn-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+}
+.btn-pill.accent { background: var(--ochre); color: var(--ink); }
+.btn-pill:hover { opacity: 0.9; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 22px;
+  font-size: 14px; letter-spacing: 0.02em;
+  border: 1px solid var(--ink);
+  background: var(--ink); color: var(--paper);
+  cursor: pointer;
+  transition: transform .08s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.accent { background: var(--ochre); color: var(--ink); border-color: var(--ink); }
+.btn .arrow { font-family: var(--serif); font-weight: 300; font-size: 18px; line-height: 1; }
+
+/* ---------- Terminal block ---------- */
+.term {
+  background: #1b1813;
+  color: #e8dfc9;
+  font-family: var(--mono);
+  font-size: 14px;
+  padding: 18px 20px;
+  border-radius: 2px;
+  position: relative;
+  border: 1px solid #2a251e;
+}
+.term::before {
+  content: "terminal";
+  position: absolute; top: -10px; left: 16px;
+  background: var(--paper);
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0 8px;
+}
+.term .prompt { color: #9a8f75; }
+.term .cmd { color: #f2e6c8; }
+.term .comment { color: #6f6554; }
+
+/* ---------- Eyebrow / meta ---------- */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  padding: 4px 0;
+}
+.eyebrow .bar { width: 28px; height: 1px; background: var(--ink); display:inline-block; }
+
+/* ---------- Footer ---------- */
+footer.colophon {
+  border-top: 1px solid var(--ink);
+  margin-top: 120px;
+  padding: 56px 0 48px;
+  background: var(--paper);
+}
+.colophon-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.colophon h5 {
+  font-family: var(--sans);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  color: var(--ink-3);
+  margin: 0 0 16px;
+}
+.colophon a { display: block; padding: 4px 0; color: var(--ink-2); font-size: 14px; }
+.colophon a:hover { color: var(--ink); }
+.colophon-brand { font-family: var(--serif); font-size: 20px; max-width: 38ch; line-height: 1.3; }
+.colophon-bottom {
+  max-width: 1280px;
+  margin: 48px auto 0;
+  padding: 20px 40px 0;
+  border-top: 1px solid var(--rule);
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: var(--ink-3);
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Utility ---------- */
+.section { padding: 96px 0; }
+.section-sm { padding: 56px 0; }
+.divider-dot { color: var(--rule); margin: 0 10px; }
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-2);
+  padding: 3px 8px;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--paper-2);
+}
+.tag.accent { background: var(--ochre); border-color: var(--ochre-ink); color: var(--ink); }
+
+/* ---------- Flow list rows ---------- */
+.flow-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 240px 120px;
+  align-items: baseline;
+  gap: 32px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
+  transition: background .15s ease;
+  padding-left: 8px; padding-right: 8px;
+  margin-left: -8px; margin-right: -8px;
+}
+.flow-row:hover { background: var(--paper-2); }
+.flow-row .num { font-family: var(--serif); font-size: 42px; font-weight: 300; color: var(--ink-3); line-height: 1; }
+.flow-row .title { font-family: var(--serif); font-size: 30px; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 8px; }
+.flow-row .sub { color: var(--ink-2); font-size: 15px; max-width: 52ch; }
+.flow-row .meta-col { font-family: var(--mono); font-size: 12px; color: var(--ink-3); display: flex; flex-direction: column; gap: 4px; }
+.flow-row .meta-col span { display: block; }
+.flow-row .price { font-family: var(--serif); font-size: 26px; text-align: right; }
+.flow-row .install { font-family: var(--mono); font-size: 12px; color: var(--moss); margin-top: 6px; }
+.flow-row:hover .title { color: var(--ochre-ink); }
+
+/* ---------- Catalog card ---------- */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+.cat-card {
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 28px 26px 24px;
+  background: var(--paper);
+  display: flex; flex-direction: column;
+  min-height: 280px;
+  position: relative;
+  transition: background .15s ease;
+}
+.cat-card:hover { background: var(--paper-2); }
+.cat-card .cat-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-3); }
+.cat-card .cat-title { font-family: var(--serif); font-size: 26px; line-height: 1.08; margin: 14px 0 10px; letter-spacing: -0.01em; }
+.cat-card .cat-sub { color: var(--ink-2); font-size: 14px; line-height: 1.5; flex: 1; }
+.cat-card .cat-install { font-family: var(--mono); font-size: 11px; color: var(--moss); margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--rule); }
+.cat-card .cat-foot { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; }
+.cat-card .cat-price { font-family: var(--serif); font-size: 20px; }
+.cat-card .cat-stars { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+
+/* Section banner */
+.banner-dark {
+  background: var(--ink);
+  color: var(--paper);
+}
+.banner-dark .eyebrow { color: #a9a095; }
+.banner-dark .eyebrow .bar { background: var(--paper); }
+
+/* Form */
+.email-input {
+  display: flex;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+}
+.email-input input {
+  flex: 1;
+  border: 0;
+  padding: 16px 18px;
+  background: transparent;
+  font-family: var(--sans); font-size: 15px;
+  color: var(--ink);
+}
+.email-input input:focus { outline: none; background: var(--paper-2); }
+.email-input button {
+  border: 0;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0 22px;
+  font-family: var(--sans); font-size: 13px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+/* ---------- Homepage hero ---------- */
+.hero { padding: 72px 0 56px; border-bottom: 1px solid var(--ink); }
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 1fr);
+  gap: 72px;
+  align-items: start;
+}
+.hero-title { font-size: clamp(72px, 9.2vw, 148px); line-height: 0.92; }
+.hero-title .italic { font-style: italic; font-weight: 300; }
+.hero-lede {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--ink-2);
+  max-width: 52ch;
+  line-height: 1.4;
+  margin: 28px 0 28px;
+}
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-marginalia {
+  border-left: 1px solid var(--rule);
+  padding: 0 0 0 28px;
+  align-self: start;
+  position: sticky; top: 96px;
+}
+
+.trust-strip {
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.trust-strip .mark { font-family: var(--serif); color: var(--ochre); margin-right: 6px; }
+
+/* ---------- Featured section ---------- */
+.featured-head {
+  display: flex; justify-content: space-between; align-items: end;
+  gap: 24px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 14px;
+}
+.pill-filters { display: flex; gap: 6px; flex-wrap: wrap; padding: 16px 0 20px; }
+.pill {
+  font-family: var(--mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 6px 12px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.pill.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.flow-list { border-top: 1px solid var(--ink); }
+
+/* ---------- Sprint CTA / signup ---------- */
+.sprint-cta {
+  background: var(--ochre);
+  color: var(--ink);
+  padding: 56px 48px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 56px;
+  align-items: center;
+  border: 1px solid var(--ink);
+}
+.sprint-cta h2.display { margin: 0 0 12px; font-size: clamp(40px, 4.6vw, 64px); }
+.sprint-cta p { max-width: 48ch; margin: 0; color: var(--ink-2); }
+
+.signup {
+  background: var(--ink); color: var(--paper);
+  padding: 56px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.signup h2.display { color: var(--paper); margin: 0; font-size: clamp(40px, 4.6vw, 60px); }
+.signup p { color: #d5cdbc; margin: 14px 0 0; max-width: 48ch; }
+
+/* ---------- How it works ---------- */
+.how { padding: 96px 0; background: var(--paper-2); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+.how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 32px; }
+.how-step .step-n {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: 88px; line-height: 0.9; color: var(--ochre); margin-bottom: 16px;
+}
+.how-step h3 { font-family: var(--serif); font-weight: 400; font-size: 30px; letter-spacing: -0.01em; margin: 0 0 8px; }
+.how-step p { color: var(--ink-2); margin: 0; max-width: 36ch; }
+
+/* ---------- Tips / blueprint ---------- */
+.tips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--ink); border-left: 1px solid var(--ink); }
+.tip { border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 28px 26px; background: var(--paper); display: flex; flex-direction: column; gap: 18px; }
+.tip-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-3); }
+.tip h3 { font-family: var(--serif); font-weight: 400; font-size: 28px; letter-spacing: -0.01em; margin: 6px 0 6px; line-height: 1.1; }
+.tip-sub { color: var(--ink-2); font-size: 15px; margin: 0; line-height: 1.5; }
+.tip-rule {
+  background: var(--ink); color: var(--paper);
+  font-family: var(--mono); font-size: 13px; line-height: 1.5;
+  padding: 16px 18px; border-left: 3px solid var(--ochre);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-marginalia { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 28px; position: static; }
+  .trust-strip { grid-template-columns: repeat(2, 1fr); }
+  .sprint-cta, .signup { grid-template-columns: 1fr; padding: 36px 28px; }
+  .how-grid, .tips { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .masthead-inner { grid-template-columns: 1fr auto; }
+  .masthead-right { display: none; }
+  .colophon-grid { grid-template-columns: 1fr 1fr; }
+  .cat-grid { grid-template-columns: 1fr; }
+  .flow-row { grid-template-columns: 40px 1fr; }
+  .flow-row .meta-col, .flow-row .price { display: none; }
+}
+</style>
+</head>
+<body>
+  <div id="cf-masthead"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container-wide">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow"><span class="bar"></span> Hand-picked AI automations. Tested in production. Ready to install.</div>
+          <h1 class="display hero-title" style="margin: 28px 0 0;">
+            Not another AI<br>
+            skills directory.<br>
+            <span class="italic">These actually work.</span>
+          </h1>
+          <p class="hero-lede">
+            Full automation flows with smart installers — not one-file skills that break on first run. Built and battle-tested by someone who ships AI every day.
+          </p>
+          <div class="hero-cta">
+            <a href="flows.html" class="btn accent">Browse Skills <span class="arrow">→</span></a>
+            <a href="consulting.html" class="btn ghost">See consulting packages</a>
+          </div>
+          <div class="smallcaps-serif" style="margin-top:22px;">
+            One-time pricing &middot; Lifetime updates &middot; 30-day refund
+          </div>
+        </div>
+
+        <aside class="hero-marginalia" style="padding-top: 0;">
+          <div class="smallcaps" style="color:var(--ink-3);">Install</div>
+          <div class="term" style="margin-top: 10px;">
+            <div><span class="prompt">$</span> <span class="cmd">npm install -g curatedflows</span></div>
+            <div class="comment" style="margin-top:6px;"># Paste in your terminal and press Enter.</div>
+          </div>
+          <div class="smallcaps-serif" style="margin-top: 14px;">
+            Don't have Node? <a href="https://nodejs.org/en/download" class="link">Install it here →</a>
+          </div>
+        </aside>
+      </div>
+
+      <div class="trust-strip">
+        <div><span class="mark">⁂</span> Production-tested</div>
+        <div><span class="mark">⁂</span> No malware, verified</div>
+        <div><span class="mark">⁂</span> Works on your stack</div>
+        <div><span class="mark">⁂</span> 30-day refund</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED SKILLS -->
+  <section class="section">
+    <div class="container-wide">
+      <div class="featured-head">
+        <div>
+          <h2 class="display" style="margin: 0; font-size: clamp(44px, 5vw, 72px);">Production-proven flows</h2>
+        </div>
+        <a href="flows.html" class="link" style="font-family: var(--serif); font-size: 18px; font-style: italic;">View all skills →</a>
+      </div>
+
+      <div class="pill-filters" style="margin-bottom: 24px;">
+        <span class="pill active" data-cat="all">All</span>
+        <span class="pill" data-cat="business">Business</span>
+        <span class="pill" data-cat="research">Research</span>
+        <span class="pill" data-cat="development">Development</span>
+        <span class="pill" data-cat="marketing">Marketing</span>
+        <span class="pill" data-cat="operations">Operations</span>
+      </div>
+
+      <div class="cat-grid" id="home-skills">
+        <a href="flows.html" class="cat-card" data-cat="business"><span class="cat-label">Business</span><div class="cat-title">AI Venture Studio</div><div class="cat-sub">Validate your startup idea before spending a dollar</div><div class="cat-install">curatedflows install venture-studio</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 142</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="research"><span class="cat-label">Research</span><div class="cat-title">Scout — Startup Research Engine</div><div class="cat-sub">Research any industry in 30 minutes, not 3 days</div><div class="cat-install">curatedflows install scout</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 89</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="development"><span class="cat-label">Development</span><div class="cat-title">Deep Code Reviewer</div><div class="cat-sub">Catch bugs, security issues, and performance problems automatically</div><div class="cat-install">curatedflows install code-reviewer</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 231</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="marketing"><span class="cat-label">Marketing</span><div class="cat-title">Content Pipeline</div><div class="cat-sub">Go from topic to published content without the blank page</div><div class="cat-install">curatedflows install content-pipeline</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 67</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="development"><span class="cat-label">Development</span><div class="cat-title">API Documentation Generator</div><div class="cat-sub">API docs developers actually want to read</div><div class="cat-install">curatedflows install api-docs</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 0</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="marketing"><span class="cat-label">Marketing</span><div class="cat-title">Voice DNA &amp; Brand Guide</div><div class="cat-sub">Extract your brand voice into a guide anyone can follow</div><div class="cat-install">curatedflows install brand-voice</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 0</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="development"><span class="cat-label">Development</span><div class="cat-title">Session Checkpoint</div><div class="cat-sub">Never lose session context again</div><div class="cat-install">curatedflows install checkpoint</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 0</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="marketing"><span class="cat-label">Marketing</span><div class="cat-title">Content Repurposing Engine</div><div class="cat-sub">One blog post → five platforms, zero extra writing</div><div class="cat-install">curatedflows install content-repurpose</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 0</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="marketing"><span class="cat-label">Marketing</span><div class="cat-title">Email Sequence Optimizer</div><div class="cat-sub">Audit and fix your email sequences</div><div class="cat-install">curatedflows install email-optimizer</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 0</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="business"><span class="cat-label">Business</span><div class="cat-title">Job Description + Interview Kit</div><div class="cat-sub">Everything you need to hire well, in 5 minutes</div><div class="cat-install">curatedflows install hiring-kit</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 0</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="business"><span class="cat-label">Business</span><div class="cat-title">Lead Research &amp; Prospect Briefing</div><div class="cat-sub">Know everything about your prospect in 2 minutes</div><div class="cat-install">curatedflows install lead-research</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 0</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="business"><span class="cat-label">Business</span><div class="cat-title">Performance Review Writer</div><div class="cat-sub">Write thoughtful reviews in minutes, not hours</div><div class="cat-install">curatedflows install perf-review</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 0</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="marketing"><span class="cat-label">Marketing</span><div class="cat-title">Sales Outreach Sequence Generator</div><div class="cat-sub">Cold outreach sequences that actually get replies</div><div class="cat-install">curatedflows install sales-outreach</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 0</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="operations"><span class="cat-label">Operations</span><div class="cat-title">SOP &amp; Process Documentation</div><div class="cat-sub">Turn tribal knowledge into documented processes</div><div class="cat-install">curatedflows install sop-generator</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 0</span></div></a>
+        <a href="flows.html" class="cat-card" data-cat="operations"><span class="cat-label">Operations</span><div class="cat-title">Vendor Comparison Report</div><div class="cat-sub">Compare vendors objectively, decide in minutes</div><div class="cat-install">curatedflows install vendor-compare</div><div class="cat-foot"><span class="cat-price">Free</span><span class="cat-stars">☆ 0</span></div></a>
+      </div>
+      <script>
+        (function(){
+          const pills = document.querySelectorAll('.pill-filters .pill');
+          const cards = document.querySelectorAll('#home-skills .cat-card');
+          pills.forEach(p => p.addEventListener('click', () => {
+            pills.forEach(x => x.classList.remove('active'));
+            p.classList.add('active');
+            const cat = p.dataset.cat;
+            cards.forEach(c => {
+              c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+            });
+          }));
+        })();
+      </script>
+
+      <div style="display:none" class="flow-list-unused">
+        <a class="flow-row" href="flows.html">
+          <div class="num">01</div>
+          <div>
+            <div class="title">AI Venture Studio</div>
+            <div class="sub">Validate your startup idea before spending a dollar</div>
+            <div class="install">curatedflows install venture-studio</div>
+          </div>
+          <div class="meta-col"><span style="color:var(--ochre-ink);">● business</span><span>142</span></div>
+          <div class="price">Free</div>
+        </a>
+        <a class="flow-row" href="flows.html">
+          <div class="num">02</div>
+          <div>
+            <div class="title">Scout — Startup Research Engine</div>
+            <div class="sub">Research any industry in 30 minutes, not 3 days</div>
+            <div class="install">curatedflows install scout</div>
+          </div>
+          <div class="meta-col"><span style="color:var(--ochre-ink);">● research</span><span>89</span></div>
+          <div class="price">Free</div>
+        </a>
+        <a class="flow-row" href="flows.html">
+          <div class="num">03</div>
+          <div>
+            <div class="title">Deep Code Reviewer</div>
+            <div class="sub">Catch bugs, security issues, and performance problems automatically</div>
+            <div class="install">curatedflows install code-reviewer</div>
+          </div>
+          <div class="meta-col"><span style="color:var(--ochre-ink);">● development</span><span>231</span></div>
+          <div class="price">Free</div>
+        </a>
+        <a class="flow-row" href="flows.html">
+          <div class="num">04</div>
+          <div>
+            <div class="title">Content Pipeline</div>
+            <div class="sub">Go from topic to published content without the blank page</div>
+            <div class="install">curatedflows install content-pipeline</div>
+          </div>
+          <div class="meta-col"><span style="color:var(--ochre-ink);">● marketing</span><span>67</span></div>
+          <div class="price">Free</div>
+        </a>
+        <a class="flow-row" href="flows.html">
+          <div class="num">05</div>
+          <div>
+            <div class="title">API Documentation Generator</div>
+            <div class="sub">API docs developers actually want to read</div>
+            <div class="install">curatedflows install api-docs</div>
+          </div>
+          <div class="meta-col"><span style="color:var(--ochre-ink);">● development</span><span>0</span></div>
+          <div class="price">Free</div>
+        </a>
+        <a class="flow-row" href="flows.html">
+          <div class="num">06</div>
+          <div>
+            <div class="title">Voice DNA &amp; Brand Guide</div>
+            <div class="sub">Extract your brand voice into a guide anyone can follow</div>
+            <div class="install">curatedflows install brand-voice</div>
+          </div>
+          <div class="meta-col"><span style="color:var(--ochre-ink);">● marketing</span><span>0</span></div>
+          <div class="price">Free</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="how">
+    <div class="container-wide">
+      <h2 class="display" style="margin: 0; font-size: clamp(44px, 5vw, 72px);">How it works</h2>
+      <div class="how-grid">
+        <div class="how-step">
+          <div class="step-n">1</div>
+          <h3>Install the CLI</h3>
+          <p>One command adds CuratedFlows to your terminal. Takes 30 seconds.</p>
+        </div>
+        <div class="how-step">
+          <div class="step-n">2</div>
+          <h3>Pick a flow</h3>
+          <p>Browse curated automations for research, operations, marketing, and more.</p>
+        </div>
+        <div class="how-step">
+          <div class="step-n">3</div>
+          <h3>Run it</h3>
+          <p>The flow's smart installer sets everything up. Tell Claude what you need — it handles the rest.</p>
+        </div>
+      </div>
+      <div class="smallcaps-serif" style="margin-top: 40px;">Free — no install needed</div>
+    </div>
+  </section>
+
+  <!-- BLUEPRINT TIPS -->
+  <section class="section">
+    <div class="container-wide">
+      <h2 class="display" style="margin: 0 0 14px; font-size: clamp(44px, 5vw, 72px);">3 quick wins for your CLAUDE.md</h2>
+      <p style="font-family: var(--serif); font-size: 20px; color: var(--ink-2); max-width: 60ch; margin: 0 0 32px;">
+        Copy these into your project right now. Just better Claude Code sessions.
+      </p>
+
+      <div class="tips">
+        <div class="tip">
+          <div>
+            <div class="tip-label">Rule 01</div>
+            <h3>Claude lies to your face</h3>
+            <p class="tip-sub">"That file doesn't exist." It does — Claude just didn't look.</p>
+            <div class="smallcaps-serif" style="margin-top: 10px;">Add this to your CLAUDE.md</div>
+          </div>
+          <div class="tip-rule">
+            Verify before asserting absence. Before saying "X doesn't exist" — actually check.
+          </div>
+        </div>
+
+        <div class="tip">
+          <div>
+            <div class="tip-label">Rule 02</div>
+            <h3>You lose hours of work</h3>
+            <p class="tip-sub">Session crashes, context resets, progress gone.</p>
+            <div class="smallcaps-serif" style="margin-top: 10px;">Add this to your CLAUDE.md</div>
+          </div>
+          <div class="tip-rule">
+            After completing a feature or making a major decision, commit all changes and write a summary to LAST_SESSION.md. Don't ask — just do it.
+          </div>
+        </div>
+
+        <div class="tip">
+          <div>
+            <div class="tip-label">Rule 03</div>
+            <h3>Your project becomes a mess</h3>
+            <p class="tip-sub">After a few sessions, Claude dumps files everywhere and you can't find anything.</p>
+            <div class="smallcaps-serif" style="margin-top: 10px;">Add this to your CLAUDE.md</div>
+          </div>
+          <div class="tip-rule">
+            Keep project roots clean. Use subfolders: plans/, research/, docs/. Name for searchability, not convenience.
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px; display: flex; justify-content: center;">
+        <a href="flows.html" class="btn">Get the full Blueprint — 12 rules that fix all of this <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSULTING CTA -->
+  <section class="section-sm">
+    <div class="container-wide">
+      <div class="sprint-cta">
+        <div>
+          <h2 class="display">Need something custom?</h2>
+          <p style="font-family: var(--serif); font-size: 20px; color: var(--ink-2); max-width: 56ch;">
+            A prediction market platform, an AI vision prototype, and a venture validation pipeline — all built with these same flows. Get one built for your team.
+          </p>
+          <a href="consulting.html" class="btn accent">See packages — starting at $500 <span class="arrow">→</span></a>
+          <div class="smallcaps-serif" style="margin-top: 16px;">
+            Sprint (2hr) · Full Setup (3–5 days) · Architecture (1–2 weeks)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNUP -->
+  <section class="section">
+    <div class="container-wide">
+      <div class="signup">
+        <div>
+          <h2 class="display">Start free. See what you're getting first.</h2>
+          <p style="font-family: var(--serif); font-size: 20px; margin-top: 14px;">
+            Get the <code style="font-family: var(--mono); color: var(--ochre-ink); font-size: 16px;">/checkpoint</code> skill — free, forever. No credit card.
+          </p>
+        </div>
+        <div>
+          <form class="email-input" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('button').textContent='Sent ✓';">
+            <input type="email" placeholder="you@example.com" required>
+            <button type="submit">Get the free skill</button>
+          </form>
+          <div class="smallcaps-serif" style="margin-top: 14px;">No spam. Unsubscribe anytime.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="cf-footer"></div>
+  <script>// Shared masthead + footer for CuratedFlows pages.
+
+(function () {
+  const path = window.location.pathname.split("/").pop() || "index.html";
+
+  const navItems = [
+    { label: "Skills", href: "flows.html", match: ["flows.html"] },
+    { label: "Consulting", href: "consulting.html", match: ["consulting.html"] },
+    { label: "Blog", href: "blog.html", match: ["blog.html"] },
+  ];
+
+  const mast = `
+    <header class="masthead">
+      <div class="masthead-inner">
+        <div class="masthead-left">
+          <span class="dot"></span>
+          <span>Vol. 01 &middot; Iss. 04</span>
+          <span style="color:var(--rule)">/</span>
+          <span>Apr 2026</span>
+        </div>
+        <a href="index.html" class="wordmark" aria-label="curatedflows home">
+          Curated<span class="amp">&</span>Flows
+        </a>
+        <div class="masthead-right">
+          <nav class="nav-links">
+            ${navItems.map(i => `<a href="${i.href}" class="${i.match.includes(path) ? "active" : ""}">${i.label}</a>`).join("")}
+          </nav>
+          <a href="flows.html" class="btn-pill accent">Browse Skills</a>
+        </div>
+      </div>
+    </header>
+  `;
+
+  const foot = `
+    <footer class="colophon">
+      <div class="colophon-grid">
+        <div>
+          <div class="wordmark" style="margin-bottom:18px;">Curated<span class="amp">&</span>Flows</div>
+          <p class="colophon-brand">
+            Claude Code skills built by someone who ships with Claude Code every day.
+          </p>
+          <div class="mono" style="margin-top:22px; color: var(--ink-3);">
+            Built by Misha Erikov &middot; &copy; 2026 curatedflows
+          </div>
+        </div>
+        <div>
+          <h5>Skills</h5>
+          <a href="flows.html">Browse All</a>
+          <a href="flows.html?tier=free">Free Skills</a>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <a href="consulting.html">Consulting</a>
+          <a href="blog.html">Blog</a>
+        </div>
+        <div>
+          <h5>Connect</h5>
+          <a href="#">GitHub</a>
+          <a href="#">Twitter</a>
+        </div>
+      </div>
+    </footer>
+  `;
+
+  const head = document.getElementById("cf-masthead");
+  if (head) head.outerHTML = mast;
+  const footEl = document.getElementById("cf-footer");
+  if (footEl) footEl.outerHTML = foot;
+})();
+</script>
+</body>
+</html>

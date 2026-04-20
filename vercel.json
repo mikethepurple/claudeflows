@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "packages/web/.next",
-  "framework": "nextjs",
-  "installCommand": "npm install"
+  "outputDirectory": "marketing/redesign-v2",
+  "buildCommand": "",
+  "framework": null,
+  "installCommand": ""
 }

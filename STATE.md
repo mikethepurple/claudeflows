@@ -1,15 +1,25 @@
-# CuratedFlows State — Last updated: 2026-04-18
+# CuratedFlows State — Last updated: 2026-04-20
 
 ## Environment
 
-- **Production:** curatedflows.vercel.app (deployed 2026-04-18, rebrand complete)
+- **Production:** curatedflows.com (deployed 2026-04-20, redesign v2 — static HTML, warm paper theme)
 - **Custom domain:** curatedflows.com (DNS configured via Cloudflare API, A records live: @ + www → 76.76.21.21)
-- **Local dev:** localhost:3847 (dark mode redesign, fully functional)
+- **Previous stack:** Next.js 15 + Tailwind (dark mode, packages/web/) — preserved but not deployed
+- **Current stack:** Static HTML (marketing/redesign-v2/) — deployed directly via Vercel
 - **Supabase:** myzmadvevthaegdetfjr (linked, migrations 001-002 applied, 003 NOT yet applied)
 - **npm:** claudeflows@0.2.0 (published, unscoped)
-- **GitHub:** mikethepurple/claudeflows (local, not pushed since ed8b79e — 2 more commits ahead)
-- **Skills on site:** 16 in catalog (11 non-technical + 5 power skills: Memory System, Market Watch, Vibecheck, Daily Report, Blueprint)
-- **Auto-sync:** `scripts/generate-sample-data.ts` reads workflow.json → generates sample-data.ts on prebuild
+- **GitHub:** mikethepurple/claudeflows (local, not pushed)
+- **Skills on site:** 15 in catalog (static HTML cards)
+
+## What Was Done (2026-04-20)
+
+- Reviewed new "Workshop Ledger" design from zip (warm paper, Newsreader serif, ochre accents, newspaper-style layout)
+- Merged new design system with old (better) copy — kept old hero headline, lede, section titles
+- Kept "non-coder" framing for consulting FAQ per user direction (broader audience than pure vibecoders)
+- Fixed wordmark to "Curated & Flows" with styled ampersand matching logo screenshot
+- Renamed "Skills" to "Flows" throughout
+- Deployed static HTML redesign to curatedflows.com (replaced Next.js deployment)
+- vercel.json updated: outputDirectory → marketing/redesign-v2, framework → null
 
 ## What Was Done (2026-04-18)
 
