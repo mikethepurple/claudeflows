@@ -1,21 +1,21 @@
-# Last Session — 2026-04-20
+# Last Session — 2026-04-21
 
 ## Done
-- Reviewed new "Workshop Ledger" design from zip (warm paper, Newsreader serif, ochre, newspaper-style layout)
-- Merged: new design system + old stronger copy (hero, lede, section titles) + "non-coder" framing for consulting
-- Fixed wordmark to "Curated & Flows" with styled ampersand
-- Deployed static HTML redesign to curatedflows.com (replaced Next.js deployment)
-- vercel.json updated: outputDirectory → marketing/redesign-v2, framework → null
-- Old Next.js app preserved in packages/web/ but not deployed
+- Fixed brand name: "Curated & Flows" → "CuratedFlows" across all pages + shared.js
+- Reduced hero headline from clamp(72px, 9.2vw, 148px) to clamp(52px, 6.5vw, 100px) so full hero fits above fold
+- Trimmed hero lede copy
+- Fixed flows.html category filter tabs (added data-cat attrs + filtering JS)
+- Equalized trust strip vertical padding
+- Pushed to GitHub (main branch, commit db849b0)
 
 ## Open threads
-- Forms are non-functional (email capture, consulting CTAs are all event.preventDefault stubs)
-- /vibecheck and /sprint landing pages still not built
-- Audience direction confirmed: broader than vibecoders — social media managers, founders with dev teams, operators
-- Next.js app still in packages/web/ — decision pending on whether to port redesign into Next.js or stay static
+- **Not deployed** — pushed to GitHub but curatedflows.com still has old version
+- **"Works on your stack" claim** — user questioned accuracy, not yet changed
+- **Copy length** — user flagged it's long in places, only hero was trimmed
+- **122-file bulk rename** — prior session's ClaudeFlows→CuratedFlows rename still uncommitted
 
 ## Possible next
-- Wire forms to Supabase or a form service
-- Build /vibecheck landing page (highest priority ad destination)
-- Build /sprint landing page
-- Launch first ads
+- Deploy to production
+- Review + tighten remaining copy sections
+- Fix trust strip claims
+- Wire email capture + consulting forms to backend

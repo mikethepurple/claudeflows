@@ -1,4 +1,4 @@
-# CuratedFlows State — Last updated: 2026-04-20
+# CuratedFlows State — Last updated: 2026-04-21
 
 ## Environment
 
@@ -7,9 +7,18 @@
 - **Previous stack:** Next.js 15 + Tailwind (dark mode, packages/web/) — preserved but not deployed
 - **Current stack:** Static HTML (marketing/redesign-v2/) — deployed directly via Vercel
 - **Supabase:** myzmadvevthaegdetfjr (linked, migrations 001-002 applied, 003 NOT yet applied)
-- **npm:** claudeflows@0.2.0 (published, unscoped)
-- **GitHub:** mikethepurple/claudeflows (local, not pushed)
+- **npm:** curatedflows@0.2.0 (published, unscoped)
+- **GitHub:** mikethepurple/curatedflows (pushed, main branch)
 - **Skills on site:** 15 in catalog (static HTML cards)
+
+## What Was Done (2026-04-21)
+
+- Fixed brand name: "Curated & Flows" → "CuratedFlows" (one word, no ampersand) across all 4 pages + shared.js
+- Fixed hero headline font size: was clamp(72px, 9.2vw, 148px), now clamp(52px, 6.5vw, 100px) — full hero fits above fold
+- Trimmed hero lede copy (removed redundant "not one-file skills that break on first run")
+- Fixed flows.html category filter tabs — were non-functional (missing data-cat attributes + no filtering JS)
+- Equalized trust strip vertical padding (added padding-bottom, removed hero bottom padding)
+- **Not yet deployed** — changes pushed to GitHub but need Vercel deploy to go live
 
 ## What Was Done (2026-04-20)
 
@@ -23,9 +32,9 @@
 
 ## What Was Done (2026-04-18)
 
-- Fixed broken GitHub/npm links pointing to non-existent `curatedflows` repo/package — reverted to `claudeflows`
+- Fixed broken GitHub/npm links pointing to non-existent `curatedflows` repo/package — reverted to `curatedflows`
 - Fixed voice inconsistency: "the team behind" → "the maker of", "people who ship" → "someone who ships"
-- Removed old `claudeflows` Vercel project, created new `curatedflows` project
+- Removed old `curatedflows` Vercel project, created new `curatedflows` project
 - Deployed to production at curatedflows.vercel.app
 - Added curatedflows.com + www.curatedflows.com domains on Vercel
 - Configured Cloudflare DNS via API (A records: @ + www → 76.76.21.21)
