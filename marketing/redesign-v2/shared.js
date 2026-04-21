@@ -19,7 +19,7 @@
           <span>Apr 2026</span>
         </div>
         <a href="index.html" class="wordmark" aria-label="curatedflows home">
-          Curated<span class="amp">&</span>Flows
+          CuratedFlows
         </a>
         <div class="masthead-right">
           <nav class="nav-links">
@@ -35,7 +35,7 @@
     <footer class="colophon">
       <div class="colophon-grid">
         <div>
-          <div class="wordmark" style="margin-bottom:18px;">Curated<span class="amp">&</span>Flows</div>
+          <div class="wordmark" style="margin-bottom:18px;">CuratedFlows</div>
           <p class="colophon-brand">
             Claude Code skills built by someone who ships with Claude Code every day.
           </p>
