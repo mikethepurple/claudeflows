@@ -464,6 +464,7 @@ footer.colophon {
     .pkg .delivery { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-3); margin: 14px 0 18px; }
     .pkg .pitch { color: var(--ink-2); font-size: 15px; margin: 0 0 18px; line-height: 1.5; }
     .pkg ul { list-style: none; margin: 0 0 24px; padding: 0; border-top: 1px solid var(--rule); }
+    .pkg .btn { margin-top: auto; }
     .pkg ul li { padding: 11px 0; border-bottom: 1px solid var(--rule); font-size: 14px; color: var(--ink-2); display: flex; gap: 10px; }
     .pkg ul li::before { content: "✓"; color: var(--ochre-ink); font-family: var(--serif); }
     .pkg .foot-note { font-family: var(--mono); font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: auto; padding-top: 18px; }
@@ -483,10 +484,12 @@ footer.colophon {
     .retainer .price-tag { font-family: var(--serif); font-size: 52px; color: var(--paper); font-weight: 300; line-height: 1; }
     .retainer .price-tag small { font-size: 13px; color: #a9a095; font-family: var(--sans); display: block; margin-top: 4px; letter-spacing: 0.1em; text-transform: uppercase; }
 
-    .builds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--ink); border-left: 1px solid var(--ink); }
-    .build { border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 32px 28px; background: var(--paper); }
-    .build h3 { font-family: var(--serif); font-size: 26px; margin: 0 0 8px; letter-spacing: -0.01em; }
-    .build p { color: var(--ink-2); font-size: 15px; }
+    .builds-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 0; row-gap: 16px; border-top: 1px solid var(--ink); border-left: 1px solid var(--ink); }
+    .build { border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 0 28px; background: var(--paper); display: grid; grid-template-rows: subgrid; grid-row: auto / span 4; }
+    .build > :first-child { margin-top: 32px; }
+    .build .stack { margin-bottom: 32px; }
+    .build h3 { font-family: var(--serif); font-size: 26px; margin: 0; letter-spacing: -0.01em; align-self: end; }
+    .build p { color: var(--ink-2); font-size: 15px; margin: 0; }
     .build .stack { font-family: var(--mono); font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; padding-top: 14px; border-top: 1px dashed var(--rule); }
 
     .how-grid-cons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 40px; }
@@ -518,11 +521,64 @@ footer.colophon {
   <section class="cons-hero">
     <div class="container-wide">
       <div class="price">Starting at $500</div>
-      <h1 class="display">Claude Code consulting,<br><span class="display-italic">productized.</span></h1>
+      <h1 class="display">I set up Claude Code<br>so it <span class="display-italic">actually works.</span></h1>
       <p class="lede">
-        I set up your Claude Code workspace with custom flows, memory, and workflows — so your team ships from day one. Not 2 weeks from now.
+        You installed Claude Code. It forgets everything between sessions, does the wrong thing half the time, and burns through your usage limit. I've spent 15 years launching startups and running studios — now I set up Claude Code for people like me.
       </p>
-      <div style="margin-top: 24px;"><a href="#" class="btn accent">Book a free 30-min call <span class="arrow">→</span></a></div>
+      <div style="margin-top: 24px;"><a href="https://book.vimcal.com/p/misha/30minus" class="btn accent">Book a free 30-min call <span class="arrow">→</span></a></div>
+    </div>
+  </section>
+
+  <section class="section-sm" style="padding-top: 40px; padding-bottom: 40px;">
+    <div class="container-wide">
+      <div class="smallcaps" style="margin-bottom: 20px;">Real projects I shipped with Claude Code</div>
+      <div class="builds-grid">
+        <div class="build">
+          <div style="margin-bottom: 10px; display: flex; align-items: baseline; gap: 10px;">
+            <span class="smallcaps" style="color: var(--ochre-ink);">Setup</span>
+            <span style="color: var(--rule);">·</span>
+            <span style="font-family: var(--mono); font-size: 13px; color: var(--ink-3);">Client: <span style="color: var(--ink);">Design Studio</span></span>
+          </div>
+          <h3>Claude Code workspace for a 6-project operation</h3>
+          <p>Built for a design studio running 6 projects simultaneously. CLAUDE.md rules, memory systems, session persistence, security checks, and custom skills — configured so Claude remembers context, follows project conventions, and doesn't break things.</p>
+          <div class="stack">Sprint · Same day · What most clients start with</div>
+        </div>
+        <div class="build">
+          <div style="margin-bottom: 10px; display: flex; align-items: baseline; gap: 10px;">
+            <span class="smallcaps" style="color: var(--ochre-ink);">Automation</span>
+            <span style="color: var(--rule);">·</span>
+            <span style="font-family: var(--mono); font-size: 13px; color: var(--ink-3);">Client: <span style="color: var(--ink);">VC Fund</span></span>
+          </div>
+          <h3>Startup research engine for dealflow analysis</h3>
+          <p>Built for a VC fund's venture validation pipeline. 31 parallel agents scan custom data sources, analyze markets, score startups, and produce structured reports with artifacts. Runs daily for ongoing dealflow — not a one-time report.</p>
+          <div class="stack">31 agents · Custom data sources · Daily use · Structured artifacts</div>
+        </div>
+        <div class="build">
+          <div style="margin-bottom: 10px; display: flex; align-items: baseline; gap: 10px;">
+            <span class="smallcaps" style="color: var(--ochre-ink);">Product</span>
+            <span style="color: var(--rule);">·</span>
+            <span style="font-family: var(--mono); font-size: 13px; color: var(--ink-3);">Client: <span style="color: var(--ink);">Prediction Market Startup</span></span>
+          </div>
+          <h3>Financial platform — zero to production in under 2 weeks</h3>
+          <p>Built for a prediction market startup. Financial app handling real money on TRON blockchain. 984 tests, security-audited, with RLS policies and wallet transaction safety built in from day one.</p>
+          <div class="stack">Next.js · Supabase · TRON · 984 tests · Security-first · Live in production</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 32px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: var(--paper-2);">
+    <div class="container-wide">
+      <div style="display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center;">
+        <div class="smallcaps">Who this is for</div>
+        <div style="display: flex; gap: 32px; flex-wrap: wrap; font-size: 15px; color: var(--ink-2);">
+          <span>Founders who installed Claude Code and hit a wall</span>
+          <span style="color: var(--rule);">·</span>
+          <span>Vibecoders whose projects keep breaking</span>
+          <span style="color: var(--rule);">·</span>
+          <span>Teams where one person set it up and nobody else can use it</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -530,55 +586,56 @@ footer.colophon {
     <div class="container-wide">
       <div class="pkgs">
         <div class="pkg">
-          <h3 class="head">Sprint</h3>
+          <h3 class="head">Setup</h3>
           <div class="price">$500<small>/ one-time</small></div>
           <div class="delivery">Delivery · Same day</div>
-          <p class="pitch">Best for founders who need one specific workflow built and shipped this week.</p>
+          <p class="pitch">Your Claude Code stops fighting you. One session, one working automation, everything configured properly.</p>
           <ul>
-            <li>2-hour Claude Code setup session</li>
-            <li>1 custom skill built for your workflow</li>
-            <li>CLAUDE.md + memory system configured</li>
+            <li>CLAUDE.md configured for your project</li>
+            <li>Memory system so Claude remembers between sessions</li>
+            <li>Security and permissions locked down</li>
+            <li>1 working automation for your specific use case</li>
             <li>30-day async support</li>
-            <li>Works or we rebuild it</li>
           </ul>
-          <a href="#" class="btn">Get started <span class="arrow">→</span></a>
+          <a href="https://book.vimcal.com/p/misha/30minus" class="btn">Get started <span class="arrow">→</span></a>
           <div class="foot-note">No subscription · 30-day guarantee</div>
         </div>
 
         <div class="pkg popular">
           <div class="ribbon">Most Popular</div>
-          <h3 class="head">Full Setup</h3>
+          <h3 class="head">Workflows</h3>
           <div class="price">$2,000<small>/ one-time</small></div>
           <div class="delivery">Delivery · 3–5 days</div>
-          <p class="pitch">Best for teams ready to run Claude Code across their whole operation — start to finish.</p>
+          <p class="pitch">Agents that do your work on repeat — research, content, outreach, ops. Built for your operation, not generic templates.</p>
           <ul>
-            <li>Complete Claude Code workspace setup</li>
-            <li>3–5 custom skills built for your needs</li>
-            <li>MCP servers configured</li>
-            <li>Memory system + session persistence</li>
-            <li>Team onboarding documentation</li>
+            <li>Everything in Setup</li>
+            <li>3–5 automations built for your operation</li>
+            <li>Connected to your tools (Slack, GitHub, databases, APIs)</li>
+            <li>Team onboarding so everyone can use it</li>
             <li>60-day async support</li>
           </ul>
-          <a href="#" class="btn accent">Get started <span class="arrow">→</span></a>
+          <a href="https://book.vimcal.com/p/misha/30minus" class="btn accent">Get started <span class="arrow">→</span></a>
           <div class="foot-note">No subscription · 30-day guarantee</div>
         </div>
 
         <div class="pkg">
-          <h3 class="head">Architecture</h3>
+          <h3 class="head">AI Product</h3>
           <div class="price">$5,000<small>+ / one-time</small></div>
           <div class="delivery">Delivery · 1–2 weeks</div>
-          <p class="pitch">Best for CTOs and leads who need a strategic Claude Code roadmap before implementation.</p>
+          <p class="pitch">A full application with AI built in — agents that reason, decide, and act. Deployed, tested, production-ready.</p>
           <ul>
-            <li>Multi-agent system design + build</li>
-            <li>Custom methodology development</li>
-            <li>Full integration with your stack</li>
-            <li>Architecture documentation</li>
-            <li>Production deployment support</li>
-            <li>90-day async support</li>
+            <li>Full app built and deployed to production</li>
+            <li>AI features: agents that act autonomously</li>
+            <li>Security-audited and tested</li>
+            <li>Connected to your data, APIs, and services</li>
+            <li>90-day async support + deployment</li>
           </ul>
-          <a href="#" class="btn">Book a call <span class="arrow">→</span></a>
+          <a href="https://book.vimcal.com/p/misha/30minus" class="btn">Book a call <span class="arrow">→</span></a>
           <div class="foot-note">No subscription · 30-day guarantee</div>
         </div>
+      </div>
+      <div style="margin-top: 24px; padding: 20px 24px; background: var(--ink); color: var(--paper); display: flex; justify-content: center; align-items: center; gap: 12px; font-family: var(--serif); font-size: 18px; letter-spacing: -0.01em;">
+        <span style="color: var(--ochre); font-size: 22px;">✓</span> Works or I rebuild it — every package, no exceptions.
       </div>
     </div>
   </section>
@@ -606,35 +663,13 @@ footer.colophon {
             <li>New skills deployed monthly</li>
             <li>Async support + priority response</li>
             <li>System maintenance + updates</li>
-            <li>Quarterly architecture review ($1K tier)</li>
+            <li>Monthly check-in + system health review</li>
           </ul>
         </div>
         <div>
-          <div class="price-tag">$500–1,000<small>/ month</small></div>
-          <a href="#" class="btn accent" style="margin-top: 18px;">Apply for a retainer <span class="arrow">→</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-sm">
-    <div class="container-wide">
-      <h2 class="display" style="margin: 0 0 24px; font-size: clamp(40px, 4.6vw, 60px);">Recent builds</h2>
-      <div class="builds-grid">
-        <div class="build">
-          <h3>Prediction Market Platform</h3>
-          <p>Full-stack React + Supabase + TRON blockchain. Markets, portfolios, leaderboards, AI predictions. Live in production.</p>
-          <div class="stack">Next.js · Supabase · TRON · 984 tests · Built over 3 weeks</div>
-        </div>
-        <div class="build">
-          <h3>AI Vision Prototype</h3>
-          <p>Photo submission app with expert AI analysis. Users upload images, get detailed professional responses. Zero to live deployment.</p>
-          <div class="stack">Next.js · Supabase · Cloudflare Tunnel · Zero to live in 4 hours</div>
-        </div>
-        <div class="build">
-          <h3>Competitive Intelligence Pipeline</h3>
-          <p>31 parallel research agents analyzed a market, produced synthesis reports, and identified strategic gaps. Used to redesign this very site.</p>
-          <div class="stack">31 agents · 3 waves · Gap evaluation · Research complete in 20 minutes</div>
+          <div class="price-tag">$750<small>/ month</small></div>
+          <div style="font-family: var(--mono); font-size: 12px; color: #a9a095; margin-top: 8px;">Premium tier: $1,250/mo with quarterly architecture review</div>
+          <a href="https://book.vimcal.com/p/misha/30minus" class="btn accent" style="margin-top: 18px;">Apply for a retainer <span class="arrow">→</span></a>
         </div>
       </div>
     </div>
@@ -644,8 +679,8 @@ footer.colophon {
     <div class="container-wide">
       <h2 class="display" style="margin: 0; font-size: clamp(40px, 4.6vw, 60px);">How it works</h2>
       <div class="how-grid-cons">
-        <div><div class="n">i.</div><h3>Book a call</h3><p>Pick a package, schedule a free 30-minute intro call. We'll scope your needs.</p></div>
-        <div><div class="n">ii.</div><h3>We build</h3><p>I set up your Claude Code workspace with custom skills, memory, and workflows.</p></div>
+        <div><div class="n">i.</div><h3>Book a call</h3><p>Pick a package, schedule a free 30-minute intro call. I'll scope your needs.</p></div>
+        <div><div class="n">ii.</div><h3>I build</h3><p>I set up your Claude Code workspace with custom skills, memory, and workflows.</p></div>
         <div><div class="n">iii.</div><h3>You ship</h3><p>Your team has a working AI workflow. Documentation included. Support continues async.</p></div>
       </div>
     </div>
@@ -653,15 +688,15 @@ footer.colophon {
 
   <section class="section-sm">
     <div class="container-wide">
-      <h2 class="display" style="margin: 0; font-size: clamp(36px, 4vw, 52px);">Build it yourself vs. CuratedFlows</h2>
+      <h2 class="display" style="margin: 0; font-size: clamp(36px, 4vw, 52px);">Your other options</h2>
       <table class="compare-table">
-        <thead><tr><th>&nbsp;</th><th>DIY</th><th>curatedflows</th></tr></thead>
+        <thead><tr><th>&nbsp;</th><th>Fiverr gig ($25–100)</th><th>Course ($30)</th><th>DIY (your time)</th><th>CuratedFlows</th></tr></thead>
         <tbody>
-          <tr><th>Time to first workflow</th><td>20–40 hours</td><td>Same day</td></tr>
-          <tr><th>Cost of your time</th><td>$1,500–3,000 at $75/hr</td><td>$500 flat</td></tr>
-          <tr><th>Ongoing support</th><td>Your problem</td><td>Included 30–60 days</td></tr>
-          <tr><th>Reusable skill library</th><td>Start from scratch</td><td>Built in</td></tr>
-          <tr><th>Documentation</th><td>You write it</td><td>Delivered with handoff</td></tr>
+          <tr><th>What you get</th><td>npm install + basic config</td><td>Videos to watch</td><td>Trial and error</td><td>Working system, same day</td></tr>
+          <tr><th>CLAUDE.md</th><td>Generic template</td><td>You write it after watching</td><td>You figure it out</td><td>Custom for your project</td></tr>
+          <tr><th>Memory &amp; context</th><td>Not included</td><td>Mentioned in a lesson</td><td>Maybe, after week 3</td><td>Configured and tested</td></tr>
+          <tr><th>When you're stuck</th><td>You're on your own</td><td>Re-watch the video</td><td>Reddit, maybe</td><td>30–60 days async support</td></tr>
+          <tr><th>Cost of your time</th><td>Still need to learn it</td><td>10+ hours of video</td><td>20–40 hours</td><td>30-min call + I do the rest</td></tr>
         </tbody>
       </table>
     </div>
@@ -673,14 +708,27 @@ footer.colophon {
       <div class="faq">
         <div class="faq-item"><h3>What's included in the free intro call?</h3><p>30 minutes to understand your workflow, identify where Claude Code can help most, and scope a package. No pressure, no pitch deck.</p></div>
         <div class="faq-item"><h3>Do I need to know how to code?</h3><p>No. That's the whole point. I set everything up, test it, and hand you a working system with documentation.</p></div>
-        <div class="faq-item"><h3>What if it doesn't work?</h3><p>Sprint and Full Setup come with a guarantee: if the delivered workflow doesn't solve the problem we scoped, I rebuild it at no extra cost.</p></div>
+        <div class="faq-item"><h3>What if it doesn't work?</h3><p>Sprint and Full Setup come with a guarantee: if the delivered workflow doesn't solve the problem I scoped, I rebuild it at no extra cost.</p></div>
         <div class="faq-item"><h3>Can I start with a Sprint and upgrade later?</h3><p>Yes — this is the most common path. Sprint proves the value, then Full Setup scales it across your operation.</p></div>
         <div class="faq-item"><h3>How does async support work?</h3><p>Direct message access (Slack, email, or your preference). I respond within 24 hours on business days. For urgent issues, same-day.</p></div>
         <div class="faq-item"><h3>Do you work with teams or just individuals?</h3><p>Both. Sprint is usually 1:1. Full Setup and Architecture include team onboarding and documentation.</p></div>
+        <div class="faq-item"><h3>Can you help with rate limits and usage?</h3><p>A well-configured workspace wastes fewer tokens. Proper CLAUDE.md rules, memory systems, and project structure mean Claude doesn't need to re-read your entire codebase every session. Most clients see noticeably lower usage after setup.</p></div>
       </div>
-      <div style="margin-top: 44px; padding: 24px; border: 1px solid var(--ink); background: var(--paper-2); display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;">
+      <div style="margin-top: 48px; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: start; padding: 36px 0; border-top: 1px solid var(--ink);">
+        <div>
+          <div class="smallcaps" style="margin-bottom: 8px;">About</div>
+          <h3 style="font-family: var(--serif); font-size: 30px; font-weight: 400; letter-spacing: -0.01em; margin: 0;">Misha Erikov</h3>
+          <div style="display: flex; gap: 16px; margin-top: 12px; font-family: var(--mono); font-size: 12px;">
+            <a href="https://github.com/mikethepurple" class="link">GitHub</a>
+            <a href="https://www.linkedin.com/in/misha-erikov/" class="link">LinkedIn</a>
+          </div>
+        </div>
+        <p style="color: var(--ink-2); font-size: 15px; line-height: 1.6; margin: 0;">15 years of strategic design, launching startups, investing, and running design studios. Engineering degree. Now I build with Claude Code daily — 6+ production projects running simultaneously. I don't just configure your tools. I've run the same kind of operation you're running, and I set up Claude Code the way I wish someone had set it up for me.</p>
+      </div>
+
+      <div style="margin-top: 36px; padding: 24px; border: 1px solid var(--ink); background: var(--paper-2); display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;">
         <div class="smallcaps-serif" style="font-size: 18px; color: var(--ink);">Fixed price. No hourly billing. No scope creep.</div>
-        <a href="#" class="btn accent">Book a free 30-min call <span class="arrow">→</span></a>
+        <a href="https://book.vimcal.com/p/misha/30minus" class="btn accent">Book a free 30-min call <span class="arrow">→</span></a>
       </div>
     </div>
   </section>

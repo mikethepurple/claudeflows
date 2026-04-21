@@ -2,5 +2,6 @@
   "outputDirectory": "marketing/redesign-v2",
   "buildCommand": "",
   "framework": null,
-  "installCommand": ""
+  "installCommand": "",
+  "cleanUrls": true
 }
