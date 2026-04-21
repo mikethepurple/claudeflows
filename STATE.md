@@ -11,7 +11,18 @@
 - **GitHub:** mikethepurple/curatedflows (pushed, main branch)
 - **Skills on site:** 15 in catalog (static HTML cards)
 
-## What Was Done (2026-04-21)
+## What Was Done (2026-04-21, session 2 — plugin architecture)
+
+- **Renamed claudeflows → curatedflows** across entire ~/Claude/ codebase (148 files scanned, ~100 live files updated, 50 research files updated, historical records preserved)
+- **Researched Anthropic plugin system** — discovered /plugin install, marketplaces, namespacing, no sandbox
+- **Built CuratedFlows as Anthropic-compatible plugin** — plugin.json, marketplace.json, 12 SKILL.md files
+- **Designed per-skill interactive installer** — setup wizard that walks users through MCP config, CLAUDE.md patching, per-skill
+- **Pivoted away from plugin system** — two-command minimum too much friction, settled on curl bootstrap + single SKILL.md
+- **Built skill detail pages** on flows.html — each card opens detail view with Step 1/Step 2 install instructions
+- **All work on branch `feat/curatedflows-plugin`** in worktree at `/tmp/curatedflows-plugin/` (3 commits, 16 files, 2,991 lines)
+- **Not merged to main** — worktree active, other session may be working on site
+
+## What Was Done (2026-04-21, session 1 — site polish)
 
 - Fixed brand name: "Curated & Flows" → "CuratedFlows" (one word, no ampersand) across all 4 pages + shared.js
 - Fixed hero headline font size: was clamp(72px, 9.2vw, 148px), now clamp(52px, 6.5vw, 100px) — full hero fits above fold
@@ -61,7 +72,7 @@
 
 1. **Apply Supabase migration 003** — email_subscribers + consulting_leads tables
 2. **Configure Cloudflare DNS** — A records for curatedflows.com (@ + www → 76.76.21.21, grey cloud)
-4. **Smart installer (Phase 5)** — setup skill that Claude Code runs to install complex skills
+4. **Smart installer** — ~~setup skill that Claude Code runs to install complex skills~~ BUILT on `feat/curatedflows-plugin` branch. Curl bootstrap + `/curatedflows <skill>` per-skill wizard. Needs merge + testing.
 5. **Stripe / Lemon Squeezy** — payment processing for paid skills
 6. **OG images** — Vercel OG / Satori for per-skill dynamic generation
 7. **Real blog posts** — "10 Claude Code skills I install on every project"
